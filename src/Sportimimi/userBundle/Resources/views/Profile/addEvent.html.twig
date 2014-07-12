@@ -1,0 +1,112 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addProfile.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+
+{% block title %}Tạo Sự Kiện{% endblock %}
+{% block body %}
+    <div class="innerLR">
+        <!-- Form -->
+        <form class="form-horizontal margin-none" id="validateSubmitForm" method="post"
+              autocomplete="off" {{ form_enctype(form) }}>
+            <!-- Widget -->
+            <div class="widget">
+              
+                <div class="widget-body innerAll inner-2x">
+                    <!-- Row -->
+                    <div class="row innerLR">
+                        <!-- Column -->
+                        <div class="col-md-4">
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.name) }}
+                                <div class="col-md-8">
+                                   {{ form_widget(form.name) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.nameResponsable) }}
+                                <div class="col-md-8">
+                                   {{ form_widget(form.nameResponsable) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.emailResponsable) }} 
+                                <div class="col-md-8">
+                                   {{ form_widget(form.emailResponsable) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.categories) }} 
+                                <div class="col-md-8">
+                                   {{ form_widget(form.categories) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                        </div>
+                        <!-- // Column END -->
+                        <!-- Column -->
+                        <div class="col-md-8">
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.mobileResponsable) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.mobileResponsable) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.dateEventStart) }}
+                                <div class="col-md-8">
+                                   {{ form_widget(form.dateEventStart) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                               {{ form_label(form.timeStart) }}
+                                <div class="col-md-8">
+                                  {{ form_widget(form.timeStart) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                               {{ form_label(form.location) }}
+                                <div class="col-md-8">
+                                  {{ form_widget(form.location) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                        </div>
+                        <!-- // Column END -->
+                    </div>
+                    <!-- // Row END -->
+                   {{ form_widget(form) }}
+                   
+                    <div class="separator"></div>
+                    <!-- Form actions -->
+                    <div class="form-actions" style="text-align:center">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Lưu</button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-times"></i> Hủy bỏ</button>
+                    </div>
+                    <!-- // Form actions END -->
+                </div>
+            </div>
+            <!-- // Widget END -->
+        </form>
+        <!-- // Form END -->
+    </div>
+{% endblock %}

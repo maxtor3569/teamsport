@@ -1,0 +1,77 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block javascripts%}
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script type="text/javascript" src="{{ asset('js/googleCompletion.js') }}" ></script>
+
+{% endblock %} 
+
+{% block title %}Tạo Đội{% endblock %}
+{% block body %}
+    <h3>Tạo Đội</h3>
+    <div class="innerLR">
+        <!-- Form -->
+        <form class="form-horizontal margin-none" id="validateSubmitForm" method="post"
+              autocomplete="off" {{ form_enctype(form) }}>
+            <!-- Widget -->
+            <div class="widget">
+                <!-- Widget heading -->
+                <div class="widget-head">
+                    <h4 class="heading">Tạo Đội</h4>
+                </div>
+                <!-- // Widget heading END -->
+                <div class="widget-body innerAll inner-2x">
+                    <!-- Row -->
+                    <div class="row innerLR">
+                        <!-- Column -->
+                        <div class="col-md-4">
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.category) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.category) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                           
+                            <!-- Group -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="Sân">Sân</label>
+                                <div class="col-md-8">
+                                    {{ form_widget(form.mainLocationRelation,{ 'id' : 'EventForm_location' }) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                        </div>
+                        <!-- // Column END -->
+                        <!-- Column -->
+                        <div class="col-md-8">
+                            <!-- Group -->
+                            <div class="form-group">
+                               {{ form_label(form.name) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.name) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                        </div>
+                        <!-- // Column END -->
+                    </div>
+                    <!-- // Row END -->
+                  
+                    <div class="separator"></div>
+                    <!-- Form actions -->
+                    <div class="form-actions" style="text-align:center">
+                        {{ form_widget(form) }}
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Tạo</button>
+                        <button type="button" class="btn btn-default"><i class="fa fa-times"></i> Hủy bỏ</button>
+                    </div>
+                    <!-- // Form actions END -->
+                </div>
+            </div>
+            <!-- // Widget END -->
+        </form>
+        <!-- // Form END -->
+    </div>
+{% endblock %}

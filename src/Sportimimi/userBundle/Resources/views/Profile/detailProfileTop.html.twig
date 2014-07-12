@@ -1,0 +1,94 @@
+<div id="FirstPart" style="margin-top:40px">
+		
+		<div style="padding-left:18px">
+			<!-- Profile Image -->
+			{% if profile.document is defined %}
+		
+				{% for img in profile.document %}
+				
+					{% if img.type == 'image' %}
+						{% set url = img.id ~ "." ~ img.url %}
+					{% endif %}
+					
+				{% else %}
+					{% set url = 'img_profile_default.jpg' %}
+				{% endfor %}
+			{% endif %}
+			<div id="imageProfileSportif">
+				<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}" {% if user.id == profile.id %}onclick="Shadowbox.open({
+						content:    contentBox,
+						player:     'html',
+						title:      'Sửa Ảnh Đại Diện',
+						height:     502,
+						width:      350
+						});"{% endif %} style="cursor:pointer;" >
+			</div>
+			<!-- End Profile Image -->
+			<div style="background:#00A751;margin-left:250px;height:40px;color:white;font-size:16pt;line-height:30px;padding-left:20px;">
+				{{ profile.nom }} {{ profile.prenom }}
+				
+			</div><br />
+			
+			<div class="infos-profile" style="margin-left:251px;width:500px">
+				<table>
+					<tr>
+						<td>
+							<span style="color:#5EC28E">{{ 'Thể Thao'|trans }} :</span> {% for sport in profile.sports %}{{ sport.nameVn }}, {%endfor%}  <br/>
+							<span style="color:#5EC28E">{{ 'Ngày Sinh'|trans }} :</span> {{ profile.dateNaissance|date("d/m/Y") }} <br/>
+							<span style="color:#5EC28E"> Mô tả Thể thao:</span> {{ profile.description }} <br/>
+						</td>
+						<td>
+							
+							Liên hệ với tôi để chơi với tôi : <br/>
+							<span style="color:#5EC28E">Email:</span> {{ profile.email }} <br/>
+							<span style="color:#5EC28E">Điện thoại:</span> {{ profile.phone }} <br/>
+							
+						
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- HIDE SKILLS FOR NOW
+			<div id="skills" style="margin-top:15px;height:80px;text-align:center;padding-left:175px">
+			
+				{% if profile.skills.agility is defined %}
+					<input type="text" data-width="75" value="{{ profile.skills.agility }}" class="dial" data-readOnly=true >
+					
+					<input type="text" data-width="75" value="{{ profile.skills.speed }}" class="dial" data-readOnly=true>
+					
+					<input type="text" data-width="75" value="{{ profile.skills.stamina }}" class="dial" data-readOnly=true>
+					
+					<input type="text" data-width="75" value="{{ profile.skills.strength }}" class="dial" data-readOnly=true>
+					
+					<script>
+					$(function() {
+						   $(".dial").knob({
+										'min':0
+										,'max':10,
+										'fgColor':'#00A751',
+										'inputColor': 'black'
+										});
+						});
+					</script>
+				{% endif %}
+				
+			</div>
+			{% if profile.skills.agility is defined %}<span style="padding-left:268px">Agility | Speed | Stamina | Strenght</center>{% endif %}
+			-->
+			{% if user.id != profile.id %}
+			<center>
+				<a href="#alert-player" title="" rel="shadowbox;width=600;height=400">
+				<div id="button-moi" style="background:#00A751;color:white;padding:6px;margin-top:40px;
+				cursor:pointer;width:165px;height:40px;
+				line-height:40px;text-transform:uppercase"> 
+					Mời chơi cùng
+				</div>
+				</a>
+				{% include 'SportimimiuserBundle:Profile:alertPlay.html.twig' %}
+			</center>
+			{% endif %}
+			<br />
+			<!--<div class="topPart"><h2 class="titlePart" style="margin-top:8px;margin-left:17px">Thời gian tôi chơi</h2></div>
+			<div id="calendar" style="background:white;"></div>-->
+		</div>
+	</div>

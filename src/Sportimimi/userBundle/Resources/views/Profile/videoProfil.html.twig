@@ -1,0 +1,44 @@
+<div class="part">
+		{% set i = 0 %}
+		
+		<div class="topPart">
+			<div style="float:left"><h2 class="titlePart" style="margin-top:8px;margin-left:17px">Video</h2></div>
+			{% if user.id is defined %}
+				{% if user.id == profile.id %}
+					<div class="button" style="float:right;background:#00A751;margin:3px">	
+					{% if i !=1 %}
+						{% if user.id is defined %}
+					
+							{% if user.id == profile.id %}
+								<a href="{{ path('PhotoProfile', {'id': user.id}) }}">
+								Thêm video</a>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+					</div>
+				{% endif %}
+			{% endif %}
+		</div>
+	{% for doc in profile.document %}
+			{% if doc.type == 'video' %}
+				{% set i = 1 %}
+				<div id="videoSportif" style="clear:both">
+					
+					<video id="example_video_1" class="video-js vjs-default-skin"
+					controls preload="auto" width="640" height="264"
+					poster=""
+					data-setup='{"example_option":true}'>
+						<source src="{{ asset('') }}uploads/img/{{ doc.id }}.mp4" type='video/mp4' />
+						<source src="{{ asset('') }}uploads/img/{{ doc.id }}.webm" type='video/webm' />
+						<source src="{{ asset('') }}uploads/img/{{ doc.id }}.ogv" type='video/ogg' />
+						 <embed src="{{ asset('') }}uploads/img/{{ doc.id }}.flv" type="application/x-shockwave-flash" width="1024" height="798" allowscriptaccess="always" allowfullscreen="true">
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			{% endif %}
+		{% endfor %}	
+	
+	{% if i !=1 %}
+		Bạn chưa có vidéo
+	{% endif %}
+	</div>

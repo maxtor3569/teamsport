@@ -1,0 +1,420 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/detailTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block stylesheets_include %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('shadowbox-3.0.3/shadowbox.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/team.css') }}">
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.handsontable/0.9.6/jquery.handsontable.full.css">
+
+{% endblock %}
+
+{% block javascripts %}
+	
+	<script src="//cdn.jsdelivr.net/jquery.handsontable/0.9.6/jquery.handsontable.full.js"></script>
+
+	<script type="text/javascript" src="{{ asset('shadowbox-3.0.3/shadowbox.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('shadowbox-3.0.3/shadowbox.js') }}"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jeditable.js/1.7.3/jeditable.min.js"></script>
+	
+	<script type="text/javascript">
+
+	function challengeTeam(idProfileTeam) 
+	{
+		var value=$('#teamSelected').val();
+		$.ajax({
+        type: "POST",
+		data :{ idTeam : value,idTeamProfile : idProfileTeam },
+        url: "{{ path('ChallengeTeam') }}",
+        cache: false,
+        success: function(data){
+			alert('Challenge send ');
+	
+        }
+		});    
+		
+	}
+	function changePositionF(value,idTeam,idProfile) 
+	{
+		$.ajax({
+        type: "POST",
+		data :{ positionName : value,team_id: idTeam, profile_id : idProfile },
+        url: "{{ path('ChangePosition') }}",
+        cache: false,
+        success: function(data){
+			window.location.reload();
+	
+        }
+		});    
+		
+	}
+	function inviteMe(idTeam) 
+	{
+
+		$.ajax({
+        type: "POST",
+		data :{ team_id: idTeam},
+        url: "{{ path('InviteMeToTeam') }}",
+        cache: false,
+		dataType: 'text',
+        success: function(data){
+			alert('Invitation send');
+			window.location.reload();
+        }
+		});    
+	}
+	
+	$(document).ready(function() {
+     $('.edit').editable('{{ path('ChangeNameTeam') }}', { 
+		 submitdata : {id_team: {{ team.id }}}
+     });
+	 $(".draggable").draggable(
+	 {
+	 
+		containment: $('#terrain')
+	 }
+	 
+	 );
+ });
+	</script>
+	<style>
+	.draggable {width:115px}
+	</style>
+
+{% endblock %}
+{% block title %}Profile sportif{% endblock %}
+
+{% block body %}
+
+
+{% set check = 0 %}
+<div id="team" style="margin-top:30px">
+
+    <h2>Team {% if user.id == team.leader.id %}<span class="edit" name="team_name">{% endif %} {{ team.name }}</span> - {{ team.category.nameVn  }} </h2>
+	<hr>
+	{% if user not in team.profile %}
+		{% set receiveInvit = 0 %}
+		{% for invitation in user.invitations_team_send %}
+			{% if invitation.profile.id == user.id %}
+				{% if invitation.team.id is defined%}
+					{% if invitation.team.id == team.id %}
+						{% set receiveInvit = 1 %}
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+		{% if receiveInvit != 1 %}
+			<div id="teamJoin"><button onclick="inviteMe({{ team.id }});">Tham gia nhóm này</button> </div>
+		{% endif %}
+	{% endif %}
+		{% if team.category.id == 1 %}
+	<div id="bloc_terrain" style="width:300px">
+		<div id="terrain">
+			<div id="goalPosition"></div>
+			<div id="defenderPosition"></div>
+			<div id="midfielder"></div>			
+			<div id="attackerLeftPosition"></div>
+			<div id="attackerRightPosition"></div>	
+			<div id="attackerPosition"></div>	
+				
+		</div>
+	</div>
+	{% endif %}
+	
+	{% if team.category.id == 5 %}
+		<div id="bloc_terrain" style="width:300px">
+			<div id="terrainBasket">
+				<div id="point-guard"></div>
+				<div id="shooting-guard"></div>
+				<div id="small-forward"></div>
+				<div id="center-forward"></div>
+				<div id="power-forward"></div>
+			</div>
+		</div>
+	{% endif %}
+	
+	{% if team.category.id == 3 %}
+		<div id="bloc_terrain" style="width:300px">
+			<div id="terrainVolley">
+				<div id="point-guard"></div>
+				<div id="shooting-guard"></div>
+				<div id="small-forward"></div>
+				<div id="center-forward"></div>
+				<div id="power-forward"></div>
+			</div>
+		</div>
+	{% endif %}
+	
+	{% if team.category.id == 2 %}
+		<div id="bloc_terrain" style="width:300px">
+			<div id="terrainVolley">
+				<div id="point-guard"></div>
+				<div id="shooting-guard"></div>
+				<div id="small-forward"></div>
+				<div id="center-forward"></div>
+				<div id="power-forward"></div>
+			</div>
+		</div>
+	{% endif %}
+	
+	<div id="listMemberTeam" style="float:left;margin-left:30px">
+	
+		<h2 style="color:#00a64e">Thành viên</h2>
+		
+		{% set i = 01 %}
+		{% for profile in team.profile %}	
+			<div style="margin-bottom:20px;height:70px"> <!--{{ i }}.-->
+				{% if profile.document is defined %}
+			
+					{% for img in profile.document %}
+					
+						{% if img.type == 'image' %}
+							{% set url = img.id ~ "." ~ img.url %}
+						{% endif %}
+						
+					{% else %}
+						{% set url = 'img_profile_default.jpg' %}
+					{% endfor %}
+				{% endif %}
+				<div id="imageProfileSportif">
+					<img src="../uploads/img/{{ url }}" style="cursor:pointer;width:50px;height:50px;float:left;margin-right:15px" />
+				</div>
+				
+				{% if user.id != profile.id %}
+					<a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }} {{ profile.prenom }}	</a>
+				{% else %}
+					<a href="{{ path('DetailProfile', {'id': profile.id}) }}">
+						<span style="color:blue">Tôi</span>
+					</a>
+				{% endif %}
+			
+			
+				{% if profile.id == team.leader.id %} ( Leader )
+				{% else %}
+					{% if user.id == team.leader.id %}
+					<a href="{{ path('RemoveProfileToTeam', {'id_profile': profile.id,'id_team': team.id}) }}">
+						<span style="color:red">X</span>
+					</a>
+					{% endif %}
+				{% endif %}
+				
+				{% if user.id == profile.id %}
+					{% set check = 1 %}
+				{% endif %}
+			
+					{% for position in profile.positions  %}
+					{% if position.team.id is defined %}
+					{% if position.team.id == team.id %}
+						<div id="position{{profile.id}}" style="width:500px">
+							Position: {{ position.name }}
+							{% if position.name =='Goal' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#goalPosition').html('<div class="draggable"><center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center></div>');					
+								});
+							</script>
+							{% elseif position.name =='Attacker' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#attackerPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
+								});
+							</script>
+							{% elseif position.name =='Attacker Left' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#attackerLeftPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
+								});
+							</script>
+							
+							{% elseif position.name =='Attacker Right' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#attackerRightPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
+								});
+							</script>
+							
+							
+							{% elseif position.name =='Midfielder' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#midfielder').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
+								});
+							</script>
+							
+							{% elseif position.name =='Point Guard' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#point-guard').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+						
+							
+							{% elseif position.name =='Small Forward' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#small-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							
+							{% elseif position.name =='Shooting Guard' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#shooting-guard').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							{% elseif position.name =='Center Forward' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#center-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							{% elseif position.name =='Power Forward' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#power-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							{% endif %}<!-- end script position -->
+						
+							{% if position is not defined %}
+								<select>
+									
+									<option>Goalkeeper</option>
+									<option>Midfielder</option>
+									<option>Attacker Left</option>
+									<option>Attacker Right</option>
+									<option>Attacker</option>
+								</select>
+							{% endif %}
+							
+						{% endif %}
+						</div>
+						{% endif %}
+				{% endfor %}
+				<!-- end for position -->
+				
+				{% if user.id == team.leader.id %}
+					{% if team.category.id == 1 %}
+						<select id="positionSelect" name="positionSelect" onChange="changePositionF(jQuery(this).val(),{{ team.id }},{{ profile.id }})">
+							<option value=""> - Chọn - </option>
+							<option value="Goal">Goalkeeper</option>
+							<option value="Midfielder">Midfielder</option>
+							<option value="Attacker Right">Attacker Right</option>
+							<option value="Attacker Left">Attacker Left</option>
+							<option value="Attacker">Attacker</option>
+						</select>
+					{% endif %}
+					{% if team.category.id == 5 %}
+						<select id="positionSelect" name="positionSelect" onChange="changePositionF(jQuery(this).val(),{{ team.id }},{{ profile.id }})">
+							<option value=""> - Chọn - </option>
+							<option value="Point Guard">Point Guard</option>
+							<option value="Shooting Guard">Shooting Guard</option>
+							<option value="Small Forward">Small Forward</option>
+							<option value="Center Forward">Center Forward</option>
+							<option value="Power Forward">Power Forward</option>
+						</select>
+					{% endif %}
+					
+				{% endif %}
+				{% set i = i + 1 %}
+				
+				</div>
+		{% endfor %}
+		
+		{% if check == 1 %}
+			<div  style="margin-top:15px"><a href="{{path('ListProfile') }}">Mời mọi người vào đội của tôi</a></div>
+		{% endif %}
+		
+	</div>
+	
+	<div id="chat" style="float:right;width:400px" >
+		<!--
+		<embed src="http://www.xatech.com/web_gear/chat/chat.swf" quality="high" bgcolor="#000000" width="400" height="405" name="chat" FlashVars="id=199049807" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://xat.com/update_flash.shtml" /><br>
+		-->
+
+	</div>
+	<div style="clear:both;padding-top:20px">
+	<hr>
+	
+	<div class="inline" style="padding-top:15px;padding-bottom:15px;">
+		<h2 style="padding-top:20px;padding-bottom:20px;width:100px">Kết Quả & thống kê</h2>
+		<div style="float:right;margin:0">
+		{{ team.matchs|length }} Match / 
+		WIN : {{ team.victory }} /
+		LOSE: {{ team.defeat }} /
+		</div>
+	</div>
+	<script>
+	var data = [
+	["", "Maserati", "Mazda", "Mercedes", "Mini", "Mitsubishi"],
+	["2009", 0, 2941, 4303, 354, 5814],
+	["2010", 5, 2905, 2867, 412, 5284],
+	["2011", 4, 2517, 4822, 552, 6127],
+	["2012", 2, 2422, 5399, 776, 4151]
+	];
+
+	$('#example').handsontable({
+	data: data,
+	minSpareRows: 1,
+	colHeaders: true,
+	contextMenu: true
+	});
+	</script>
+	<hr style="clear:both">
+	
+	
+	{% set i = 0 %}
+
+	{% if check == 0 %}
+		
+		<center>
+			<button style="background:green;color:white;text-transform:uppercase" onclick="jQuery('#selectTeam').slideToggle();">Mời thi đấu</button>
+			<div id="selectTeam" style="display:none">
+				Select your team: <select id="teamSelected">
+				{% for teamChallenge in user.teams %}
+				{% if teamChallenge.category.id == team.category.id %}
+					<option value="{{ teamChallenge.id }}">{{ teamChallenge.name }}</option>
+				{% endif %}
+				{% endfor %} 
+					</select>
+				<button onclick="challengeTeam({{ team.id }});"> GO</button>
+			
+			</div>
+		</center>
+		
+	
+	{% endif %}
+
+<table>
+	<tr style="background:#359500;color:white">
+		<td> Tên đội </td>
+		<td> Ngày Thắng </td>
+		<td> Tỷ số </td>
+		<td> Thắng </td>
+		<td> Thua </td>
+		<td> Tên đội </td>
+	</tr>
+	<tr style="background:white">
+	{% for match in team.matchs %}
+			<td><a href="{{ path('DetailMatch',{'id': match.id}) }}"><span style="color:red;">VERSUS :</span> {% for team in match.teams %}
+			
+			{% if i == 0 %}
+			 {{team.name}} /
+			{% else %}
+			  {{team.name}}
+			{% endif %}
+			
+			
+			 {% set i = i + 1 %}
+			{% endfor %}
+			</a>
+			</td>
+		{% endfor %}
+	</tr>
+</table>
+
+
+
+
+</div>
+{% block chat %} {% endblock %}
+{% endblock %}

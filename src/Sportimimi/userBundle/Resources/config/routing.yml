@@ -1,0 +1,268 @@
+﻿Homepage:
+    pattern:     /
+    defaults: { _controller: SportimimiuserBundle:Page:index }
+Contact:
+    path:     /lien-he
+    defaults: { _controller: SportimimiuserBundle:Page:contact }
+About:
+    path:     /ve-chung-toi
+    defaults: { _controller: SportimimiuserBundle:Page:about }
+RechercheProfile:
+    path:     /searchProfile
+    defaults: { _controller: SportimimiuserBundle:Profile:search }
+ListProfile:
+    path:     /tim-nguoi-choi
+    defaults: { _controller: SportimimiuserBundle:Profile:list }
+CategoryList:
+    path:     /category/{id}
+    defaults: { _controller: SportimimiuserBundle:Profile:listByCategory }
+AddProfile:
+    path:     /dang-ky-ho-so
+    defaults: { _controller: SportimimiuserBundle:Profile:add }
+AddProfileStep2:
+    path:     /dang-ky-ho-so-buoc-2
+    defaults: { _controller: SportimimiuserBundle:Profile:addStep2 }
+DeleteProfile:
+    path:     /listProfile/delete/{id}
+    defaults: { _controller: SportimimiuserBundle:Profile:delete }
+DetailProfile:
+    path:     /ho-so-cua-toi/{id}
+    defaults: { _controller: SportimimiuserBundle:Profile:detail }
+DetailProfile:
+    path:     /ho-so-cua-toi
+    defaults: { _controller: SportimimiuserBundle:Profile:detail }
+PhotoProfile:
+    path:     /photoProfile
+    defaults: { _controller: SportimimiuserBundle:Profile:upload }
+UpdateProfile:
+    path:     /cap-nhat-ho-so
+    defaults: { _controller: SportimimiuserBundle:Profile:update }
+AddEvent:
+    path:     /them-tao-su-kien
+    defaults: { _controller: SportimimiuserBundle:Event:addEvent }
+ListEvent:
+    path:     /tim-su-kien
+    defaults: { _controller: SportimimiuserBundle:Event:listEvents }
+DetailEvent:
+    path:     /su-kien/{id}
+    defaults: { _controller: SportimimiuserBundle:Event:detailEvent,id: default_slug }
+CreateTeam:
+    path:     /createTeam
+    defaults: { _controller: SportimimiuserBundle:Team:createTeam }
+ViewTeam:
+    path:     /detailTeam/{name}
+    defaults: { _controller: SportimimiuserBundle:Team:detail,name: default_slug }
+AddProfileToTeam:
+    path:     /addProfileTeam
+    defaults: { _controller: SportimimiuserBundle:Team:addPlayerToMyTeam }
+InviteMeToTeam:
+    path:     /inviteMe
+    defaults: { _controller: SportimimiuserBundle:Team:inviteMeToTeam }
+RemoveProfileToTeam:
+    path:     /removeProfileTeam
+    defaults: { _controller: SportimimiuserBundle:Team:removeProfile}
+ListTeam:
+    path:     /tim-doi
+    defaults: { _controller: SportimimiuserBundle:Team:listTeam }
+DeleteTeam:
+    path:     /deleteTeam
+    defaults: { _controller: SportimimiuserBundle:Team:deleteTeam }	
+ChallengeTeam:
+    path:     /challengeTeam
+    defaults: { _controller: SportimimiuserBundle:Team:challengeTeam }
+ChangeNameTeam:
+    path:     /changeName
+    defaults: { _controller: SportimimiuserBundle:Team:changeName }
+DetailMatch:
+    path:     /tran-dau/{id}
+    defaults: { _controller: SportimimiuserBundle:Match:detail,id: null }
+SetWinnerMatch:
+    path:     /set-winner/{id}
+    defaults: { _controller: SportimimiuserBundle:Match:setWinner,id: null }
+ChangePosition:
+    path:     /changePosition
+    defaults: { _controller: SportimimiuserBundle:Team:changePosition }
+SkillsSheet:
+    path:     /bang-ky-nang
+    defaults: { _controller: SportimimiuserBundle:Skills:upgradeSkills }
+ImageProfile:
+    path:     /imageProfile
+    defaults: { _controller: SportimimiuserBundle:Document:ajaxUpload }
+Feedback:
+    path:     /feedback
+    defaults: { _controller: SportimimiuserBundle:Page:feedback }
+RegistrationComplete:
+    path:     /dang-ky-thanh-cong
+    defaults: { _controller: SportimimiuserBundle:Page:registrationComplete }
+InviteFriend:
+    pattern:  /addFriend
+    defaults: {  _controller: SportimimiuserBundle:Friend:addFriend }
+AcceptFriend:
+    pattern:  /acceptFriend
+    defaults: {  _controller: SportimimiuserBundle:Friend:acceptInvitation }
+AcceptProfileTeam:
+    pattern:  /acceptProfileTeam/{id}
+    defaults: {  _controller: SportimimiuserBundle:Team:acceptInvitationProfileTeam }
+RemoveFriend:
+    pattern:  /removeFriend/{id}
+    defaults: {  _controller: SportimimiuserBundle:Friend:removeFriend, id: default_slug  }
+SwitchLanguage:
+    path:     /switchLanguage
+    defaults: { _controller: SportimimiuserBundle:Page:switchLanguage}
+NotificationViewed:
+    path:     /notificationsViewed
+    defaults: { _controller: SportimimiuserBundle:Notification:viewed}
+PullNotifications:
+    path:     /pullNotifications
+    defaults: { _controller: SportimimiuserBundle:Notification:pullNotifications}
+EventImage:
+    path:     /eventImageUpload
+    defaults: { _controller: SportimimiuserBundle:Event:uploadImage}
+CreateArticle:
+    path:     /tao-bai-viet
+    defaults: { _controller: SportimimiuserBundle:Article:createArticle}
+ViewArticle:
+    path:     /article/{name}
+    defaults: { _controller: SportimimiuserBundle:Article:viewArticle,name: default_slug }
+ListPlace:
+    path: /result-tim-cho-choi
+    defaults: { _controller: SportimimiuserBundle:Place:listPlace}
+HomepagePlace:
+    path: /tim-cho-choi
+    defaults: { _controller: SportimimiuserBundle:Place:index}
+DetailPlace:
+    path: /san/{name}
+    defaults: { _controller: SportimimiuserBundle:Place:detailPlace,name: default_slug }
+InviteToPlay:
+    path: /invite-to-play
+    defaults: { _controller: SportimimiuserBundle:Profile:invitePlay }
+FacebookLogin:
+    pattern: /facebook/
+    defaults: { _controller: SportimimiuserBundle:Profile:facebookLogin }
+AddSportProfile:
+    pattern: /addSport
+    defaults: { _controller: SportimimiuserBundle:Profile:addSport }
+AddStatus:
+    pattern: /addStatus
+    defaults: { _controller: SportimimiuserBundle:News:addStatus }
+SetSearchPlayer:
+    pattern: /searchPlayer/{value}
+    defaults: { _controller: SportimimiuserBundle:Profile:setSearchPlayer,value: 0 }
+
+Administrator:
+    path: /private
+    defaults: { _controller: SportimimiuserBundle:Admin:index }
+
+DeleteUser:
+    pattern: /deleteUser/{id}
+    defaults: { _controller: SportimimiuserBundle:Admin:deleteUser,id: default_slug }
+EditNews:
+    pattern : /editNews
+    defaults: { _controller: SportimimiuserBundle:News:editNews}
+DeleteNews:
+    pattern: /deleteNews/{id}
+    defaults: { _controller: SportimimiuserBundle:News:deleteNews,id: default_slug }
+    options:
+        expose: true
+LoadMore:
+    pattern: /loadMore
+    defaults: { _controller: SportimimiuserBundle:Page:loadMore}
+    options:
+        expose: true
+DynamicMessageChat:
+    pattern: /loadChat
+    defaults: { _controller: SportimimiuserBundle:Page:baseMessage}
+    options:
+        expose: true
+AddProfileToEvent:
+    pattern: /addEventProfile
+    defaults: { _controller: SportimimiuserBundle:Event:addProfileEvent}
+DeleteProfileToEvent:
+    pattern: /deleteEventProfile
+    defaults: { _controller: SportimimiuserBundle:Event:deleteProfileEvent}
+CreatePlace:
+    pattern: /tao-san-moi
+    defaults: { _controller: SportimimiuserBundle:Place:createPlace}
+CurrentlyPlaceHere:
+    pattern: /currently-play-here
+    defaults: { _controller: SportimimiuserBundle:Place:currentlyPlayHere}
+Participate:
+    pattern: /participate
+    defaults: { _controller: SportimimiuserBundle:News:participate}
+RemoveParticipate:
+    pattern: /participateRemove
+    defaults: { _controller: SportimimiuserBundle:News:noParticipate}
+NotificationViewAll:
+    pattern: /notifications
+    defaults: { _controller: SportimimiuserBundle:Notification:viewAll}
+AddComment:
+    pattern: /addComment
+    defaults: { _controller: SportimimiuserBundle:Comment:add}
+DeleteComment:
+    pattern: /deleteComment
+    defaults: { _controller: SportimimiuserBundle:Comment:delete}
+Message:
+    path: /ho-so-cua-toi/message
+    defaults: {_controller: SportimimiuserBundle:Message:index}
+SendMessage:
+    path: /ho-so-cua-toi/message/moi
+    defaults: {_controller: SportimimiuserBundle:Message:addMessage}
+LoadReply:
+    path: /ho-so-cua-toi/message/loadReply
+    defaults: {_controller: SportimimiuserBundle:Message:listMessageReply}
+    options:
+        expose: true
+ReplyMessage:
+    path : /replyMessage
+    defaults: {_controller: SportimimiuserBundle:Message:replyConversation}
+SendSms:
+    path : /sendSms
+    defaults: {_controller: SportimimiuserBundle:Profile:sendSmsAlert}
+ProfileListJson:
+    path : /profileListJson
+    defaults: {_controller: SportimimiuserBundle:Profile:profileListJson}
+SportsListJson:
+    path : /sportsListJson
+    defaults: {_controller: SportimimiuserBundle:Profile:sportsListJson}
+PlaceListJson:
+    path : /placeListJson
+    defaults: {_controller: SportimimiuserBundle:Place:placeListJson}
+_imagine:
+    resource: .
+    type:     imagine
+PaymentIndex:
+    path : /premium
+    defaults: {_controller: SportimimiuserBundle:Payment:index}
+payment_complete:
+    path : /paymentComplete
+    defaults: {_controller: SportimimiuserBundle:Payment:complete}
+payment_cancel:
+    path : /paymentCancel
+    defaults: {_controller: SportimimiuserBundle:Payment:cancel}
+UsersOnline:
+    path : /usersOnline
+    defaults: {_controller: SportimimiuserBundle:Profile:getAllProfileOnline}
+Pricing:
+    path : /pricing
+    defaults: {_controller: SportimimiuserBundle:Page:pricingIndex}
+MapFields:
+    path : /map/fields
+    defaults: {_controller: SportimimiuserBundle:Map:current}
+MapCurrentlyPlay:
+    path : /map/nguoi-dang-choi
+    defaults: {_controller: SportimimiuserBundle:Map:currentPlay}
+AllPlayersPlaying:
+    path : /markers
+    defaults: {_controller: SportimimiuserBundle:Map:allPlayersPlaying}
+AllFields:
+    path : /markers-field
+    defaults: {_controller: SportimimiuserBundle:Map:allFields}
+Privacy:
+    path : /privacy-policy
+    defaults: {_controller: SportimimiuserBundle:Page:privacy}
+PushNotification:
+    path : /push-notification
+    defaults: {_controller: SportimimiuserBundle:PushNotification:push}
+OAuth:
+    path: /connect
+    defaults: {_controller: SportimimiuserBundle:Api:index}

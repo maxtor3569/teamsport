@@ -1,0 +1,10 @@
+[Thu Jun 05 08:49:54 2014] [error] [client 92.103.96.90] Directory index forbidden by Options directive: /var/www/html/
+[Thu Jun 05 08:49:56 2014] [error] [client 92.103.96.90] Directory index forbidden by Options directive: /var/www/html/
+[Thu Jun 05 08:49:58 2014] [error] [client 92.103.96.90] Directory index forbidden by Options directive: /var/www/html/
+[Thu Jun 05 08:51:47 2014] [error] [client 92.103.96.90] Directory index forbidden by Options directive: /var/www/html/
+[Thu Jun 05 09:10:44 2014] [error] [client 92.103.96.90] script '/var/www/html/test.php' not found or unable to stat
+[Thu Jun 05 09:10:51 2014] [error] [client 92.103.96.90] script '/var/www/html/test.php' not found or unable to stat
+[Thu Jun 05 09:10:53 2014] [error] [client 92.103.96.90] script '/var/www/html/test.php' not found or unable to stat
+[Thu Jun 05 10:22:05 2014] [error] [client 92.103.96.90] PHP Warning:  Illegal string offset '' in /usr/share/squirrelmail/functions/imap_general.php on line 708, referer: http://128.199.184.95/webmail/src/login.php
+[Thu Jun 05 10:25:14 2014] [error] [client 66.249.66.209] PHP Fatal error:  Call to a member function getNotifications() on a non-object in /var/www/src/Sportimimi/userBundle/Controller/NotificationController.php on line 30
+[Thu Jun 05 11:59:11 2014] [error] [client 5.178.86.77] client sent HTTP/1.1 request without hostname (see RFC2616 section 14.23): /

@@ -1,0 +1,106 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addProfile.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+	<link href="{{ asset('css/event.css') }}" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('chosen-master/public/chosen.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+	<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script type="text/javascript" src="{{ asset('js/googleCompletion.js') }}" ></script>
+	<script src="{{ asset('chosen-master/public/chosen.jquery.min.js') }}"></script> 
+	<script>
+	$(function() {
+	  $("#EventForm_dateEventStart").dateinput();
+	  $("#EventForm_categories").chosen({no_results_text: "No results matched"});
+   });
+  </script>
+{% endblock %} 
+
+{% block title %}Tạo Sự Kiện{% endblock %}
+{% block body %}
+<div id="create-event">
+
+		<h2>Tạo Sự Kiện</h2>
+
+	{% if message %}
+	<p>{{ message }}</p>
+	{% endif %}
+	<!--
+	<div class="select-block" style="float:left;margin-left:200px" onclick="jQuery('#event-creation').toggle()">
+		Tổ chức một sự kiện thể thao
+
+	</div>
+
+	<div class="select-block" style="float:left;" onclick="jQuery('#event-creation').toggle()">
+		Tổ chức một trận đấu
+
+	</div>
+
+	<div class="select-block" style="float:left;" onclick="jQuery('#event-creation').toggle()" >
+		Tổ chức một sự kiện thể thao
+
+	</div>-->
+
+	<div id="event-creation" style="">
+	<form id="addProfile" action="" method="post" {{ form_enctype(form) }}>
+		<table id="addProfile">
+
+		<tr>
+			<td>{{ form_label(form.name) }} <span class="requiredStar">*</span> </td>
+			<td><div class="inline"><div class="input-control text">{{ form_widget(form.name) }}</div> 
+			{{ form_widget(form.categories) }}</div></td>
+			<td>{{ form_errors(form.name) }}</td>
+		</tr>
+		<tr>
+				<td>{{ form_label(form.nameResponsable) }} </td>
+				<td>{{ form_widget(form.nameResponsable) }}</td>
+				
+		</tr>
+		<tr>
+				<td>{{ form_label(form.emailResponsable) }} </td>
+				<td>{{ form_widget(form.emailResponsable) }} </td>
+				
+		</tr>
+		<tr>
+			<td>{{ form_label(form.mobileResponsable) }} </td>
+			<td>{{ form_widget(form.mobileResponsable) }} </td>
+				
+		</tr>
+		<tr>
+			<td>{{ form_label(form.dateEventStart) }} <span class="requiredStar">*</span></td>
+			<td>
+				<div class="inline">
+				<div class="input-control text">{{ form_widget(form.dateEventStart) }}</div>
+			
+				{{ form_label(form.timeStart) }}<div class="input-control text">{{ form_widget(form.timeStart) }}</div>
+				</div>
+			
+			</td>
+			
+			<td>{{ form_errors(form.dateEventStart) }}</td>
+		</tr>
+		<tr>
+		<td>{{ form_label(form.location) }} <span class="requiredStar">*</span></td>
+		<td>
+		
+				<div align="left" >
+					{{ form_widget(form.location) }}
+				</div>
+				<div id="map-canvas" style="width:200px;height:200px"></div>
+
+			</div>	
+		</td>
+	  </tr>
+			
+		{{ form_widget(form) }}
+		
+		</table>
+
+		<center><input type="submit" value="Tạo Sự Kiện" /></center>
+	</form>
+	</div>
+</div>
+{% endblock %}

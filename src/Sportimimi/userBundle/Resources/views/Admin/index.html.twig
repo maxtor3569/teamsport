@@ -1,0 +1,35 @@
+{# src/Sportimini/userBundle/Resources/views/Page/about.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Administration{% endblock%}
+
+{% block body %}
+<div style="padding:20px">
+<span style="font-size:15pt"><a href="#listProfile" onclick="jQuery('#listProf').toggle()"> LIST PROFILE</a></span><br/>
+<div id="listProf" style="display:none">
+	<table>
+		{% for userRow in allusers %}
+		<tr>
+			<td>{{userRow.email}}</td>
+			<td> {{userRow.nom}} </td>
+			<td><a href="{{ path('DeleteUser', {'id':userRow.user.id }) }}">Delete</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+<span style="font-size:15pt"><a href="#listProfile" onclick="jQuery('#listPlace').toggle()"> LIST PLACE</a></span>
+<div id="listPlace" style="display:none">
+<table>
+		{% for place in allplaces %}
+		<tr>
+			<td>{{place.placeName}}</td>
+			<td> {{place.address}} </td>
+			<!--<td>Delete</td>-->
+		</tr>
+		{% endfor %}
+	</table>
+
+
+
+</div>
+{% endblock %}

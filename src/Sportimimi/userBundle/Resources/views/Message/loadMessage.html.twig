@@ -1,0 +1,43 @@
+{% set url ='' %}
+{% for reply in replies %}
+    {% if reply.profile.document is defined %}
+
+        {% for img in reply.profile.document %}
+
+            {% if img.type == 'image' %}
+                    {% set url = img.id ~ "." ~ img.url %}
+            {% endif %}
+
+            {% else %}
+                    {% set url = 'img_profile_default.jpg' %}
+        {% endfor %}
+    {% endif %}
+   <div class="media margin-none border-top innerAll">
+       <a href="" class="pull-left hidden-xs">
+           <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" width="60" class="media-object">
+       </a>
+       <div class="media-body innerTB">
+           <div class="row">
+               <div class="col-sm-6">
+                   <div class="innerT half">
+                       <div class="media">
+                           <div class="pull-left">
+                               <a href="" class="strong text-inverse ">{{ reply.profile.prenom }} {{ reply.profile.nom }}</a>
+                               <span class="innerR text-muted visible-xs">{{ reply.created|date('Y-m-d') }}</span>
+                           </div>
+                           <div class="media-body">
+                               {{reply.content}}
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="col-sm-6 hidden-xs">
+                   <i class="icon-time-clock pull-right text-muted innerT half fa fa-2x"></i>
+                   <span class="pull-right innerR innerT text-right  text-muted">
+                       {{ reply.created|date('Y-m-d') }}
+                   </span>
+               </div>
+           </div>
+        </div>
+    </div>
+{% endfor %}

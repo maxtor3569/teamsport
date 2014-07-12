@@ -1,0 +1,168 @@
+{# src/Sportimini/userBundle/Resources/views/Page/about.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+
+{% endblock %}
+{% block javascripts %}
+ <script src="{{ asset('assets/components/modules/admin/notifications/notyfy/assets/custom/js/notyfy.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>   
+<script> 
+
+$(document).ready(function(){
+    
+    // tagging support
+    $("#select2_5").select2({
+        ajax: {
+            dataType: "json",
+            url: "{{ path('ProfileListJson') }}",
+            results: function (data) {
+                return {results: data,text: 'client'};
+            }
+        },
+        formatResult: function (data) {
+        return "<div class='select2-user-result'>" + data.prenom +" " + data.nom + "</div>";
+        },
+        
+        formatSelection: function (data) {
+            return data.prenom + " " + data.nom;
+        }
+
+    });
+    
+          
+});
+</script>
+{% endblock %}
+{% block title %}{{'Tin nhắn'|trans }}{% endblock%}
+
+{% block body %}
+<form method="POST" id="send" action="{{ currentPath }}">
+    <div class="layout-app">
+        <div class="row row-app">
+            <div class="col-md-12">
+                <div class="col-separator col-separator-first box">
+                    <div class="innerAll border-bottom">
+                        <div class="pull-left">
+                            <a href="{{ path('Message') }}" class=" btn btn-default btn-sm"><i class="fa fa-fw fa-arrow-left"></i> back</a> 
+                        </div>
+
+                       
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bg-gray innerAll">
+                        <form class="form-horizontal innerR" role="form">
+                            <div class="form-group">
+                                <label for="to" class="col-sm-2 control-label">To:</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group" style="width:200px">
+                                        <input type="hidden" class="form-control" id="select2_5" style="width:100%" name="profile_recieve" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                    <hr class="margin-none" />
+                    <div class="innerAll inner-2x">
+                        <textarea id="message" class="notebook border-none form-control padding-none" rows="8" placeholder="Write your content here..." name="message"></textarea>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-separator-h"></div>
+                    <div class="innerAll text-center">
+                        <a href="{{ path('Message') }}" class="btn btn-default"><i class="fa fa-fw icon-crossing"></i> Cancel</a>
+                        <a href="javascript:{}" class="btn btn-primary" data-layout="top" data-type="error" data-toggle="notyfy"><i class="fa fa-fw icon-outbox-fill"></i>{{ 'Gửi tin nhắn'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-compose">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal heading -->
+                <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">Login</h3>
+                </div> -->
+                <!-- // Modal heading END -->
+                <div class="innerAll border-bottom">
+                    <div class="pull-left">
+                        <a href="" class=" btn btn-default btn-sm"><i class="fa fa-fw fa-arrow-left"></i> back</a> 
+                    </div>
+                    <div class="pull-left innerL">
+                        <a href="" class=" btn btn-success btn-sm strong"><i class="fa fa-fw icon-paperclip"></i> Save Draft</a>
+                    </div>
+                    <a href="" class="pull-right btn btn-primary btn-sm strong"><i class="fa fa-fw icon-outbox-fill"></i> Send Email</a>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body padding-none">
+                    <form class="form-horizontal" role="form">
+                        <div class="bg-gray innerAll border-bottom">
+                            <div class="innerLR">
+                                <div class="form-group">
+                                    <label for="to" class="col-sm-2 control-label">To:</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="to">
+                                            <div class="input-group-btn">
+                                                <button type="button" data-toggle="collapse" data-target="#cc" class="btn btn-default">CC/BCC
+                                                    <span class="caret"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="cc" class="collapse">
+                                    <div class="form-group">
+                                        <label for="Cc" class="col-sm-2 control-label">Cc:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Cc">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Bcc" class="col-sm-2 control-label">Bcc:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Bcc">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Bcc" class="col-sm-2 control-label">From:</label>
+                                    <div class="col-sm-6">
+                                        <select class="selectpicker">
+                                            <option>contact@mosaicpro.biz</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Bcc" class="col-sm-2 control-label">Signature:</label>
+                                    <div class="col-sm-6">
+                                        <select class="selectpicker">
+                                            <option>Select Signature</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="innerAll inner-2x">
+                            <textarea class="notebook border-none form-control padding-none" rows="4" placeholder="Write your content here..."></textarea>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+                <!-- // Modal body END -->
+                <div class="innerAll text-center border-top">
+                    <a href="" class="btn btn-default"><i class="fa fa-fw icon-crossing"></i> Cancel</a>
+                    <a href="" class="btn btn-primary"><i class="fa fa-fw icon-outbox-fill"></i> Send email</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // Modal END -->
+
+</form>
+{% endblock %}

@@ -1,0 +1,109 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/detailTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block stylesheets_include %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('shadowbox-3.0.3/shadowbox.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/team.css') }}">
+
+{% endblock %}
+
+{% block javascripts %}
+
+	
+	<script type="text/javascript">
+
+	function challengeTeam(idProfileTeam) 
+	{
+            var value=$('#teamSelected').val();
+            $.ajax({
+                type: "POST",
+		data :{ idTeam : value,idTeamProfile : idProfileTeam },
+                url: "{{ path('ChallengeTeam') }}",
+                cache: false,
+                success: function(data){
+                    alert('Challenge send ');
+	
+                }
+            });    
+		
+	}
+	function changePositionF(value,idTeam,idProfile) 
+	{
+            $.ajax({
+                type: "POST",
+		data :{ positionName : value,team_id: idTeam, profile_id : idProfile },
+                url: "{{ path('ChangePosition') }}",
+                cache: false,
+                success: function(data){
+                    window.location.reload();
+	
+                }
+            });    
+		
+	}
+	function inviteMe(idTeam) 
+	{
+
+		$.ajax({
+        type: "POST",
+		data :{ team_id: idTeam},
+        url: "{{ path('InviteMeToTeam') }}",
+        cache: false,
+		dataType: 'text',
+        success: function(data){
+			alert('Invitation send');
+			window.location.reload();
+        }
+		});    
+	}
+	
+    $(document).ready(function() {
+        $('.edit').editable('{{ path('ChangeNameTeam') }}', { 
+            submitdata : {id_team: {{ team.id }}}
+        });
+	$(".draggable").draggable(
+            { 
+                containment: $('#terrain')
+            }
+	 
+	);
+    });
+    </script>
+    <style>
+        .draggable {width:115px}
+    </style>
+
+{% endblock %}
+{% block title %}Đội {{ team.name }}{% endblock %}
+
+{% block body %}
+{% set i = 01 %}
+{% set check = 0 %}
+	<div class="col-lg-12">
+		<h2 class="media-heading text-large text-primary">
+			Team {% if user.id == team.leader.id %}<span class="edit" name="team_name">{% endif %} {{ team.name }}</span> - {{ team.category.nameVn  }} </h2>
+		<div class="relativeWrap">
+	        <div class="box-generic">
+	            <!-- Tabs Heading -->
+	            <div class="tabsbar">
+	                <ul>
+	                    <li class="glyphicons user active"><a href="#tab1-3" data-toggle="tab"><i></i>Thành viên <strong>{{ team.profile|length }}</strong></a>
+	                    </li>
+	                    <li class="glyphicons charts"><a href="#tab2-3" data-toggle="tab"><i></i> Kết Quả & thống kê</a>
+	                    </li>
+	                   
+	                </ul>
+	            </div>
+	            <!-- // Tabs Heading END -->
+	            <div class="tab-content">
+	            	
+	            	 {{ include('SportimimiuserBundle:Team:detailTeam-tab1.html.twig') }}              
+					 {{ include('SportimimiuserBundle:Team:detailTeam-tab2.html.twig') }}    
+	
+	            </div>
+	        </div>
+		</div>
+	
+	</div>
+
+{% endblock %}

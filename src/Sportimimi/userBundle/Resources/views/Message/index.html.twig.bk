@@ -1,0 +1,34 @@
+{# src/Sportimini/userBundle/Resources/views/Page/about.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+	
+{% endblock %}
+{% block javascripts %}
+
+  
+{% endblock %}
+{% block title %}Message{% endblock%}
+
+{% block body %}
+
+<a href="message/moi"><input type="button" value="New message"/></a>
+<table class="messages">
+<tr>
+	<td>Friend</td>
+	<td>Message</td>
+	<td>Date</td>
+	
+</tr>
+
+	{% for message in messages %}
+		<tr>
+			<td>{{ message.profile_send.prenom }} {{ message.profile_send.nom }}</td>
+			<td>{{ message.content }}</td>
+			<div class="message_action">    
+				
+			</div>
+		</tr> 
+	{% endfor %}
+ 
+</table
+{% endblock %}

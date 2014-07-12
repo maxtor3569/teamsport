@@ -1,0 +1,23 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/upload.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block title %}Thêm video{% endblock %}
+{% block body %}
+
+<h1>Thêm Video</h1>
+
+<form action="#" method="post" {{ form_enctype(form) }}>
+	Video {{ form_widget(form.file) }}
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Upload Video" />
+</form>
+<!-- 
+<form action="#" method="post" {{ form_enctype(form2) }}>
+	Hinh {{ form_widget(form2.file) }}
+    {{ form_widget(form2) }}
+
+    <input type="submit" value="Upload Hình" />
+	<input type="submit" value="Bỏ Qua" />
+</form>
+-->
+{% endblock %}

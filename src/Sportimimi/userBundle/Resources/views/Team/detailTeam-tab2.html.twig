@@ -1,0 +1,49 @@
+<!-- Tab content -->
+<div class="tab-pane" id="tab2-3">
+   <h4>Kết Quả & thống kê</h4>
+   {% if check == 0 %}
+   <center>
+      <button style="background:green;color:white;text-transform:uppercase" onclick="jQuery('#selectTeam').slideToggle();">Mời thi đấu</button>
+      <div id="selectTeam" style="display:none">
+         Select your team: 
+         <select id="teamSelected">
+            {% for teamChallenge in user.teams %}
+            {% if teamChallenge.category.id == team.category.id %}
+            <option value="{{ teamChallenge.id }}">{{ teamChallenge.name }}</option>
+            {% endif %}
+            {% endfor %} 
+         </select>
+         <button onclick="challengeTeam({{ team.id }});"> GO</button>
+      </div>
+   </center>
+   {% endif %}
+   <p>{{ team.matchs|length }} Match / 
+      WIN : {{ team.victory }} /
+      LOSE: {{ team.defeat }} /
+   </p>
+   <table>
+      <tr style="background:#359500;color:white">
+         <td> Tên đội </td>
+         <td> Ngày Thắng </td>
+         <td> Tỷ số </td>
+         <td> Thắng </td>
+         <td> Thua </td>
+         <td> Tên đội </td>
+      </tr>
+      <tr style="background:white">
+         {% for match in team.matchs %}
+         <td><a href="{{ path('DetailMatch',{'id': match.id}) }}"><span style="color:red;">VERSUS :</span> {% for team in match.teams %}
+            {% if i == 0 %}
+            {{team.name}} /
+            {% else %}
+            {{team.name}}
+            {% endif %}
+            {% set i = i + 1 %}
+            {% endfor %}
+            </a>
+         </td>
+         {% endfor %}
+      </tr>
+   </table>
+</div>
+<!-- // Tab content END -->

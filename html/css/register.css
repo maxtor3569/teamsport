@@ -1,0 +1,63 @@
+#top-register{
+	
+	border-bottom: 1px dotted #3bb877;
+}
+#top-register h2 {
+	display:inline-block;
+	line-height:30px;
+	width:180px
+	}
+.non-active:hover {
+	background:#00a751;
+	width:200px;
+	height:30px;
+	color:white!important;
+	opacity:0.8;
+	cursor:pointer;
+	}
+#block-left {
+	float:left;
+	margin-top:35px;
+	padding:30px;
+	width:375px;
+	text-align:justify;
+
+}
+#block-right {
+	float:right;
+	margin-top:15px;
+	/*height:600px;*/
+	width:575px;
+
+}
+#footer-block 
+{
+	clear:both;
+	text-align:center;
+	margin-top:20px;
+}
+.button-top {
+	background:#00a751;
+	width:200px;
+	height:25px;
+	font-size:12pt!important;
+	font-weight:normal!important;
+	color:white!important;
+	
+	height:30px
+}
+#login {
+	float:right;
+	width:700px
+}
+#login input 
+{
+	height:30px
+
+}
+#login label {font-size:14pt;color:#828181}
+#login-table td
+{
+	padding:15px;
+
+}

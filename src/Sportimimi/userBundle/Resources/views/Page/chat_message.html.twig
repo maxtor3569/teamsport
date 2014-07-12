@@ -1,0 +1,36 @@
+{% if conversation != null %}
+    {% for reply in conversation.message_reply %}
+        {% set url = "" %}
+        {% if reply.profile.document is defined %}
+        {% for img in reply.profile.document %}
+
+            {% if img.type == 'image' %}
+                {% set url = img.id ~ "." ~ img.url %}
+            {% endif %}
+
+            {% else %}
+                {% set url = 'img_profile_default.jpg' %}
+        {% endfor %}
+        {% endif %}
+    <div class="media {% if reply.profile.id != user.id %}primary right{% endif %}">
+        <small class="author"><a href="#" title="" class="strong">{{reply.profile.prenom}} {{reply.profile.nom}}</a>
+        </small>
+        <div class="media-object pull-left">
+            <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}"
+                 alt="Image" class="img-circle" />
+        </div>
+        <div class="media-body">
+            <blockquote>
+                <small class="date">
+                    <cite>{{ reply.created|date("m/d/Y") }}</cite>
+                </small>
+                <p>{{ reply.content }}</p>
+            </blockquote>
+        </div>
+    </div>
+
+    {% endfor %}
+{% endif %}
+<div>
+    <textarea id="sendMessage" data-profile_recieve="{% if conversation != null %}{{ conversation.profile_recieve.id }}{% endif %}" class="form-control" placeholder="Viết tin nhắn của bạn ở đây..."></textarea>
+</div>

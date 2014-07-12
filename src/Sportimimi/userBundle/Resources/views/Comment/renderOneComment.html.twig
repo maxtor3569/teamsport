@@ -1,0 +1,27 @@
+{% set url = "" %}
+<div id ="comment{{comment.id}}"class="media border-top margin-none bg-gray" >
+   {% if comment.profile.document is defined %}
+   		{% for img in comment.profile.document %}
+   			{% if img.type == 'image' %}
+   				{% set url = img.id ~ "." ~ img.url %}
+   			{% endif %}
+   			{% else %}
+   				{% set url = 'img_profile_default.jpg' %}
+   		{% endfor %}
+   {% endif %}
+   
+   <a href="{{ path('DetailProfile',{'id': comment.profile.id}) }}" class="pull-left innerAll">
+   <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}"
+      width="50" class="media-object">
+   </a>
+   <div class="media-body innerTB">
+      {% if comment.profile.id == user.id %}
+      <a href="#" data-reactid="{{comment.id}}" class="pull-right innerT innerR text-muted deleteCommentAction">
+      <i class="icon-circle-delete fa fa-2x "></i>
+      </a>
+      {% endif %}      
+      <a href="{{ path('DetailProfile',{'id': comment.profile.id}) }}" class="strong text-inverse">{{ comment.profile.nom }} {{ comment.profile.prenom }}</a> 
+      <small class="text-muted ">wrote on Jan 15th, 2014</small>
+      <div>{{ comment.content }}</div>
+   </div>
+</div>

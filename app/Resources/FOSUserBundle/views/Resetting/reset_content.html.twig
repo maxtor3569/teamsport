@@ -1,0 +1,19 @@
+{% block contentmain %}
+    <div class="innerLR">
+        <div class="widget widget-heading-simple widget-body-white" style="margin-top:10px">
+            <div class="widget-body">
+                <h3>Chọn một mật khẩu mới</h3>
+                    <form action="{{ path('fos_user_resetting_reset', {'token': token|default('123abc')}) }}" {{ form_enctype(form) }} method="POST">
+                    	 {{ form_widget(form.new) }}
+                    	{{ form_widget(form) }}
+                       
+                        <div style="margin-top:10px">
+                            <input type="submit" class="btn btn-primary" value="{{ 'Thay đổi mật khẩu'|trans }}" />
+                        </div>
+                    </form>
+
+            </div>  
+        </div>
+    </div>
+    
+{% endblock %}

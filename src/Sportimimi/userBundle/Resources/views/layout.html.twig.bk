@@ -1,0 +1,6 @@
+{# src/Sportimimi/userBundle/Resources/views/layout.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block sidebar %}
+Publicité
+{% endblock %}

@@ -1,0 +1,41 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addProfile.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+
+{% block javascripts %}
+
+	<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+	
+{% endblock %} 
+
+{% block title %}Bảng Kỹ Năng{% endblock %}
+{% block body %}
+
+
+
+    <h2>Bảng Kỹ Năng</h2>
+	<form action="" method="post" {{ form_enctype(form) }}>
+		<table>
+		<tr>
+			<td>{{ form_label(form.agility) }}</td>
+			<td>{{ form_widget(form.agility) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.speed) }}</td>
+			<td>{{ form_widget(form.speed) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.stamina) }}</td>
+			<td>{{ form_widget(form.stamina) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.strength) }}</td>
+			<td>{{ form_widget(form.strength) }}</td>
+		</tr>
+		
+		</table>
+		{{ form_widget(form) }}
+		 <center><input type="submit" value="Cập nhật" style="margin:20px"/></center>
+	</form>
+	
+{% endblock %}

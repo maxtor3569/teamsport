@@ -1,0 +1,17 @@
+﻿{% block subject %}
+Email Confirmation
+{% endblock %}
+
+{% block body_text %}
+
+Chào mừng bạn đến TeamSport.vn!                                                
+
+To activate and edit your profil, please follow this link:                                                                    
+{{ confirmationUrl }}
+
+You will be able to log-in using the email you given:  
+                                                                                                                                         
+Email    : {{ user.email }}                                                                                                 
+
+TeamSport.vn thanks you, and see you on soon on teamsport.vn
+{% endblock %}

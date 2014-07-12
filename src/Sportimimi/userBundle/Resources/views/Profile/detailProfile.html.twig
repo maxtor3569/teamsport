@@ -1,0 +1,249 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/detailProfile.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+
+{% endblock %}
+{% block javascripts %}
+<script src="../assets/components/common/forms/elements/jasny-fileupload/assets/js/bootstrap-fileupload.js?v=v1.0.1-rc2&sv=v0.0.1.1"></script>
+<script src="{{ asset('js/draggabilly.pkgd.min.js') }}"></script>
+    <script>
+
+        function addSport()
+        {
+
+            var sport = jQuery('#addSportsList').val();
+            $.ajax({
+                type: "POST",
+                data: {id: sport},
+                dataType: 'text',
+                url: "{{ path('AddSportProfile') }}",
+                cache: false,
+                success: function(data) {
+
+                    window.location.reload();
+                }
+            });
+
+        }
+        function invitePlayer()
+        {
+            var time = jQuery('#timePlay').val();
+            var where = jQuery('#placePlayInvit').val();
+        var id = "{{ profile.id }}";
+            $.ajax({
+                type: "POST",
+                data: {idProfileInvite: id, timePlay: time, placePlay: where},
+                dataType: 'text',
+            url: "{{ path('InviteToPlay') }}",
+                cache: false,
+                success: function(data) {
+
+                    alert('Thông báo đã gửi. Cảm ơn bạn');
+                    window.setTimeout(window.location.reload(), 2000);
+                }
+            });
+        }
+        $(document).ready(function() {
+
+            // tagging support
+            $("#addSportsList").select2({
+                ajax: {
+                    dataType: "json",
+                    url: "{{ path('SportsListJson') }}",
+                    results: function(data) {
+                        return {results: data, text: 'client'};
+                    }
+                },
+                formatResult: function(data) {
+                    return "<div class='select2-user-result'>" + data.nameVn + "</div>";
+                },
+                formatSelection: function(data) {
+                    return data.nameVn;
+                }
+
+            });
+
+
+        });
+        if (typeof $.fn.bdatepicker == 'undefined')
+            $.fn.bdatepicker = $.fn.datepicker.noConflict();
+        $(function()
+        {
+            // today button
+            $('#timePlay').bdatepicker({
+                format: "dd MM yyyy",
+                startDate: "2013-02-14",
+                todayBtn: true
+            });
+
+        });
+        $( ".box-generic" ).on( "click", function() { 
+        	if (jQuery(this).attr('data-selected','false'))
+        	{
+        		jQuery(this).attr('style','background:gray');
+        		jQuery(this).attr('data-selected','true');
+        		
+			}
+			else if (jQuery(this).attr('data-selected','true'))
+			{
+				jQuery(this).attr('style','background:white');
+        		jQuery(this).attr('data-selected','false');
+			
+			}
+        });
+        
+        
+      </script>
+{% endblock %}
+{% block title %}Thông tin{% endblock %}
+
+{% block body %}
+    {% set url = "" %}
+        {% set inTeam = 0 %}
+            {% include 'SportimimiuserBundle:Page:inviteToPlayPopUp.html.twig' %}
+            {% include 'SportimimiuserBundle:Page:changeImageProfile.html.twig' %}
+            <div class="row">
+                <div class="col-lg-9 col-md-8">
+                    <div class="timeline-cover">
+                        <div class="widget border-bottom">
+                            <div class="widget-body border-bottom">
+                                <div class="media">
+                                    <div class="pull-left innerAll">
+                                        {% if profile.document is defined %}
+
+                                            {% for img in profile.document %}
+
+                                                {% if img.type == 'image' %}
+                                                    {% set url = img.id ~ "." ~ img.url %}
+                                                        {% endif %}
+
+                                                            {% else %}
+                                                                {% set url = 'img_profile_default.jpg' %}
+                                                                    {% endfor %}
+                                                                        {% endif %}
+
+                                                                            <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}" class="img-circle" >
+                                                                            {% if user.id == profile.id %}
+                                                                                <br /> <br />
+                                                                                
+                                                                                <!-- change image button -->
+                                                                                    <form action='{{ path('ImageProfile') }}' method='post' enctype='multipart/form-data'>
+                                                                                    <div class="fileupload fileupload-new margin-none" data-provides="fileupload">
+                                                                                        
+                                                                                           
+                                                                                        <span class="btn btn-default btn-file">
+                                                                                            <span class="fileupload-new">Thay đổi hình ảnh hồ sơ</span>
+                                                                                            <span class="fileupload-exists">Thay đổi</span>
+                                                                                            <input id="imageProfile" name="file" type="file" class="margin-none" />
+                                                                                         </span>
+                                                                                        <span class="fileupload-preview"></span>
+                                                                                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">x</a>
+                                                                                        <input class="btn fileupload-exists" value="xác nhận" type='submit'>
+                                                                                    </div>
+                                                                                    </form>
+                                                                            {% endif %}  
+                                                                        </div>
+                                                                        <div class="media-body">
+                                                                            <h4><a href="">{{ profile.nom }} {{ profile.prenom }}</a>  <a href="" class="text-muted"><i class="fa fa-envelope"></i></a>
+                                                                            </h4>
+                                                                            <div class="clearfix"></div>
+                                                                            <p>{{ profile.description }}</p>
+                                                                            
+                                                                                <a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm">
+                                                                                    <i class="icon-turn-right"></i> Mời chơi cùng
+                                                                                </a>
+                                                                            
+                                                                            
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                {% if user.id == profile.id %}
+                                                                    <div class="">
+                                                                        <ul class="navigation">
+                                                                            <li>
+                                                                                <a class="" href="/"><i class="fa fa-fw icon-road-sign"></i>
+                                                                                    <span>News</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li><a href=""><i class="fa fa-fw icon-flip-camera"></i><span> Photos</span></a>
+                                                                            </li>
+                                                                            <li><a href=""><i class="fa fa-fw icon-group"></i><span> {{ 'Bạn'|trans }}</span></a>
+                                                                            </li>
+                                                                            <li><a href="{{ path('Message') }}"><i class="fa fa-fw fa-envelope"></i><span> Messages</span></a>
+                                                                            </li>
+                                                                            <li class="pull-right active"><a href=""><i class="fa fa-fw fa-user"></i><span> About</span></a>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div class="clearfix"></div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div class="widget">
+                                                            <div class="innerAll">
+                                                                <div class="row border-top">
+                                                                    <div class="col-sm-6">
+                                                                        <h5 class="innerT">Thể Thao</h5>
+                                                                        <div class="widget bg-gray innerAll margin-none" id="sports">
+                                                                            {% for sport in profile.sports %}
+                                                                                <span class="innerR innerB">
+                                                                                    <i class="box-generic innerAll {{ sport.classIcons }} fa fa-4x" 
+                                                                                       data-placement="bottom" data-selected="false"></i>
+                                                                                </span>
+                                                                            {% endfor %}
+                                                                            {% if user.id == profile.id %}
+                                                                                <div>
+                                                                                    <div id="addSports" style="display:none">
+                                                                                        <table>
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    <input type="hidden" class="form-control" id="addSportsList" style="width:150px" name="add_sport" />
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <button class="btn btn-circle btn-success" onclick="addSport();"><i class="fa icon-add-symbol"></i></button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                    <button class="btn btn-success" onclick="jQuery('#addSports').toggle();
+                                                        jQuery(this).toggle()"><i class="icon-add-symbol"></i> Thêm thể thao</button>
+                                                         <button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> {{ 'Xóa thể thao'|trans }}</button>
+                                                                                </div>
+
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
+                                                                        <div class="widget bg-gray">
+                                                                            <div class="innerAll">
+                                                                                {% if profile.friends is defined %}
+                                                                                    {% for friend in profile.friends %}
+                                                                                        {% if friend.document is defined %}
+
+                                                                                            {% for img in friend.document %}
+
+                                                                                                {% if img.type == 'image' %}
+                                                                                                    {% set url = img.id ~ "." ~ img.url %}
+                                                                                                        {% endif %}
+
+                                                                                                            {% else %}
+                                                                                                                {% set url = 'img_profile_default.jpg' %}
+                                                                                                                    {% endfor %}
+                                                                                                                        {% endif %}
+                                                                                                                            <a href="{{ path('DetailProfile', {'id': friend.id}) }}">
+                                                                                                                                <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
+                                                                                                                            </a>
+                                                                                                                            {% endfor %}
+                                                                                                                                {% endif %}	
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+
+{% endblock %}

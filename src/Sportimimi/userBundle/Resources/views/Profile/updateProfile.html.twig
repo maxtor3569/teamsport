@@ -1,0 +1,98 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addProfile.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+
+{% block javascripts_top %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+	<script>  
+	$(function() {
+	$("#profile_description").tooltip({
+ 
+      // place tooltip on the right edge
+      position: "center right",
+ 
+      // a little tweaking of the position
+      offset: [-2, 10],
+ 
+      // use the built-in fadeIn/fadeOut effect
+      effect: "fade",
+ 
+      // custom opacity setting
+      opacity: 0.7
+ 
+      });
+	});
+  </script>
+{% endblock %} 
+
+{% block title %}Cập nhật thông tin cá nhân{% endblock %}
+{% block body %}
+
+
+
+    <h2>Cập nhật Thông tin cá nhân</h2>
+
+<center>
+<form id="addProfile" action="" method="post" {{ form_enctype(form) }}>
+	<div class="inline">
+		{{ form_label(form.email) }} <span class="requiredStar">*</span> 
+		<div class="input-control text">{{ form_widget(form.email) }} </div>
+		<div class="error(info, warning)-bar">{{ form_errors(form.email) }} </div>
+		{{ form_label(form.password) }} 
+	
+		<div class="input-control password">
+			{{ form_widget(form.password) }}
+			
+		</div> 
+		
+	 </div>
+	
+	<div class="inline">
+		{{ form_label(form.sports) }} <span class="requiredStar">*</span>
+		<div class="input-control select">{{ form_widget(form.sports) }}</div>
+		{{ form_errors(form.sports) }}
+		
+		{{ form_label(form.dateNaissance) }} <span class="requiredStar">*</span>
+		{{ form_widget(form.dateNaissance) }}
+		{{ form_errors(form.dateNaissance) }}
+	</div>
+	
+	<div class="inline">
+	 
+		{{ form_label(form.nom) }}
+		<div class="input-control text">{{ form_widget(form.nom) }}</div>{{ form_errors(form.nom) }}
+		
+		{{ form_label(form.prenom) }}
+		<div class="input-control text">{{ form_widget(form.prenom) }}</div>
+		{{ form_errors(form.prenom) }}
+		<div class="input-control text">{{ form_widget(form.sexe) }}</div>
+		
+	
+		
+		
+	</div>
+	<div class="inline">
+		{{ form_label(form.country) }}
+			<div class="input-control select">{{ form_widget(form.country) }}</div>
+		{{ form_errors(form.country) }}
+			
+		{{ form_label(form.phone) }}
+			<div class="input-control text">{{ form_widget(form.phone) }}</div>
+		{{ form_errors(form.phone) }}
+	
+	</div>
+	<div class="inline">
+		<div class="tooltip" style="position: absolute; top: 258px; left: 760.5px; opacity: 0.7; display: none;"></div>
+	
+		<div class="input-control textarea">{{ form_widget(form.description) }}</div>
+		{{ form_errors(form.description) }}
+	</div>
+
+	{{ form_widget(form) }}
+
+    <center><input type="submit" value="Cập nhật" style="margin:20px"/></center>
+</form>
+</center>
+{% endblock %}

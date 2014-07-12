@@ -1,0 +1,144 @@
+<div class="innerAll">
+   <div class="widget">
+      <div class="widget-body padding-none">
+         <div class="margin-none center bg-white">
+            <h1 class="separator bottom">Bạn tìm người chơi thể thao ?</h1>
+            <p>Tham gia vào mạng lưới thể thao tốt nhất tại Việt Nam. Tìm bạn bè để chơi, tìm phòng để chơi, Tạo nhóm của bạn.</p>
+            <div id="register" class="row">
+               <form class="form-horizontal margin-none" id="validateSubmitForm" method="post" autocomplete="off" novalidate="novalidate" {{ form_enctype(form) }}>
+               <div class="col-md-6">
+                  <img class="col-xs-12" src="{{ asset('images/image_homepage.jpg') }}" />
+               </div>
+               <div class="col-md-6">
+                  <div class="col-md-6" style="margin-top:15px;">
+                     <div class="form-group" style="margin:0;">
+                        {{ form_widget(form.prenom) }}                         
+                     </div>
+                  </div>
+                  <div class="col-md-6" style="margin-top:15px;">
+                     <div class="form-group" style="margin:0;">
+                        {{ form_widget(form.nom) }}
+                     </div>
+                  </div>
+                  <div class="col-md-6" style="margin-top:15px;">
+                     <div class="form-group" style="margin:0;">
+                        {{ form_widget(form.email) }}
+                     </div>
+                  </div>
+                  <div class="col-md-6" style="margin-top:15px;">
+                     <div class="form-group" style="margin:0;">
+                        {{ form_widget(form.password) }}
+                     </div>
+                  </div>
+                  <div class="col-md-6" style="margin-top:15px;">
+                     <div class="form-group" style="margin:0;">                                 
+                        {{ form_widget(form.sports) }}
+                     </div>
+                  </div>
+                  <div class="col-md-6" style="margin-top:15px;">
+                     <div class="form-group" style="margin:0;">
+                        {{ form_widget(form.phone) }}
+                     </div>
+                  </div>
+                  <div class="col-md-11" style="margin-top:15px;margin-bottom:15px">
+                     Bằng cách đăng ký trên Teamsport, bạn đồng ý với Điều khoản Dịch vụ, Chính sách bảo mật và Chính sách cookie Teamsport.
+                  </div>
+                  <div class="col-md-11" style="margin-top:15px;margin-bottom:15px">
+                     <div style="display:none">{{ form_widget(form) }}</div>
+                     <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-check-circle"></i> {{ 'Đăng ký'|trans }}</button>
+                     <a id="fb_button" class="btn btn-primary btn-lg" style="background:#4c66a4" href="{{ facebook.loginUrl({ redirect_uri: url('FacebookLogin'), scope :'email' }) }}" title="Connect With Facebook">
+                     {{'Đăng ký'|trans}} với Facebook</a>
+                  </div>
+               </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-4">
+         <div class="widget widget-heading-simple widget-body-white">
+            <div class="widget-body innerAll inner-2x">
+               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
+                  <p class="margin-none">
+                     <img class="img-responsive" src="{{ asset('images/562px-Adidas_Logo.svg.png') }}" style="height:200px" />
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4">
+         <div class="widget widget-heading-simple widget-body-white">
+            <div class="widget-body innerAll inner-2x">
+               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
+                  <p class="margin-none">
+                     <img class="img-responsive" src="{{ asset('images/Nike_logo.png') }}" style="height:200px" />
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4">
+         <div class="widget widget-heading-simple widget-body-white">
+            <div class="widget-body innerAll inner-2x">
+               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
+                  <p class="margin-none">
+                     <img class="img-responsive" src="{{ asset('images/Puma-Logo.png') }}"  style="height:200px"/>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-4">
+         <div class="widget widget-heading-simple widget-body-white">
+            <div class="widget-body innerAll inner-2x">
+               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
+                  <i></i>
+                  <h4>Tìm người chơi và Tạo đội</h4>
+                  <p class="margin-none"> Không có người để cùng luyện tập thể thao?
+                     Hãy đăng ký và bắt đầu tìm kiếm những thành viên
+                     thích hợp để cùng chơi.
+                     <br /><br />
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4">
+         <div class="widget widget-heading-simple widget-body-white">
+            <div class="widget-body innerAll inner-2x">
+               <div class="glyphicons glyphicon-xlarge glyphicon-top soccer_ball">
+                  <i></i>
+                  <h4>Tìm sân chơi</h4>
+                  <p class="margin-none">Bạn băn khoăn không biết trong quận của bạn có những sân chơi nào, và những ai đang chơi tại đó? 
+                     Chức năng này sẽ giúp bạn tìm được sân chơi phù hợp nhất.
+                     <br>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4">
+         <div class="widget widget-heading-simple widget-body-white">
+            <div class="widget-body innerAll inner-2x">
+               <div class="glyphicons glyphicon-xlarge glyphicon-top message_new">
+                  <i></i>
+                  <h4>Kết nối và chơi</h4>
+                  <p class="margin-none"> Bạn cò thể kết bạn mới, gửi lời mời chơi,
+                     thành lập đội, tổ chức sự kiện và rất nhiều tiện ích khác.<br />
+                     <br>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<script>
+   $( document ).ready(function() {
+   	jQuery('#profile_sports').prepend('<option value="" disabled selected>Bạn chơi thể thao nào?</option>');
+   });
+   
+</script>

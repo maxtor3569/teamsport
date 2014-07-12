@@ -1,0 +1,24 @@
+{# src/Sportimini/userBundle/Resources/views/Page/about.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Notifications{% endblock%}
+
+{% block body %}
+<style>
+
+#notifications {padding:15px;margin-top:15px}
+
+</style>
+	<div id="notifications">
+		<h1>Notifications</h1>
+		<hr>
+	
+		<div style="margin-top:10px"> 
+			{% for notification in notifications %}
+				<div style="padding:10px;border-bottom:1px solid green;">{{ notification.message| raw }}</div>
+			{% endfor %}
+		</div>
+	
+	</div>
+	
+{% endblock %}

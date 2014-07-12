@@ -1,0 +1,157 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/contact.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Pro account{% endblock%}
+
+{% block body %}
+    <div class="innerLR">
+        <div class="table-pricing-3">
+            <ul class="list-unstyled row">
+                <li class="col-md-4">
+                    <div class="innerAll">
+                        <h3>Starter</h3>
+                        <div class="body">
+                            <div class="price">
+                                Free
+                            </div>
+                        </div>
+                        <div class="features">
+                            <ul>
+                                <li>{{ 'Tìm Người Chơi'|trans }}</li>
+                                <li>{{'Tìm Sân Chơi'|trans }}</li>
+                                <li>{{ 'Tìm Sự Kiện'|trans }}</li>
+                                <li>{{'Tìm Đội'|trans }}</li>
+                                <li>{{'Tin nhắn'|trans }}</li>
+                                <li>{{'Mời để chơi'|trans }}</li>
+                            </ul>
+                        </div>                       
+                    </div>
+                </li>
+                <li class="col-md-4 active">
+                    <div class="innerAll">
+                        <h3>Pro account</h3>
+                        <div class="body">
+                            <div class="price">
+                                <span class="figure">100 000</span>
+                                <span class="term">{{ 'VND / mỗi tháng'|trans }}</span>
+                            </div>
+                        </div>
+                        <div class="features">
+                            <ul>
+                                <li><strong> + Sms Thông Báo</strong></li>
+                                
+                            </ul>
+                        </div>
+                        <div class="footer">
+                            <a href="#" class="btn btn-success">Get Started</a>
+                        </div>
+                    </div>
+                </li>
+                
+                <div class="clearfix"></div>
+            </ul>
+        </div>
+       
+        <div class="widget">
+            <div class="widget-body padding-none">
+                <!-- Pricing table -->
+                <table class="table table-white table-vertical-center table-pricing">
+                    <!-- Table heading -->
+                    <thead>
+                        <tr>
+                            <th class="center heading">Chọn chương trình của bạn</th>
+                            <th class="center" style="width: 15%">
+                                <span class="plan">Free</span>
+                                <span class="price">$0.00</span>
+                    <div class="separator bottom"></div>
+                    
+                    </th>
+                
+                    <th class="center" style="width: 15%">
+                        <span class="plan">Gold</span>
+                        <span class="price">$49.99</span>
+                    <div class="separator bottom"></div>
+                    <button class="btn btn-primary btn-block">Sign up</button>
+                    </th>
+                    </tr>
+                    </thead>
+                    <!-- // Table heading END -->
+                    <!-- Table body -->
+                    <tbody>
+                        <!-- Table row -->
+                        <tr>
+                            <td>Setup &amp; Installation</td>
+                            <td class="center">
+                                <span class="glyphicons standard circle_ok"><i></i>
+                                </span>
+                            </td>
+                            <td class="center">
+                                <span class="glyphicons standard circle_ok"><i></i>
+                                </span>
+                            </td>
+                           
+                        </tr>
+                        <!-- // Table row END -->
+                        <!-- Table row -->
+                        <tr>
+                            <td>HTML Templates</td>
+                            <td class="center">
+                                <span class="glyphicons standard remove_2"><i></i>
+                                </span>
+                            </td>
+                            <td class="center">
+                                <span class="glyphicons standard remove_2"><i></i>
+                                </span>
+                            </td>
+                           
+                        </tr>
+                        <!-- // Table row END -->
+                        <!-- Table row -->
+                        <tr>
+                            <td>SMS Templates</td>
+                            <td class="center">
+                                <span class="glyphicons standard circle_ok"><i></i>
+                                </span>
+                            </td>
+                            <td class="center">
+                                <span class="glyphicons standard circle_ok"><i></i>
+                                </span>
+                            </td>
+                           
+                        </tr>
+                        <!-- // Table row END -->
+                        <!-- Table row -->
+                        <tr>
+                            <td>API Included</td>
+                            <td class="center">
+                                <span class="glyphicons standard remove_2"><i></i>
+                                </span>
+                            </td>
+                            <td class="center">
+                                <span class="glyphicons standard circle_ok"><i></i>
+                                </span>
+                            </td>
+                           
+                        </tr>
+                        <!-- // Table row END -->
+                        <!-- Table row -->
+                        <tr>
+                            <td>Tracking System</td>
+                            <td class="center">Basic Tracking</td>
+                            <td class="center">
+                                <span class="glyphicons standard circle_ok"><i></i>
+                                </span>
+                            </td>
+                            
+                        </tr>
+                        <!-- // Table row END -->
+                    </tbody>
+                    <!-- // Table body END -->
+                </table>
+                <!-- // Pricing table END -->
+            </div>
+        </div>
+       
+    </div>
+
+{% endblock %}

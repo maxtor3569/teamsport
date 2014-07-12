@@ -1,0 +1,118 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/detailTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Sự Kiện {{ event.name }}{% endblock %}
+{% block stylesheets_include %}
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+{% block body %}
+
+    <div class="innerLR spacing-x2">
+        <h3>Events</h3>
+        <!-- Row -->
+        <div class="row">
+            <!-- Col -->
+            <div class="col-md-6 col-lg-6">
+                <!-- Widget -->
+                <div class="widget">
+                    <h4 class="innerAll half margin-none border-bottom">{{ event.name }}</h4>
+
+                    <hr class="margin-none" />
+                </div>
+                <!-- End Widget -->
+                <!-- widget -->
+                <div class=" widget media innerAll half" style="display:none">
+                    <div class="pull-left innerT">
+                        <img data-src="holder.js/50x50/dark" alt="" class="img-responsive img-circle" />
+                    </div>
+                    <div class="media-body">
+                        <div class="pull-right innerAll half">
+                            <div class="btn-group-vertical btn-group-sm">
+                                <a href="#" class="btn btn-inverse">Follow</a>
+                                <a href="#" class="btn btn-default margin-none">Contact</a>
+                            </div>
+                        </div>
+                        <div class="innerAll half media  margin-none">
+                            <div class="pull-left innerAll half">
+                                <p class="strong margin-none">Company, Inc</p>
+                                <p>Official Organizer</p>
+                            </div>
+                            <div class="media-body border-left innerLR">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum, dicta, odio id
+                                cumque voluptates debitis asperiores. Dolorum,
+                                quod, cupiditate.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Widget -->
+                </div>
+                <!-- End Col -->
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <!-- Widget -->
+                <div class="widget">
+                    <h4 class="bg-primary innerAll half border-bottom margin-none text-white">Event</h4>
+                    <div class="innerAll half bg-primary border-bottom">
+                        <div class="media innerAll half margin-none text-white">
+                            <div class="pull-left">
+                                <i class="fa fa-fw fa-calendar fa-3x "></i>
+                            </div>
+                            <div class="media-body">
+                                <p class="strong lead margin-none">{{ event.dateEventStart|date("d/m/Y") }}</p>
+                                <p class="strong margin-none">1:00 - 5:00 pm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="innerAll half bg-gray border-bottom">
+                        <div class="media innerAll half margin-none">
+                            <div class="pull-left">
+                                <i class="fa fa-fw fa-map-marker fa-3x"></i>
+                            </div>
+                            <div class="media-body">
+                                <p class="strong lead margin-none">{{ event.location }}</p>
+                                <p class="strong margin-none"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="innerAll text-center half">
+                        <div class="btn-group">
+                            <button class="btn btn-success"><i class="fa fa-fw fa-check"></i> Attend</button>
+                            <button class="btn btn-default">I might go</button>
+                        </div>
+                    </div>
+                    <!-- End Widget -->
+                </div>
+                <!-- Widget -->
+                <div class="widget">
+                    <h4 class="border-bottom margin-none innerAll half">Friends</h4>
+                    <div class="border-bottom">
+                        <div class="innerAll half">
+                            <span class="badge bg-primary pull-right">{{ event.profile|length }}</span>Attending
+                        </div>
+                    </div>
+
+                    <div class="innerAll half text-center">
+                        <a href="#" class="border-none" data-toggle="image-preview" data-title="Lorem ipsum"
+                           data-image-preview="../assets/images/people/250/1.jpg"
+                           width="100" href="#" class="pull-left border-none">
+                            <img src="../assets/images/people/80/1.jpg" alt="photo" width="35" class="innerB half"></img>
+                        </a>
+
+                    </div>
+                    <!-- End Widget -->
+                </div>
+
+
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- Col -->
+
+        <!--  End Row -->
+    </div>
+    <!-- End Inner -->
+</div>
+{% endblock %}

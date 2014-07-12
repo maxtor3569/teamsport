@@ -1,0 +1,110 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/rechercheProfil.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Sân {% if place.placeName is defined %}{{ place.placeName }}{% endif %}{% endblock %}
+{% block stylesheets_include %}
+
+	<link href="{{ asset('css/place.css') }}" rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var msg = '#message';
+
+	$(msg).keypress(function(e) {
+		if(e.which == 13) {
+			var val = $(msg).val();
+
+			$.ajax({
+				url: '{{ asset('comment.php') }}',
+				type: 'GET',
+				data: 'token={{ token }}&msg='+escape(val),
+				success: function(data) {
+					$(msg).val('');
+					$(msg).css('height','14px');
+					$('#commentscontainer').append(data);
+				}
+			});
+		}
+	});
+
+});
+</script>
+{% endblock %} 
+{% block body %}
+<style>
+.comments, .like {
+  background: #edeff4;
+  padding: 4px;
+  margin-bottom: 1px;
+}
+.text-holder {
+  resize: none;
+  border: 1px solid #bdc7d8;
+  height: 22px;
+  padding: 3px;
+  width: 394px;
+}
+.iconRight {
+	width: 175px;
+    height: 40px;
+    float: right;
+    position: relative;
+    top: -2px;
+    right: 2px;
+
+
+}
+</style>
+	<div class="widget">
+	
+		
+		<h2 style="font-size:22pt!important;">{% if place.placeName is defined %}{{ place.placeName }}{% endif %}</h2>
+		<div class="iconRight">
+		{% if place.type is defined %}
+			{% if place.type|trim == 'Sân' %}<img src="{{ asset('images/icons/soccer-none-select.png') }}" style="float:right">
+			
+			{% else %}
+				<img src="{{ asset('images/icons/soccer-none-select.png') }}" style="float:right">
+				<img src="{{ asset('images/icons/basketball-none-select.png') }}" style="float:right">
+				<img src="{{ asset('images/icons/tennis-none-select.png') }}" style="float:right">
+				<img src="{{ asset('images/icons/volleyball-none-select.png') }}" style="float:right">
+				<img src="{{ asset('images/icons/badminton-none-select.png') }}" style="float:right">
+			{% endif %}
+		{%endif%}
+		</div>
+		
+		<div style="margin-top:15px">
+		{% if place is defined %}
+			{{'Giá'|trans}} : {% if place.price is defined %}{{ place.price }}{% endif %} <br />
+			{% if place.capacity is defined %}{{'Capacity'|trans}} : {{ place.capacity }}<br />{% endif %}
+			{{'Điện thoại liên hệ'|trans}} : {% if place.price is defined %}{{ place.phoneContact }}<br />{% endif %}
+			{% if place.contactName is defined %}{{'Tên liên hệ'|trans}} : {{ place.contactName }}<br />{% endif %}
+			{% if place.address is defined %}{{'Địa chỉ'|trans}} : {{ place.address }}<br />{% endif %}
+			{% if place.district is defined %}{{'Quận'|trans}} : {{ place.district }}{% endif %}
+		{% endif %}
+		</div>
+	</div>
+	<div class="comments clearfix">
+		<div class="pull-left lh-fix">
+			{% if user.document is defined %}
+
+				{% for img in user.document %}
+				
+					{% if img.type == 'image' %}
+						{% set url = img.id ~ "." ~ img.url %}
+					{% endif %}
+					
+				{% else %}
+					{% set url = 'img_profile_default.jpg' %}
+				{% endfor %}
+		{% endif %}
+		<img src="{{ asset('uploads/img/') }}{{ url }}" style="width:25px;float:left;margin-right:15px" />
+		</div>
+
+		<div class="comment-text pull-left">
+			<textarea class="text-holder" placeholder="Write a comment.." id="message"></textarea>
+		</div>
+	</div>
+{% endblock %}

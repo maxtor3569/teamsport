@@ -1,0 +1,53 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block javascripts%}
+
+	<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script type="text/javascript" src="{{ asset('js/googleCompletion.js') }}" ></script>
+	
+{% endblock %} 
+
+{% block title %}Tạo Đội{% endblock %}
+{% block body %}
+<center>
+	<div>
+
+
+	{% if message %}
+	<p>{{ message }}</p>
+	{% endif %}
+
+	<form id="addTeam" action="" method="post"  {{ form_enctype(form) }}>
+		<table id="addProfile">
+		<tr>
+			<td>{{ form_label(form.category) }} <span style="color:red">*</span> </td>
+			<td><div class="input-control text">{{ form_widget(form.category) }}</div></td>
+			<td>{{ form_errors(form.category) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.name) }} <span style="color:red">*</span></td>
+			<td><div class="input-control text">{{ form_widget(form.name) }}</div></td>
+			<td>{{ form_errors(form.name) }}</td>
+		</tr>
+		<tr>
+			<td>Sân </td>
+			<td><div class="input-control text">{{ form_widget(form.mainLocation,{ 'id' : 'EventForm_location' }) }}</div></td>
+			<td>{{ form_errors(form.mainLocation) }}</td>
+		</tr>
+		
+		<tr>
+			  <td></td>
+			  <td>
+				<div id="map-canvas" style="width:200px;height:200px"></div>
+			  </td>
+		</tr>
+		{{ form_widget(form) }}
+		
+		</table>
+
+		<center><input type="submit" value="Tạo Đội"/></center>
+	</form>
+	</div>
+</center>
+{% endblock %}

@@ -1,0 +1,67 @@
+
+<div>
+    <button class="btn btn-inverse btn-xs btn-close" data-toggle="sidr-close" data-menu="menu-right"><i class="fa fa-times"></i>
+    </button>
+    <div class="tab-content">
+        <div class="tab-pane" id="chat-conversation">
+            <ul>
+                <li>
+                    <div class="innerAll">
+                        <button class="btn btn-primary" data-toggle="tab"
+                                data-target="#chat-list"><i class="fa fa-fw fa-user"></i> friends</button>
+                    </div>
+                </li>      
+                <li id="messages" class="conversation innerAll">
+                   {{ render(controller('SportimimiuserBundle:Page:baseMessage')) }}  
+                   
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane active" id="chat-list">
+            <div class="mixitup" id="mixitup-chat" data-show-default="mixit-chat-1" data-layout-mode="list"
+                 data-target-selector=".mix" data-filter-selector=".filter-chat">
+                <ul>
+
+                    <li class="category border-bottom">Online</li>
+
+                    <li>
+                        {% if profileOnline is defined %}
+                            {% for profile in profileOnline %}
+                                {% if profile.profile.id != user.id %}
+                                <div class="mixit-chat-1 mix media border-bottom innerAll margin-none" style="display: block; opacity: 1;">
+                                    {% set url = "" %}
+                                    {% if profile.profile.document is defined %}
+                                    {% for img in profile.profile.document %}
+
+                                        {% if img.type == 'image' %}
+                                            {% set url = img.id ~ "." ~ img.url %}
+                                        {% endif %}
+
+                                        {% else %}
+                                            {% set url = 'img_profile_default.jpg' %}
+                                    {% endfor %}
+                                    {% endif %}
+                                <a href="#chat-conversation" onclick="dynamicLoadMessage({{profile.profile.id}});" data-toggle="tab" class="pull-left media-object">
+                                    <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
+                                         class="img-circle" />
+                                </a>
+                                <div class="media-body">
+                                    <a href="#chat-conversation" onclick="dynamicLoadMessage({{profile.profile.id}});" data-toggle="tab" class="pull-right text-muted innerT half">
+                                        <i class="fa fa-comments"></i> 4
+                                    </a>
+                                    <h5 class="margin-none"><a href="#chat-conversation" onclick="dynamicLoadMessage({{profile.profile.id}});" data-toggle="tab"
+                                                               class="text-white">{{ profile.profile.nom }} {{ profile.profile.prenom }}</a>
+                                    </h5>
+                                    <small></small>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

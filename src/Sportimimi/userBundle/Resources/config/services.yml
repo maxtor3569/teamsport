@@ -1,0 +1,31 @@
+parameters:
+
+services:
+    sportimimi_user.registration.form.type:
+        class: sportimimi\userBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: sportimimi_user_registration }
+    facebook:
+        class: Sportimimi\userBundle\Service\Facebook
+        arguments: [{ appId: %api_facebook_id%, secret: %api_facebook_secret% }]
+    #Wsse implementation..
+    #wsse.security.authentication.provider:
+        #class:  Sportimimi\userBundle\Security\Authentication\Provider\WsseProvider
+        #arguments: ['', %kernel.cache_dir%/security/nonces]
+
+    #wsse.security.authentication.listener:
+       #class:  Sportimimi\userBundle\Security\Firewall\WsseListener
+       #arguments: ["@security.context", "@security.authentication.manager","@logger"]
+       #tags:
+        # - { name: monolog.logger, channel: wsse }
+    activity_listener:
+       class: Sportimimi\userBundle\Listener\Activity
+       arguments: [@security.context, @doctrine]
+       tags:
+         - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+    sportimimi_user.resetting.form.type:
+        class: Sportimimi\userBundle\Form\Type\ResettingFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: sportimimi_user_resetting }

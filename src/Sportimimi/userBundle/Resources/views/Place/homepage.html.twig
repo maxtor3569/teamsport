@@ -1,0 +1,113 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/rechercheProfil.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Danh Sách Các Môn Thể Thao{% endblock %}
+{% block stylesheets_include %}
+
+	<link href="{{ asset('css/place.css') }}" rel="stylesheet">
+{% endblock %}
+{% block javascripts %}
+
+	<script src="{{ asset('chosen-master/public/chosen.jquery.min.js') }}"></script>
+	<script src="//cdn.jsdelivr.net/jquery.pajinate/0.4/jquery.pajinate.min.js"></script>
+	
+	<script>
+
+	$('#searchPlace_placeName').autocomplete({
+		source: function( request, response ) {
+		
+			$.ajax({
+				url : '{{ asset('getPlace.php') }}',
+				data: {term: request.term},
+				dataType: "json",
+				success: function( data ) {
+					response( $.map( data.myData, function( item ) {
+						return {
+							label: item.name,
+							value: item.name
+						}
+					}));
+				}
+			});
+		},
+	   messages: {
+        noResults: '',
+        results: function() {}
+    }
+    });
+
+</script>
+
+{% endblock %} 
+{% block body %}
+<div style="border:1px solid black;margin:20px;padding:20px;width:300px;background:white;float:left">
+	<h2 style="color:#00a751">TÌM SÂN CHƠI</h2>
+	<form action="{{ path('ListPlace') }}" method="post" {{ form_enctype(form) }}>
+
+				{{ form_widget(form.placeName) }}
+				<div style="margin-top:15px">
+					{{ form_widget(form.district) }}
+					{{ form_widget(form.category) }}
+				</div>
+				<input type="submit" value="Tìm địa điểm" style="margin:20px;background:#00a751"/>
+			
+			{{ form_widget(form) }}
+			
+	</form>
+</div>	
+<div style="margin:20px;padding:20px;width:300px;float:right">
+<p style="font-size:15pt;margin-top:20px">
+	
+Bạn đang muốn tìm địa điểm sân chơi các môn thể thao tại thành phố HCM?</p>
+<p style="font-size:15pt;margin-top:20px">
+Hãy chọn vị trí quận và môn thể thao phù hợp để tìm kiếm thông tin và phí thuê sân.
+</p>
+
+</div>
+<div style="clear:both;" </div>
+<!--
+	<div id="bottom" style="clear:both;">
+
+	<h2>{{ 'Tìm Người Chơi'|trans}}</h2>
+		<img src="{{ asset('images/messi-xavi.jpg') }}" />
+		
+	</div>	
+-->
+	<hr />
+	<div style="width:400px;margin:20px;padding:20px;width:300px;background:white;">
+	<h2>{{ 'Top place For you!'|trans}}</h2>
+	{% set i = 0 %}
+	{% if user.cacategory.nameVn is defined %}
+		{% if user.category.nameVn=='Bóng Đá' %}
+		
+			{% for place in places if place.type == 'Sân' %}
+				
+				
+				{% if i < 10 %}
+					<span class="name"><a href="{{ path('DetailPlace',{'name':place.alias}) }}">{{ place.placeName }}</a></span><br />
+				{% endif %}
+				
+				{% set i = i+1 %}
+				
+			{% endfor %}
+		{% endif %}
+	{% else %}
+	{% for place in places if place.type == 'Sân' %}
+				
+				
+				{% if i < 10 %}
+					<span class="name"><a href="{{ path('DetailPlace',{'name':place.alias}) }}">{{ place.placeName }}</a></span><br />
+				{% endif %}
+				
+				{% set i = i+1 %}
+				
+			{% endfor %}
+	
+	
+	
+	
+	{% endif %}
+	
+	</div>
+	
+{% endblock %}

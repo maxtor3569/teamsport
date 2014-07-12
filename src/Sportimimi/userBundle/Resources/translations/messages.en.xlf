@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+	    <trans-unit id="9053831a834684855e6b70739439a675" resname="Trang Chủ">
+        <source>Trang Chủ</source>
+        <target>Home</target>
+      </trans-unit>
+	  
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Đăng nhập">
+        <source>Đăng nhập</source>
+        <target>Login</target>
+    </trans-unit> 
+	
+      <trans-unit id="9053831a834684855e6b70739439a672" resname="- Chọn thể thao -">
+        <source>- Chọn thể thao -</source>
+        <target>- Filter by sport -</target>
+      </trans-unit>
+    
+      <trans-unit id="ee1611b61f5688e70c12b40684dbb395" resname="Berlin">
+        <source>Berlin</source>
+        <target>Berlin</target>
+      </trans-unit>
+      <trans-unit id="ab74d6620cac3fd16a2cdad3fe513a8a" resname="Chọn Giới Tính">
+        <source>Chọn Giới Tính</source>
+        <target>Filter by gender</target>
+      </trans-unit>
+      <trans-unit id="a6690ac2a62484521f9e10973896272c" resname="Chọn Quốc">
+        <source>Chọn Quốc</source>
+        <target>Filter by nationality</target>
+      </trans-unit>
+      <trans-unit id="e02f087827394ae072b5e39243f2bc79" resname="Giới tính">
+        <source>Giới tính</source>
+        <target>Giới tính</target>
+      </trans-unit>
+      <trans-unit id="b131cbcbba8ba1eea5e8769e68015228" resname="Họ">
+        <source>Họ</source>
+        <target>Family name</target>
+      </trans-unit>
+      <trans-unit id="59ead8d1e124ccfb79f3ace06f43e703" resname="London">
+        <source>London</source>
+        <target>London</target>
+      </trans-unit>
+      <trans-unit id="3a66486f07f399ffaa75e5967c0f4174" resname="Mật khẩu">
+        <source>Mật khẩu</source>
+        <target>Password</target>
+      </trans-unit>
+	  
+	<trans-unit id="ccef959a483cc278c216045bdf2ed9d3" resname="Mật khẩu mới">
+		<source>Mật khẩu mới</source>
+		<target>New Password</target>
+	</trans-unit>
+	  
+	<trans-unit id="ccef959a483cc278c216045bdf2ed9d3" resname="Quên mật khẩu ?">
+		<source>Quên mật khẩu ?</source>
+		<target>Forget Password?</target>
+	</trans-unit>
+	  
+	  
+      <trans-unit id="4ad35edfc7beb97ebebb35ac572edcf7" resname="Nam">
+        <source>Nam</source>
+        <target>Male</target>
+      </trans-unit>
+	  
+      <trans-unit id="c47b477c59cfb61c7f36e60059def42f" resname="Nashville">
+        <source>Nashville</source>
+        <target>Nashville</target>
+      </trans-unit>
+      <trans-unit id="8d2f096600150334acc003906d8c1427" resname="Ngày Bắt Đầu">
+        <source>Ngày Bắt Đầu</source>
+        <target>Ngày Bắt Đầu</target>
+      </trans-unit>
+      <trans-unit id="7df92386b0667ec62858ecc411139b62" resname="Ngày sinh">
+        <source>Ngày sinh</source>
+        <target>Birthday</target>
+      </trans-unit>
+      <trans-unit id="4bd51fdfe3f048a9ebdb2edf097082c5" resname="Nhanh Nhẹn">
+        <source>Nhanh Nhẹn</source>
+        <target>Nhanh Nhẹn</target>
+      </trans-unit>
+      <trans-unit id="702cff49d357dbc0e25cf1a26cb8e816" resname="Nơi">
+        <source>Nơi</source>
+        <target>Place</target>
+      </trans-unit>
+      <trans-unit id="f406d1000463e4462165619a20f94265" resname="Nữ">
+        <source>Nữ</source>
+        <target>Female</target>
+      </trans-unit>
+      <trans-unit id="e20d37a5d7fcc4c35be6fc18a8e71bfa" resname="Paris">
+        <source>Paris</source>
+        <target>Paris</target>
+      </trans-unit>
+      <trans-unit id="ee51c0d1926ce849662d1f3c902d3b59" resname="Quốc">
+        <source>Quốc</source>
+        <target>Nationality</target>
+      </trans-unit>
+      <trans-unit id="97f8f297e1b0d3d7e953558e7a2ab1e0" resname="Sân">
+        <source>Sân</source>
+        <target>Sân</target>
+      </trans-unit>
+      <trans-unit id="4d69c1dc0ca2fbaa320dcbe1adfb2ace" resname="Sélectionnez un sexe">
+        <source>Sélectionnez un sexe</source>
+        <target>Sélectionnez un sexe</target>
+      </trans-unit>
+      <trans-unit id="7d84d040347f011b2aeb23ce02a1ea72" resname="Sức Chịu Đựng">
+        <source>Sức Chịu Đựng</source>
+        <target>Sức Chịu Đựng</target>
+      </trans-unit>
+      <trans-unit id="9dfdeffce2a45b0b6e7ee544c2d24391" resname="Sức Mạnh">
+        <source>Sức Mạnh</source>
+        <target>Sức Mạnh</target>
+      </trans-unit>
+      <trans-unit id="06cb2c707ea5c7fbf8658d833ec2f0e3" resname="Thể Thao">
+        <source>Thể Thao</source>
+        <target>Sport</target>
+      </trans-unit>
+      <trans-unit id="2aa8efe4359bcfa93eb00515106059f8" resname="Tên">
+        <source>Tên</source>
+        <target>First name</target>
+      </trans-unit>
+      <trans-unit id="3672d9af955c0413caa4df0afc4a0c51" resname="Tên Sự Kiện">
+        <source>Tên Sự Kiện</source>
+        <target>Tên Sự Kiện</target>
+      </trans-unit>
+      <trans-unit id="c5862f8d1611baab14ebc7b5cfad9970" resname="Tên Đội">
+        <source>Tên Đội</source>
+        <target>Tên Đội</target>
+      </trans-unit>
+      <trans-unit id="1802f49157e5989f89900f9ddec4b34e" resname="Tốc Độ">
+        <source>Tốc Độ</source>
+        <target>Tốc Độ</target>
+      </trans-unit>
+      <trans-unit id="34e2d1989a1dbf75cd631596133ee5ee" resname="Video">
+        <source>Video</source>
+        <target>Video</target>
+      </trans-unit>
+      <trans-unit id="81042a03468229859e9386c778dac386" resname="Điện thoại">
+        <source>Điện thoại</source>
+        <target>Phone</target>
+      </trans-unit>
+	  <trans-unit id="81042a03468229859e9386c778dac387" resname="Tìm Người Chơi">
+        <source>Tìm Người Chơi</source>
+        <target>Search Sport Partner</target>
+      </trans-unit>
+	  
+	  <trans-unit id="81042a03468229859e9386c778dac387" resname="Tìm Đội">
+        <source>Tìm Đội</source>
+        <target>Search Team</target>
+      </trans-unit>
+	  
+	  <trans-unit id="81042a03468229859e9386c778dac387" resname="Hồ Sơ Của Tôi">
+        <source>Hồ Sơ Của Tôi</source>
+        <target>My Profile</target>
+      </trans-unit>
+	  
+	  <trans-unit id="81042a03468229859e9386c778dac387" resname="Về chúng tôi">
+        <source>Về chúng tôi</source>
+        <target>About us</target>
+      </trans-unit>
+	  
+	   <trans-unit id="81042a03468229859e9386c778dac387" resname="Liên hệ">
+        <source>Liên hệ</source>
+        <target>Contact us</target>
+      </trans-unit>
+	  
+	   <trans-unit id="81042a03468229859e9386c778dac387" resname="Chào mừng bạn">
+        <source>Chào mừng bạn</source>
+        <target>Welcome To</target>
+      </trans-unit>
+	  
+	  <trans-unit id="81042a03468229859e9386c778dac387" resname="đến với TeamSport.vn">
+        <source>đến với TeamSport.vn</source>
+        <target>TeamSport.vn</target>
+      </trans-unit>
+	  
+	   <trans-unit id="81042a03468229859e9386c778dac387" resname="Tham gia">
+        <source>Tham gia</source>
+        <target>Join now !</target>
+      </trans-unit>
+	  
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Tài khoản vừa tạo">
+        <source>Tài khoản vừa tạo</source>
+        <target>Recent Account</target>
+    </trans-unit>
+	
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Team vừa tạo">
+        <source>Team vừa tạo</source>
+        <target>Recent Team</target>
+    </trans-unit>
+
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Theo hiệu suất của bạn">
+        <source>Theo hiệu suất của bạn</source>
+        <target>Improve your performance by following your sport results</target>
+    </trans-unit>  
+	
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Tổ chức phù hợp với bạn bè của bạn">
+        <source>Tổ chức phù hợp với bạn bè của bạn</source>
+        <target>Find the best partner to do sport</target>
+    </trans-unit> 
+	
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Tìm câu lạc bộ hoặc nhóm">
+        <source>Tìm câu lạc bộ hoặc nhóm</source>
+        <target>Find or create your sport team</target>
+    </trans-unit> 
+	
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Đăng ký tài khoản">
+        <source>Đăng ký tài khoản</source>
+        <target>Register Account</target>
+    </trans-unit> 
+	
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Đăng ký">
+        <source>Đăng ký</source>
+        <target>Register</target>
+    </trans-unit> 
+	
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Thành viên đăng nhập">
+        <source>Thành viên đăng nhập</source>
+        <target>Login Account</target>
+    </trans-unit> 
+	
+	<trans-unit id="81042a03468229859e9386c778dac387" resname="Nhớ tôi">
+        <source>Nhớ tôi</source>
+        <target>Remember Me</target>
+    </trans-unit> 
+	
+	
+	<trans-unit resname="Nhập email của bạn">
+        <source>Nhập email của bạn</source>
+        <target>Enter your email</target>
+    </trans-unit> 
+	
+	<trans-unit resname="Nhập mật khẩu của bạn">
+        <source>Nhập mật khẩu của bạn</source>
+        <target>Enter your password</target>
+    </trans-unit> 
+	
+	<trans-unit resname="Mô tả bản thân">
+        <source>Mô tả bản thân</source>
+        <target>Describe yourself to meet other athletes.</target>
+    </trans-unit>
+
+	<trans-unit resname="Bạn">
+        <source>Bạn</source>
+        <target>Friend</target>
+    </trans-unit> 
+	<trans-unit resname="Ngày Sinh">
+        <source>Ngày Sinh</source>
+        <target>Birthday</target>
+    </trans-unit> 
+	
+	<trans-unit resname="Thể thao">
+        <source>Thể thao</source>
+        <target>Sport</target>
+    </trans-unit> 
+	
+	<trans-unit resname="Quốc tịch">
+        <source>Quốc tịch</source>
+        <target>Nationality</target>
+    </trans-unit> 
+	
+	
+	<trans-unit resname="tuổi">
+        <source>tuổi</source>
+        <target>years old</target>
+    </trans-unit> 
+	
+	<trans-unit resname="tuổi">
+        <source>Bạn</source>
+        <target>Friend</target>
+    </trans-unit> 
+	
+	<trans-unit resname="Thoát">
+        <source>Thoát</source>
+        <target>Log out</target>
+    </trans-unit> 
+	
+	<trans-unit resname="Tìm Sự Kiện">
+        <source>Tìm Sự Kiện</source>
+		<target>Find Events</target>
+    </trans-unit> 
+
+	<trans-unit resname="Thành Viên">
+        <source>Thành Viên</source>
+		<target>Members</target>
+    </trans-unit> 
+	
+    <trans-unit resname="Ngôn ngư">
+        <source>Ngôn ngư</source>
+		<target>Language</target>
+    </trans-unit> 
+    <trans-unit resname="Tin nhắn">
+        <source>Tin nhắn</source>
+		<target>Messages</target>
+    </trans-unit> 
+    <trans-unit resname="Quản lý đội của tôi">
+        <source>Quản lý đội của tôi</source>
+		<target>Manage My Teams</target>
+    </trans-unit> 
+	<trans-unit resname="Tìm Sân Chơi">
+        <source>Tìm Sân Chơi</source>
+	<target>Find Sports Fields</target>
+    </trans-unit> 
+    </body>
+  </file>
+</xliff>

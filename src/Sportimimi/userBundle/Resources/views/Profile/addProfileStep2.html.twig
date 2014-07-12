@@ -1,0 +1,82 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+
+{% endblock %}
+{% block javascripts%}
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+	<script type="text/javascript" src="{{ asset('js/googleCompletion.js') }}" ></script>
+
+  <script type="text/javascript">
+var fb_param = {};
+fb_param.pixel_id = '6013213815888';
+fb_param.value = '0.00';
+fb_param.currency = 'VND';
+(function(){
+  var fpw = document.createElement('script');
+  fpw.async = true;
+  fpw.src = '//connect.facebook.net/en_US/fp.js';
+  var ref = document.getElementsByTagName('script')[0];
+  ref.parentNode.insertBefore(fpw, ref);
+})();
+</script>
+<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6013213815888&amp;value=0&amp;currency=VND" /></noscript>
+{% endblock %} 
+
+{% block title %}{{ 'Đăng ký bước 2'|trans }}{% endblock %}
+{% block body %}
+<style>
+	a.button-next{
+		color: white!important;
+		text-transform: uppercase;
+		font-size: 15px;
+		padding: 5px 15px;
+		background-color: #0ca245;
+		border-radius: 3px;
+	}
+	a.button-next img{
+		margin-left: 5px;
+		vertical-align: middle;
+	}
+	a.button-next:hover {color:green!important}
+</style>
+	<div id="select-place" style="padding:25px;font-size:14pt;border:1px solid #ccc;background:white;margin-top:15px">
+	<div style="float:left;margin-right:80px;height:140px;padding:20px;line-height:30px;font-size:16pt;width:300px">
+	 Bạn đang chơi thể thao ở những địa điểm nào? <br/>
+	 Hãy chia sẻ với Teamsport để các thành viên có thể cùng tham gia và<br/> kết nối bạn bè nhé!
+	</div>
+	<div>
+	<form id="place" method="post">
+		<div class="col-md-6" style="margin-top:15px;">
+			<div class="form-group">
+				Chọn sân chơi có sẵn trong list<br/>
+			
+				<select multiple name="placeSelected[]" class="form-control">
+					<option> - Không - </option>
+					{% for place in places %}
+						<option>{{ place.placeName }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="col-md-6" style="margin-top:15px;">
+		<div class="form-group">
+			Hoặc tạo 1 sân chơi mới <br/>
+			<input type="text" name="new_name_place" placeholder="Hãy nhập tên của nơi" class="form-control" /><br />
+			<input type="text" name="new_adress_place" placeholder="Hãy nhập địa chỉ của nơi" class="form-control"/>
+		</div>
+		</div>
+	</form>
+	</div>
+<div style="clear:both"></div>
+		
+		
+		<center>
+			<div style="margin-top:25px">
+			<a class="button-next" href="#" onclick="jQuery('#place').submit();">
+			Save and continue<img src="{{ asset('images/icons/double-arr.png') }}" alt="">
+			</a>
+			</div>
+		</center>
+	</div>
+{% endblock %}

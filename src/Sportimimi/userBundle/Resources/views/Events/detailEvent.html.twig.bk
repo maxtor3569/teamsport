@@ -1,0 +1,84 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/detailTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Sự Kiện {{ event.name }}{% endblock %}
+{% block stylesheets_include %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/dropzone.css') }}">
+
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/dropzone/3.6.2/dropzone.min.js"></script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=143541615830519";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+{% endblock %}
+{% block body %}
+
+<div id="detailEvent" style="padding:50px">
+		
+		{% set check = 0 %}
+		
+		<h1>Event {{ event.name }}</h1>Thể Thao: {% for sport in event.categories %} {{sport.nameVn }} {% endfor %}
+		<div style="margin-top:50px">
+		<div style="float:left">
+		{{ event.profile|length }} Thành Viên tham gia
+		
+		</div>
+		<div id="listMemberTeam">
+			<ul>
+			{% for profile in event.profile %}	
+				<li> <a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }} {{ profile.prenom }}</a></li>
+				{% if user.id is defined %}
+					{% if profile is defined %}
+					{% if user.id == profile.id %}
+						{% set check = 1 %}
+					{% endif %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+			</ul>
+		</div>
+		</div>
+		<div style="clear:both"></div>
+		<div style="margin-top:40px">
+		Hình ảnh
+		<hr />
+		<!--{% if check == 0 %} tham gia đăng ký {% endif %}-->
+		<!-- Event Images -->
+		{% if event.document is defined %}
+		
+			{% for img in event.document %}
+			
+				{% if img.type == 'image' %}
+					{% set url = img.id ~ "." ~ img.url %}
+				{% endif %}
+
+			<div id="imageEvent">
+				<img src="../uploads/img/{{ url }}" />
+			</div>
+		
+			{% endfor %}
+		{% endif %}
+			
+			<div id="dropzone">
+			<form action="{{ path('EventImage') }}"
+			class="dropzone"
+			id="my-awesome-dropzone" style="height:135px">
+				<input name="event_id" type="hidden" value="{{ event.id }}" />
+			</form>
+
+			</div>
+		<!-- End Event Image -->
+	</div>
+	<br />	<br />	
+	<div class="fb-comments" data-href="http://teamsport.vn{{ path(app.request.attributes.get('_route')) }}/{{ event.id }}" data-width="470"></div>
+	<a href="{{ path('ListEvent') }}" style="margin-top:30px">Back to list Event</a>
+
+
+{% endblock %}

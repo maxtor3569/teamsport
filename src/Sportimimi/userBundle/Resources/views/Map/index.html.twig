@@ -1,0 +1,31 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/detailTeam.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}{{'Tìm Sân Chơi'|trans }}{% endblock %}
+{% block stylesheets_include %}
+
+{% endblock %}
+{% block javascripts %}
+	<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=initGoogleMaps"></script>
+
+{% endblock %}
+{% block body %}
+
+{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}	
+ <a href="{{ path('fos_user_security_login') }}" class="btn margin-none">Đăng nhập để có thể check-in, tìm kiếm bạn bè, gửi tin nhắn và sử dụng nhiều tính năng khác</a>
+{% endif %} 
+
+<div id="google-fs" class="maps-google-fs"></div>
+    <h3 id="maps_fs_heading">{{'Tìm Sân Chơi'|trans }}<i class="fa fa-fw fa-map-marker text-muted"></i>
+    </h3>
+    <div class="btn-group" id="maps_fs_buttons">
+        <div class="btn-group">
+            <a href="" data-toggle="" class="btn btn-primary">{{'Sân Chơi'|trans}}</a>
+            
+        </div>
+        <div class="btn-group bg-white">
+            <a href="{{ path('MapCurrentlyPlay') }}" class="btn btn-default" data-toggle="">{{'Người đang chơi'|trans }}</a>
+           
+        </div>
+    </div>
+{% endblock %}

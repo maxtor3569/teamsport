@@ -1,0 +1,157 @@
+#friend-name
+{
+	margin-top:-20px;
+	margin-left:10px;
+	color:white;
+}
+#listFriends {padding:15px}
+#listFriends ul
+{
+	width:100%
+}
+
+#listFriends ul li
+{
+	display: inline-block;
+    list-style: none!important; /* pour enlever les puces sur IE7 */
+
+}
+#ficheProfile {
+	float:left;
+	width:750px;
+	/*border:1px solid grey;*/
+	margin-bottom:50px;
+	
+	/*margin-top:35px*/
+}
+
+#profile_dateNaissance_month {margin-right:10px;}
+#profile_dateNaissance_day {margin-right:10px;}
+#profile_dateNaissance > select {width:63px;}
+#imageProfileSportif {
+	float:left;
+	cursor:pointer;
+	width:140px;
+	height:100px
+}
+#imageProfileSportif:hover {}
+#imageProfileSportif img {
+
+	margin-left: 25px;
+}
+
+#FirstPart {margin-bottom:15px}
+#secondPart {clear:both}
+.titlePart { line-height: 1.2em; font-size: 18px; margin-bottom: 10px; font-weight: bold; color: #5EC28E;padding-top:10px;padding-left:15px;}
+.topPart {background:white;height:40px;border-bottom:1px solid black;margin-bottom:15px}
+.part {margin-bottom:15px}
+
+
+.page_navigation , .alt_page_navigation{
+	padding-bottom: 10px;
+}
+
+.page_navigation a, .alt_page_navigation a{
+	padding:3px 5px;
+	margin:2px;
+	color:white!important;
+	text-decoration:none;
+	float: left;
+	font-family: Tahoma;
+	font-size: 12px;
+	background-color:#00a751;
+	}
+#bloc-right-top {
+
+	background: #D0CFCF;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	margin-bottom: 55px;
+	float:right;
+	position:relative;
+	top:45px;
+	width:234px;
+	height:170px
+
+}
+#bloc-right-top .content {padding:15px}
+
+#sb-player {padding:30px}
+a.button-next{
+	color: white!important;
+	text-transform: uppercase;
+	font-size: 15px;
+	padding: 5px 15px;
+	background-color: #0ca245;
+	border-radius: 3px;
+	text-decoration:none;
+}
+a.button-next img{
+	margin-left: 5px;
+	vertical-align: middle;
+}
+#button-moi:hover { opacity:0.5}
+a.button-next:hover {color:green!important}
+
+.profile-item {
+	clear:both;
+	/*border-bottom:1px solid grey;*/
+	padding-bottom:25px;
+	padding-top:25px;
+	background:white;
+
+}
+.profile-item:hover {
+  background: #eee;
+ /* cursor: pointer;*/
+}
+
+.fast-link:hover { color:#00a650}
+
+/* PROGRESS BAR */
+.container{
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px; 
+    overflow: hidden;
+    display:inline-block;
+    margin:0px 10px 5px 5px;
+    vertical-align:top;
+	position:relative;
+	top:-50px
+}
+
+.progressbar {
+    color: #fff;
+    text-align: right;
+    height: 25px;
+    width: 0;
+    background-color: #00a751; 
+    border-radius: 3px; 
+}
+/* tabs switch detail profile */
+.tabs .tab-link {
+	color: #00A751!important;
+	font-size: 16px;
+	text-align: center;
+	display: block;
+	height: 44px;
+	line-height: 47px;
+	border-width: 2px 1px 1px 0;
+	border-style: solid;
+	border-color: transparent transparent black transparent;
+	font-weight:bold;
+
+}
+.tabs .tab {
+position: relative;
+}
+.tabs {
+clear: both;
+height: 45px;
+font-size: 14px;
+font-weight: bold;
+margin: 16px 0 13px;
+width: 100%;
+}

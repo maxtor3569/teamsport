@@ -1,0 +1,38 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/rechercheProfil.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block title %}Recherche sportif{% endblock %}
+{% block body %}
+
+	
+    <h2>Recherche d'un Profil</h2>
+	<form action="" method="post" {{ form_enctype(form) }}>
+	{# form_widget(form.search) #}
+	 <div class="input-control select">{{ form_widget(form.category) }} </div>
+	 <div class="input-control select"><span style="float:left">Date de Naissance :</span> {{ form_widget(form.dateNaissance) }} </div> 
+	<div class="input-control select">{{ form_widget(form.sexe) }}</div>
+	<div class="input-control select">{{ form_widget(form.country) }}</div>
+	{{ form_widget(form) }}
+
+    <center><input type="submit" value="Recherche du profile" /></center>
+	</form>
+	
+	<table id="listProfile">
+	<tr> 
+		<th>Profils</th>
+		<th>Pays</th>
+		<th>Sport</th>
+		<th>Date De Naissance</th>
+	</tr>
+	{% for prof in profile %}
+		<tr>
+			<td><a href="{{ path('DetailProfile', {'id': prof.id}) }}">{{ prof.nom }}</a></td>
+			<td>{{ prof.country.name }}</td>
+			<td>{{ prof.category.nom }}</td>
+			<td>{{ prof.dateNaissance|date('d-m-Y')  }}</td>
+		</tr>
+	{% else %}
+		<tr><td>Aucun sportif n'a été trouvée.</tr></td>
+	{% endfor %}
+	
+	</table>
+{% endblock %}

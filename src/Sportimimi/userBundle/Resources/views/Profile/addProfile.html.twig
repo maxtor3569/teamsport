@@ -1,0 +1,151 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/addProfile.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block stylesheets_include %}
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('assets/components/common/forms/elements/fuelux-checkbox/fuelux-checkbox.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
+    <script src="{{ asset('assets/components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
+    <script src="{{ asset('js/form-validator-register.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
+
+{% endblock %} 
+
+{% block title %}{{ 'Đăng ký'|trans }}{% endblock %}
+{% block body %}
+    <h3>{{ 'Đăng ký'|trans }}</h3>
+    <div class="innerLR">
+        <!-- Form -->
+        <form class="form-horizontal margin-none" id="validateSubmitForm" method="post" 
+              autocomplete="off" {{ form_enctype(form) }}>
+            <!-- Widget -->
+            <div class="widget">
+               
+                <div class="widget-body innerAll inner-2x">
+                    <!-- Row -->
+                    <div class="row innerLR">
+                        <!-- Column -->
+                        <div class="col-md-4">
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.prenom) }}
+                                <div class="col-md-8">
+                                   {{ form_widget(form.prenom) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.nom) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.nom) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.country) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.country) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                             <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.sports) }} 
+                                <div class="col-md-8">
+                                    {{ form_widget(form.sports) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                              <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.dateNaissance) }} 
+                                <div class="col-md-8">
+                                    {{ form_widget(form.dateNaissance) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                        </div>
+                        <!-- // Column END -->
+                        <!-- Column -->
+                        <div class="col-md-8">
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.password) }}
+                                <div class="col-md-8">
+                                   {{ form_widget(form.password) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="password">Xác nhận mật khẩu</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" id="confirm_password"
+                                           name="confirm_password" type="password" placeholder="Xác nhận mật khẩu"/>
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.email) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.email) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.phone) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.phone) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                            <!-- Group -->
+                            <div class="form-group">
+                                {{ form_label(form.sexe) }}
+                                <div class="col-md-8">
+                                    {{ form_widget(form.sexe) }}
+                                </div>
+                            </div>
+                            <!-- // Group END -->
+                        </div>
+                        <!-- // Column END -->
+                    </div>
+                    <!-- // Row END -->
+                    <!-- Row -->
+                    <div class="bg-gray innerAll inner-2x">
+                        <div class="row">
+                            <!-- Column -->
+                            <div class="col-md-8">
+                               
+                                <div class="checkbox">
+                                    <label class="checkbox-custom" for="agree">
+                                        <i class="fa fa-fw fa-square-o"></i>
+                                        <input type="checkbox" class="checkbox" id="agree" name="agree" />Tôi đã đọc và đồng ý về Chính sách bảo mật và Điều khoản sử dụng
+                                    </label>
+                                </div>
+                               
+                            </div>
+                            <!-- // Column END -->
+                            
+                        </div>
+                        <!-- // Row END -->
+                    </div>
+                    <div class="separator"></div>
+                    <!-- Form actions -->
+                    <div class="form-actions" style="text-align:center">
+                        {{ form_widget(form) }}
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i> Đăng ký</button>                  
+                    </div>
+                    <!-- // Form actions END -->
+                </div>
+            </div>
+            <!-- // Widget END -->
+        </form>
+        <!-- // Form END -->
+    </div>
+{% endblock %}

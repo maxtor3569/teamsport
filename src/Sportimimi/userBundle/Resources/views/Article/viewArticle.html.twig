@@ -1,0 +1,23 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/createAricle.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+	<link href="{{ asset('css/event.css') }}" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('chosen-master/public/chosen.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+
+	<script src="{{ asset('chosen-master/public/chosen.jquery.min.js') }}"></script> 
+	<script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+	<script type="text/javascript">
+	CKEDITOR.replace( 'ArticleType_content' );
+</script>
+{% endblock %} 
+
+{% block title %}Tạo Bài Viết{% endblock %}
+{% block body %}
+	<div id="view-article" style="padding:25px">
+	{{ article.name }}
+	{{ article.content|raw }}
+	</div>
+{% endblock %}

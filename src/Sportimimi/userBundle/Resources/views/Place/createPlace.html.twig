@@ -1,0 +1,70 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/rechercheProfil.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Tạo sân chơi mới{% endblock %}
+{% block stylesheets_include %}
+
+{% endblock %}
+{% block javascripts %}
+
+	<script>
+
+	$('#searchPlace_placeName').autocomplete({
+		source: function( request, response ) {
+		
+			$.ajax({
+				url : '{{ asset('getPlace.php') }}',
+				data: {term: request.term},
+				dataType: "json",
+				success: function( data ) {
+					response( $.map( data.myData, function( item ) {
+						return {
+							label: item.name,
+							value: item.name
+						}
+					}));
+				}
+			});
+		},
+	   messages: {
+        noResults: '',
+        results: function() {}
+    }
+    });
+	function verify() {
+	var error = 0;
+		if (jQuery('#placeName').val() == '')
+		{
+			
+			jQuery('#placeName').css('border','1px solid red');
+			error++;
+		}
+		if (jQuery('#addressName').val()== '')
+		{
+			jQuery('#addressName').css('border','1px solid red');
+			error++;
+		}
+		if (error > 0)
+			return false;
+		else
+			jQuery('#place').submit();
+	}
+</script>
+
+{% endblock %} 
+{% block body %}
+    <div class="widget widget-heading-simple widget-body-white">
+    <div class="widget-body">
+    <h2>Tạo sân chơi mới</h2>
+    <div style="margin-top:15px">
+                    <form id="place" method="post">
+        <div class="form-group">              
+            <input id="placeName" type="text" name="new_name_place" placeholder="Nhập tên của sân chơi" class="form-control"/><br />
+        </div>            
+        <input id="addressName" type="text" name="new_adress_place" placeholder="Nhập địa chỉ" class="form-control"/> <br />
+        <button class="btn btn-primary" onclick="verify();return false;">Tạo</button>
+                    </form>
+            </div>
+    </div>
+    </div>
+{% endblock %}

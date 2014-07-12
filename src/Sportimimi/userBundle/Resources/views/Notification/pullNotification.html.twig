@@ -1,0 +1,15 @@
+{%for notification in notifications %}
+<li class="media">
+   <!--
+      <a class="pull-left" href="#">
+          <img class="media-object thumb" src="../assets/images/people/100/15.jpg"
+               alt="50x50" width="50" />
+      </a>
+      -->
+   <div class="media-body">
+      <span class="label label-default pull-right">{{ notification.Diff }}</span>
+      <h5 class="media-heading"></h5>
+      <p class="margin-none">{{ notification.message | raw }}</p>
+   </div>
+</li>
+{% endfor %}

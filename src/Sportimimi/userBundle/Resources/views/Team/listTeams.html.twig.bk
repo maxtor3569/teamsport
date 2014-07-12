@@ -1,0 +1,110 @@
+{# src/Sportimimi/userBundle/Resources/views/Team/listTeams.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block title %}{{ 'Tìm Đội'|trans }}{% endblock %}
+
+{% block stylesheets_include %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/team.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('chosen-master/public/chosen.css') }}">
+	
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+	<script src="{{ asset('chosen-master/public/chosen.jquery.min.js') }}"></script> 
+	<script>
+		$(function() {
+		  $("#searchTeam_category").chosen({no_results_text: "No results matched"});
+	   });
+	</script>
+{% endblock %} 
+
+{% block body %}
+	<div class="searchBox">
+		<h2>{{ 'Tìm Đội'|trans }}</h2>
+		
+		<form action="" method="post" {{ form_enctype(form) }}>
+		{# form_widget(form.search) #}
+			<div class="inline">
+				{{ form_widget(form.category) }}
+	
+			<input type="submit" value="Tìm" style="margin:20px;background:#00a751"/>
+			</div>
+			{{ form_widget(form) }}
+
+		</form>
+		<a href="{{ path('CreateTeam') }}"><button class="standart" style="background:#00a751;color:white;">Tạo Đội</button> </a>
+	</div>
+	<div id="listTeam">
+	<div style="margin-top:10px"><b>Tìm thấy <span style="color:green">{{ teams|length }}</span> Đội</b></div>
+
+		{% for team in teams %}
+		<div class="team-item" onclick="window.location.href= '{{ path('ViewTeam', {'name':team.alias }) }}'">
+			<a href="{{ path('ViewTeam', {'name':team.alias }) }}" style="color:#00a64e;font-size:17pt">{{ team.name }}</a>
+			
+			<div style="float:right">
+			<h3>{{'Thành Viên'|trans}}</h3>
+				{% for profile in team.profile %}
+					{% if profile.nom == user.nom %} 
+						
+						<span style="color:green"> Tôi</span> <br />
+						
+					{% else %}
+		
+					{{ profile.prenom }} {{ profile.nom }} <br />					
+					{% endif %}
+					
+				{% endfor %}
+			</div>	
+			
+			<div>{% if app.request.locale == 'vi' %}{{ team.category.nameVn }}{% else %}{{ team.category.nom }}{% endif %}</div>
+			
+		</div>
+		{% else %}
+			
+		{% endfor %}
+	
+	<div id="ladder" style="margin:20px;height:200px">
+	<div style="border:1px solid black;width:200px;height:200px;float:left;background:white">
+		<div style="background:#00a751;color:white;height:30px;text-align:center;padding-top:6px"><h3>Xếp hạng Bóng Đá</h3></div>
+		{% set i = 1 %}
+		{% for team in teams|sort('victory')|reverse if team.category.id == 1 %}
+			<span style="border-right:1px solid grey">{{ i }}</span> <a href="{{ path('ViewTeam', {'name':team.alias }) }}">{{team.name }}</a> Chiến thắng: {{team.victory }} <br />
+			{% set i = i+1%}
+		{% endfor %}
+
+	</div>
+	
+	<div style="border:1px solid black;width:200px;height:200px;float:left;margin-left:50px;background:white">
+		<div style="background:#00a751;color:white;height:30px;text-align:center;padding-top:6px"><h3>Xếp hạng Bóng Rổ</h3></div>
+		
+		{% for team in teams|sort('victory')|reverse if team.category.id == 5 %}
+			<a href="{{ path('ViewTeam', {'name':team.alias }) }}">{{team.name }}</a> Chiến thắng: {{team.victory }} <br />
+		
+		{% endfor %}
+
+	</div>
+	<!--
+	<div style="border:1px solid black;width:200px;height:200px;float:left;margin-left:50px;background:white">
+		<div style="background:#00a751;color:white;height:30px;text-align:center;padding-top:6px;"><h3>Xếp hạng Cầu lông</h3></div>
+		
+		{% for team in teams|sort('victory')|reverse if team.category.id == 2 %}
+			<a href="{{ path('ViewTeam', {'name':team.alias }) }}">{{team.name }}</a> Chiến thắng: {{team.victory }} <br />
+		
+		{% endfor %}
+
+	</div>
+	-->
+	<div style="border:1px solid black;width:200px;height:200px;float:left;margin-left:50px;background:white">
+		<div style="background:#00a751;color:white;height:30px;text-align:center;padding-top:6px"><h3>Xếp hạng Bóng chuyền</h3></div>
+		
+		{% for team in teams|sort('victory')|reverse if team.category.id == 3 %}
+			<a href="{{ path('ViewTeam', {'name':team.alias }) }}">{{team.name }}</a> Chiến thắng: {{team.victory }} <br />
+		
+		{% endfor %}
+
+	</div>
+	</div>
+	</div>
+{% endblock %}

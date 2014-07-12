@@ -1,0 +1,162 @@
+{# src/Sportimini/userBundle/Resources/views/Page/about.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block stylesheets_include %}
+    <style>
+        .message {cursor:pointer}
+        
+    </style>
+{% endblock %}
+{% block javascripts %}
+    <script>
+    $(document).ready(function(){
+      $('#filter_message').on('input', function() {
+        $('.messageContent').parents('li').hide() // hide all the selected elements
+                .filter(':contains("' + $('#filter_message').val()  + '")')
+                .show(); // show the filtered elements
+      }); 
+    }); 
+    $(".message").click(function(){
+        var id_message = jQuery(this).attr('data-id');
+        jQuery('#answerMessage').attr('data-idMessage',id_message);
+        jQuery(this).attr('class','border-bottom bg-primary active');
+         $.ajax({
+            type: "POST",
+            data: {
+                id:id_message
+            },
+            dataType: 'html',
+            //url: "ajax/loadNews.php",
+            url: Routing.generate('LoadReply'),
+            cache: false,
+            success: function(data) {
+                jQuery('#replyBlock').html(data);
+            }
+        });
+    });
+    $('#answerMessage').live("keyup",function(e) 
+    {
+        if (event.keyCode == 13){
+             var contentPosted = jQuery(this).val();
+             var idMessage =jQuery(this).attr('data-idMessage');
+             $.ajax({
+                type: "POST",
+                data: {message_content: contentPosted, id: idMessage},
+                dataType: 'text',
+                url: "{{ path('ReplyMessage') }}",
+                cache: false,
+                success: function(data) {
+                    $('#answerMessage').val('');
+                    window.location.reload();
+                }
+            });
+        }
+    });
+</script>
+  
+{% endblock %}
+{% block title %}{{'Tin nhắn'|trans }}{% endblock %}
+
+{% block body %}
+<div class="innerAll">
+        <!-- Widget -->
+        <div class="widget widget-messages widget-heading-simple widget-body-white">
+            <div class="widget-body padding-none margin-none">
+                <div class="row row-merge borders">
+                    <div class="col-md-3 listWrapper">
+                        <div class="innerAll">
+                            <form autocomplete="off" class="form-inline margin-none">
+                                <div class="input-group input-group-sm">
+                                    <input id="filter_message" type="text" class="form-control" placeholder="Find messages .." />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-primary btn-xs pull-right"><i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="bg-gray text-center strong border-top innerAll half">{{ messages|length }} {{'Tin nhắn'|trans }} <i class="fa fa-circle-arrow-down"></i>
+                        </div>
+                       
+                        <ul class="list-unstyled">
+                           {% for message in messages %}
+                            <li class="border-bottom message" data-id="{{ message.id }}">
+                                <div class="media innerAll">
+                                    <div class="media-object pull-left hidden-phone">
+                                        {% set profilePrint = message.profile_send %}
+                                        {% if message.profile_send == user %}
+                                            {% set profilePrint = message.profile_recieve %}
+                                        {% endif %}
+                                             
+                                        {% if profilePrint.document is defined %}
+
+                                            {% for img in profilePrint.document %}
+
+                                                {% if img.type == 'image' %}
+                                                        {% set url = img.id ~ "." ~ img.url %}
+                                                {% endif %}
+
+                                                {% else %}
+                                                        {% set url = 'img_profile_default.jpg' %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        <a href="">
+                                            <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="Image" />
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <div>
+                                            <span class="strong">{{ profilePrint.prenom }} {{ profilePrint.nom }}</span>
+                                            <small class="text-italic pull-right label label-default">2 days</small>
+                                        </div>
+                                        <div class="messageContent">{{ message.message_reply|last.content|slice(0, 20) ~ '...' }}</div>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-9 detailsWrapper">
+                        <!-- User -->
+                        <div class="bg-primary">
+                            <div class="media">
+                                 {% if user.document is defined %}
+
+                                            {% for img in user.document %}
+
+                                                {% if img.type == 'image' %}
+                                                        {% set url = img.id ~ "." ~ img.url %}
+                                                {% endif %}
+
+                                                {% else %}
+                                                        {% set url = 'img_profile_default.jpg' %}
+                                            {% endfor %}
+                                    {% endif %}
+                                <a href="" class="pull-left">
+                                    <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" width="65" class="media-object">
+                                </a>
+                                <div class="media-body innerTB innerR">
+                                    <div class="innerT half pull-right">
+                                        
+                                        <a href="{{ path('SendMessage') }}" class="btn btn-default bg-white btn-sm">
+                                            <i class="fa fa-pencil"></i> Tin nhắn mới
+                                        </a>
+                                    </div>
+                                    <h4 href="" class="text-white pull-left innerAll strong display-block margin-none">{{ user.prenom }} {{ user.nom }} </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray innerAll text-center margin-none"><a href="" class="text-muted lead"><i class="icon-time-clock"></i> View Archive</a>
+                        </div>
+                        <div id="type" class="collapse in border-top">
+                            <textarea id="answerMessage" data-idMessage ="" type="text" class="form-control rounded-none border-none" placeholder="Viết tin nhắn..."></textarea>
+                        </div>
+                        
+    <div id="replyBlock" class="widget border-top padding-none margin-none">
+
+                             
+                           
+
+    </div>
+    
+</div>    
+{% endblock %}

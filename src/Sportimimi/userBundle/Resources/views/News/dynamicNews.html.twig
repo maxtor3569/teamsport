@@ -1,0 +1,169 @@
+{% set pager = 5 %}
+{% set url = "" %}
+{% for line in news %}
+<!-- Widget -->
+<div id="news{{ line.id }}" class="widget">
+   <!-- Info -->
+   <div class="bg-primary">
+      <div class="media">
+         {% if line.profile.document is defined %}
+         {% for img in line.profile.document %}
+         {% if img.type == 'image' %}
+         {% set url = img.id ~ "." ~ img.url %}
+         {% endif %}
+         {% else %}
+         {% set url = 'img_profile_default.jpg' %}
+         {% endfor %}
+         {% endif %}
+         <a href="{{ path('DetailProfile',{'id': line.profile.id}) }}" class="pull-left">
+         <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" width="50" class="media-object">
+         </a>
+         <div class="media-body innerTB half">
+            {% if line.profile.id == user.id %}
+            <span class="pull-right innerT innerR text-muted">
+            <i class="icon-circle-delete fa fa-2x" onclick="deleteNews({{line.id}})" style="cursor:pointer"></i>
+            </span>
+            {% endif %}
+            <a href="{{ path('DetailProfile',{'id': line.profile.id}) }}" class="text-white strong display-block">{{ line.profile.nom }} {{ line.profile.prenom }}</a>
+            <span><a href="" class="text-white strong">bài</a> lúc
+            {{ line.dateCreated }} <i class="icon-time-clock"></i>
+            </span>
+         </div>
+      </div>
+   </div>
+   <!-- Content -->
+   {% if line.doingSports == 1 %}
+   <div class="innerAll">
+      <div class="row">
+         <div class="col-md-6" style="width:100%!important">
+            <script>
+               // ADD MARKERS TO THE MAP
+               jQuery(document).ready(function() {
+                   map = new GMaps({
+                       div: '#google{{ line.id }}',
+                       lat: 10.58,
+                       lng: 106.40
+                   });
+                   GMaps.geocode({
+                       address: '{{ line.content }}',
+                       callback: function(results, status) {
+                           if (status == 'OK') {
+                               var latlng = results[0].geometry.location;
+                               map.setCenter(latlng.lat(), latlng.lng());
+                               map.setZoom(11);
+                               map.addMarker({
+                                   lat: latlng.lat(),
+                                   lng: latlng.lng(),
+                                   infoWindow: {
+               //<div id="mapParticipant'+id+'" style="height:100px;width:150px" >'+button+'                                     <br />
+                                       content: '{{line.profile.prenom}} {{line.profile.nom}} <br />{{ line.content }}</div>'
+                                   }
+                               });
+                           }
+                       }
+                   });
+                   // This add participant into the div for the map
+               
+               });
+               
+               
+            </script>
+            <div class="map_canvas" id="google{{ line.id }}" style="height: 180px"></div>
+         </div>
+         <div class="col-md-6" style="width:100%!important">
+            <div class="strong text-inverse innerB half">Đang chơi </div>
+            <div class="media margin-none">
+               <a href="" class="pull-left ">
+               <img src="" data-src="{% if line.sport.classIcons is defined %}{{ line.sport.classIcons }} {% endif %}" class="media-object">
+               </a>
+               <div class="media-body">
+                  <a href="#" class="strong">{{ line.content }}</a>
+                  <!-- <p class="margin-none text-small">
+                     <i class="fa fa-star" style="color:#EB9618;"></i>
+                     <i class="fa fa-star" style="color:#EB9618;"></i>
+                     <i class="fa fa-star" style="color:#EB9618;"></i>
+                     <i class="fa fa-star" style="color:#EB9618;"></i>
+                     <i class="fa fa-star" style="color:#ccc;"></i>
+                     </p>-->
+                  <small class="text-muted ">{{ line.participants|length }} {{ 'người chơi'|trans }}</small>
+               </div>
+               <p class="margin-none innerTB half">
+                  {% for participant in line.participants %}
+                  {% if participant.document is defined %}
+                  {% for img in participant.document %}
+                  {% if img.type == 'image' %}
+                  {% set url = img.id ~ "." ~ img.url %}
+                  {% endif %}
+                  {% else %}
+                  {% set url = 'img_profile_default.jpg' %}
+                  {% endfor %}
+                  {% endif %}
+                  <a href="{{ path('DetailProfile',{'id': participant.id}) }}">
+                  <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" class="pull-left media-object" style="cursor:pointer;"/>
+                  </a>
+                  {% endfor %}
+               </p>
+               {% if user not in line.participants %}
+               <a href="#" class="btn btn-xs btn-inverse" onclick="participate({{ line.id }});">{{ 'Tham gia'|trans }}</a>
+               {% endif %}
+            </div>
+            {% if user in line.participants %}
+            <br />
+            <a href="#" class="btn btn-xs btn-inverse" onclick="noparticipate({{ line.id }})">{{ 'Tôi không còn tham gia'|trans }}</a>  
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   {% else %}
+   <p style="padding:15px;font-weight:bold">
+      {{ line.content }}
+   </p>
+   {% endif %}
+   <!-- //Content -->
+   <a href="#comments-collapse" class="innerAll border-top display-block " data-toggle="collapse"><i class="innerLR fa fa-bars"></i> Bình luận
+   <span class="text-muted">{{ line.comments|length }}+ comments</span>
+   </a>
+   <div class="commentBlock">
+      {% if line.comments|length != 0 %}
+      <!--  Comment -->          
+      {% for comment in line.comments %}
+      <div id ="comment{{comment.id}}"class="media border-top margin-none bg-gray" >
+         {% if comment.profile.document is defined %}
+         {% for img in comment.profile.document %}
+         {% if img.type == 'image' %}
+         {% set url = img.id ~ "." ~ img.url %}
+         {% endif %}
+         {% else %}
+         {% set url = 'img_profile_default.jpg' %}
+         {% endfor %}
+         {% endif %}
+         <a href="{{ path('DetailProfile',{'id': comment.profile.id}) }}" class="pull-left innerAll">
+         <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}"
+            width="50" class="media-object">
+         </a>
+         <div class="media-body innerTB">
+            {% if comment.profile.id == user.id %}
+            <a href="#" data-reactid="{{comment.id}}" class="pull-right innerT innerR text-muted deleteCommentAction">
+            <i class="icon-circle-delete fa fa-2x "></i>
+            </a>
+            {% endif %}      
+            <a href="{{ path('DetailProfile',{'id': comment.profile.id}) }}" class="strong text-inverse">{{ comment.profile.nom }} {{ comment.profile.prenom }}</a> 
+            <small class="text-muted ">đã viết vào ngày </small>
+            <div>{{ comment.content }}</div>
+         </div>
+      </div>
+      {% endfor %}
+      <!--  END Comment -->
+      {% endif %}
+   </div>
+   <div class="input-group comment">
+      <input id="message{{ line.id }}" data-reactid="{{ line.id }}"type="text" class="form-control" placeholder="{{ 'Bình luận...'|trans }}">
+      <div class="input-group-btn">
+         <button type="button" class="btn btn-primary" href="#" onclick="comment({{ line.id }})"><i class="fa fa-comment"></i>
+         </button>
+      </div>
+   </div>
+</div>
+<!-- //End Widget -->
+{% set pager = pager + 1 %}
+{% endfor %}

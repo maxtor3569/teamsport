@@ -1,0 +1,128 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/detailMatch.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+{% block javascripts %}
+	<script src="http://vjs.zencdn.net/4.0/video.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="{{ asset('shadowbox-3.0.3/shadowbox.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/team.css') }}">
+	<script type="text/javascript" src="{{ asset('shadowbox-3.0.3/shadowbox.js') }}"></script>
+	<script>
+	function changeWinner() 
+	{
+		var value=$('#winner').val();
+		$.ajax({
+        type: "POST",
+		data :{ winner : value},
+        url: "{{path('SetWinnerMatch',{'id' : match.id }) }}",
+        cache: false,
+        success: function(data){
+			alert('Winner change ');
+			window.location.reload();
+	
+        }
+		});    
+		
+	}
+	
+	</script>
+
+	
+
+{% endblock %}
+{% block title %}Match{% endblock %}
+
+{% block body %}
+
+	<div style="padding:15px">
+		<div style="position:absolute;left:572px">
+			{% set category = 0 %}
+			{% set i = 1 %}
+				{% for team in match.teams %}
+				 <div id="team{{i}}">
+					 TEAM {{i}} :
+						{% if match.winner == team %}
+							{{ team.name }}
+						{% else %}
+							{{ team.name }}	
+						{% endif %}
+				</div> 
+				<br />
+		
+					{% for profile in team.profile %}
+						<div id="teaminfo{{i}}">
+							{{ profile.nom }}
+						</div>
+						{% for position in profile.positions %}
+							<div id="position{{profile.id}}">Position: {{ position.name }}</div>
+							{% if position.name =='Goal' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#goalPosition').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							{% elseif position.name =='Attacker' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#attackerPosition').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							{% elseif position.name =='Attacker Left' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#attackerLeftPosition').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							
+							{% elseif position.name =='Attacker Right' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#attackerRightPosition').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							
+							
+							{% elseif position.name =='Midfielder' %}
+							<script>
+								$( document ).ready(function() {
+									jQuery('#midfielder').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
+								});
+							</script>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+					{% set category = team.category.id %}
+					{% set i = i + 1 %}
+				{% endfor %}
+		</div>
+		{% if category== 1 %}
+			<div id="bloc_terrain" style="display: block; opacity: 1; height: 480px;">
+				<div id="terrain">
+					<div id="goalPosition"></div>
+					<div id="defenderPosition"></div>
+					<div id="midfielder"></div>			
+					<div id="attackerLeftPosition"></div>
+					<div id="attackerRightPosition"></div>	
+					<div id="attackerPosition"></div>			
+				</div>
+			</div>
+		{% endif %}
+		<div style="float:right;position:absolute;top:218px;left:814px">
+			<span style="color:green">Chiến Thắng : </span>
+		{% set leader = 0 %}
+		{% for team in match.teams %}
+			{% if team.leader.id == user.id   %}
+				{% set leader = 1 %}
+			{% endif %}
+		{% endfor %}
+			{% if leader == 1 %}
+			{% if match.winner.name is defined %} {{ match.winner.name }} {% endif %}
+			<select id="winner">
+				{% for team in match.teams %}
+					<option value="{{team.id }}">{{ team.name }}</option> 
+				{% endfor %}
+			</select>
+			<button onclick="changeWinner()">Đổi chiến thắng</button>
+			{% endif %}
+		</div> 
+	</div>
+{% endblock %}

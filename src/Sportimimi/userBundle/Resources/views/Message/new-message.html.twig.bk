@@ -1,0 +1,12 @@
+{# src/Sportimini/userBundle/Resources/views/Page/about.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Message{% endblock%}
+
+{% block body %}
+<form method="POST" action="{{ currentPath }}">
+    Send To<input type="text" name="profile_recieve" value=""/> <br />
+    Message<input type="text" multiple="true" name="message"/> <br />
+    <input type="submit" value="Send" name="submit"/>
+</form>
+{% endblock %}

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="8f7f4c1ce7a4f933663d10543562b096" resname="About">
+        <source>About</source>
+        <target>/ve-chung-toi</target>
+      </trans-unit>
+      <trans-unit id="70da688b56388514ba94750b23fab5c0" resname="AcceptFriend">
+        <source>AcceptFriend</source>
+        <target>/acceptFriend</target>
+      </trans-unit>
+      <trans-unit id="086ebe32c913d8a428dcfe5e01e990d7" resname="AcceptProfileTeam">
+        <source>AcceptProfileTeam</source>
+        <target>/acceptProfileTeam/{id}</target>
+      </trans-unit>
+      <trans-unit id="879552d209ef6e9ffbca1f4cdb46a7ef" resname="AddEvent">
+        <source>AddEvent</source>
+        <target>/them-tao-su-kien</target>
+      </trans-unit>
+      <trans-unit id="e4eb283ff5045e2fbbc18fe964aaaf7f" resname="AddProfile">
+        <source>AddProfile</source>
+        <target>/dang-ky-ho-so</target>
+      </trans-unit>
+      <trans-unit id="1ab7087a17732c5a7964a43603d6d768" resname="AddProfileToTeam">
+        <source>AddProfileToTeam</source>
+        <target>/addProfileTeam</target>
+      </trans-unit>
+      <trans-unit id="86039b649df56bc9661427ef4fa6621c" resname="CategoryList">
+        <source>CategoryList</source>
+        <target>/category/{id}</target>
+      </trans-unit>
+      <trans-unit id="8563ebf584786aef456e0fa2a8445638" resname="ChallengeTeam">
+        <source>ChallengeTeam</source>
+        <target>/challengeTeam</target>
+      </trans-unit>
+      <trans-unit id="0f1403881614c2ba0e2a5a66697ef619" resname="ChangeNameTeam">
+        <source>ChangeNameTeam</source>
+        <target>/changeName</target>
+      </trans-unit>
+      <trans-unit id="c1113ff5887005e33b960b9454e1eff7" resname="ChangePosition">
+        <source>ChangePosition</source>
+        <target>/changePosition</target>
+      </trans-unit>
+      <trans-unit id="bbaff12800505b22a853e8b7f4eb6a22" resname="Contact">
+        <source>Contact</source>
+        <target>/lien-he</target>
+      </trans-unit>
+      <trans-unit id="fe7a10e05468501812550101cb1ac508" resname="CreateTeam">
+        <source>CreateTeam</source>
+        <target>/createTeam</target>
+      </trans-unit>
+      <trans-unit id="639b2c7c8b36bc6af91987ca6c35eb32" resname="DeleteProfile">
+        <source>DeleteProfile</source>
+        <target>/listProfile/delete/{id}</target>
+      </trans-unit>
+      <trans-unit id="01f291e646e36dd2c794fdaab4726d74" resname="DeleteTeam">
+        <source>DeleteTeam</source>
+        <target>/deleteTeam</target>
+      </trans-unit>
+      <trans-unit id="e8c3e68f0a1b0c70bbcc406d093fc96b" resname="DetailEvent">
+        <source>DetailEvent</source>
+        <target>/su-kien/{id}</target>
+      </trans-unit>
+      <trans-unit id="99a018b8b297b52cc9821ca9a170372a" resname="DetailMatch">
+        <source>DetailMatch</source>
+        <target>/tran-dau/{id}</target>
+      </trans-unit>
+      <trans-unit id="b6ad03b2b540c5ff4d520bb0059d825c" resname="DetailProfile">
+        <source>DetailProfile</source>
+        <target>/ho-so-cua-toi</target>
+      </trans-unit>
+      <trans-unit id="bea4c2c8eb82d05891ddd71584881b56" resname="Feedback">
+        <source>Feedback</source>
+        <target>/feedback</target>
+      </trans-unit>
+      <trans-unit id="6704ed2b9995917080148522512f8d76" resname="ImageProfile">
+        <source>ImageProfile</source>
+        <target>/imageProfile</target>
+      </trans-unit>
+      <trans-unit id="88344c01746229e1aee280fd00739273" resname="InviteFriend">
+        <source>InviteFriend</source>
+        <target>/addFriend</target>
+      </trans-unit>
+      <trans-unit id="b22c0378425735c6d24dcb5142863685" resname="InviteMeToTeam">
+        <source>InviteMeToTeam</source>
+        <target>/inviteMe</target>
+      </trans-unit>
+      <trans-unit id="3ab926ac6ccc6c7fe3955947a8e2fd51" resname="ListEvent">
+        <source>ListEvent</source>
+        <target>/tim-su-kien</target>
+      </trans-unit>
+      <trans-unit id="c528380e577a6feb5db1fee97449bd6f" resname="ListProfile">
+        <source>ListProfile</source>
+        <target>/tim-nguoi-choi</target>
+      </trans-unit>
+      <trans-unit id="46048b0b3bdf2381ab685c902984c944" resname="ListTeam">
+        <source>ListTeam</source>
+        <target>/tim-doi</target>
+      </trans-unit>
+      <trans-unit id="c86a78c95bd15e12030a9d4d3011c3b2" resname="NotificationViewed">
+        <source>NotificationViewed</source>
+        <target>/notificationsViewed</target>
+      </trans-unit>
+      <trans-unit id="d08f6a6bec862b5585d9f38e107d94e8" resname="PhotoProfile">
+        <source>PhotoProfile</source>
+        <target>/photoProfile</target>
+      </trans-unit>
+      <trans-unit id="cd0074e67cfc29152158048ef20cc984" resname="RechercheProfile">
+        <source>RechercheProfile</source>
+        <target>/searchProfile</target>
+      </trans-unit>
+      <trans-unit id="2955a0599480621f6d1329ce6bd7122a" resname="RegistrationComplete">
+        <source>RegistrationComplete</source>
+        <target>/dang-ky-thanh-cong</target>
+      </trans-unit>
+      <trans-unit id="bc3b3d992063b1f83f3da69740151f26" resname="RemoveFriend">
+        <source>RemoveFriend</source>
+        <target>/removeFriend/{id}</target>
+      </trans-unit>
+      <trans-unit id="98546ef233382fd5aef28a58b368438b" resname="RemoveProfileToTeam">
+        <source>RemoveProfileToTeam</source>
+        <target>/removeProfileTeam</target>
+      </trans-unit>
+      <trans-unit id="b4c04fc31a6457bb29a6b9f87c0b5c97" resname="SetWinnerMatch">
+        <source>SetWinnerMatch</source>
+        <target>/set-winner/{id}</target>
+      </trans-unit>
+      <trans-unit id="3f9b6d806b9d4572fde0e84b058e8b3f" resname="SkillsSheet">
+        <source>SkillsSheet</source>
+        <target>/bang-ky-nang</target>
+      </trans-unit>
+      <trans-unit id="7ce8938c1c07fca1e0b7739f8e6b09e4" resname="SwitchLanguage">
+        <source>SwitchLanguage</source>
+        <target>/switchLanguage</target>
+      </trans-unit>
+      <trans-unit id="31f6f53e0411c45138ad77be13a5fb82" resname="UpdateProfile">
+        <source>UpdateProfile</source>
+        <target>/cap-nhat-ho-so</target>
+      </trans-unit>
+      <trans-unit id="52736389ad41dc65b046688269dca9db" resname="ViewTeam">
+        <source>ViewTeam</source>
+        <target>/detailTeam/{name}</target>
+      </trans-unit>
+      <trans-unit id="bfafd813d7ea65ee4db1f09d7c8ffbf4" resname="console">
+        <source>console</source>
+        <target>/console/</target>
+      </trans-unit>
+      <trans-unit id="707c9ac9369ec47ddf45539483339f4b" resname="console_exec">
+        <source>console_exec</source>
+        <target>/console.{_format}</target>
+      </trans-unit>
+      <trans-unit id="e6dc44f597cb6840a4f0a2d72c9c5b7b" resname="fos_user_change_password">
+        <source>fos_user_change_password</source>
+        <target>/profile/change-password</target>
+      </trans-unit>
+      <trans-unit id="076309e5ed9835a99f3bb60ec14eed9d" resname="fos_user_group_delete">
+        <source>fos_user_group_delete</source>
+        <target>/group/{groupname}/delete</target>
+      </trans-unit>
+      <trans-unit id="64e54a5f44f838cf12d00b2f099dc0a3" resname="fos_user_group_edit">
+        <source>fos_user_group_edit</source>
+        <target>/group/{groupname}/edit</target>
+      </trans-unit>
+      <trans-unit id="b4d10a357f28ba349506e08d61633122" resname="fos_user_group_list">
+        <source>fos_user_group_list</source>
+        <target>/group/list</target>
+      </trans-unit>
+      <trans-unit id="9df968ee392d5131d3a4bd8a54c25a86" resname="fos_user_group_new">
+        <source>fos_user_group_new</source>
+        <target>/group/new</target>
+      </trans-unit>
+      <trans-unit id="8090bd2dc98fcc95266c35f8294595de" resname="fos_user_group_show">
+        <source>fos_user_group_show</source>
+        <target>/group/{groupname}</target>
+      </trans-unit>
+      <trans-unit id="0cb30a592a4b65ebe8e7784cfcc93393" resname="fos_user_profile_edit">
+        <source>fos_user_profile_edit</source>
+        <target>/profile/edit</target>
+      </trans-unit>
+      <trans-unit id="7e461acb2aa955d0f1b4b826b1bf4da8" resname="fos_user_profile_show">
+        <source>fos_user_profile_show</source>
+        <target>/profile/</target>
+      </trans-unit>
+      <trans-unit id="8f8a45208224f02035b8fbb1f9f8cccf" resname="fos_user_registration_check_email">
+        <source>fos_user_registration_check_email</source>
+        <target>/inscription/check-email</target>
+      </trans-unit>
+      <trans-unit id="8b01e452c0659f7e4c1a8c08b474a360" resname="fos_user_registration_confirm">
+        <source>fos_user_registration_confirm</source>
+        <target>/inscription/confirm/{token}</target>
+      </trans-unit>
+      <trans-unit id="7e7c7abb985a6bcd77c36d37ca158813" resname="fos_user_registration_confirmed">
+        <source>fos_user_registration_confirmed</source>
+        <target>/inscription/confirmed</target>
+      </trans-unit>
+      <trans-unit id="f12c0235b5259e65efbf82c067d0ac07" resname="fos_user_registration_register">
+        <source>fos_user_registration_register</source>
+        <target>/inscription/</target>
+      </trans-unit>
+      <trans-unit id="85b0ffb30e53e086f29d20a3a619be6d" resname="fos_user_resetting_check_email">
+        <source>fos_user_resetting_check_email</source>
+        <target>/resetting/check-email</target>
+      </trans-unit>
+      <trans-unit id="04c0d749d14f6a38876b0b3144c8fc9a" resname="fos_user_resetting_request">
+        <source>fos_user_resetting_request</source>
+        <target>/resetting/request</target>
+      </trans-unit>
+      <trans-unit id="8213277017b4ebc45beb1877a8b5c4c8" resname="fos_user_resetting_reset">
+        <source>fos_user_resetting_reset</source>
+        <target>/resetting/reset/{token}</target>
+      </trans-unit>
+      <trans-unit id="739f06a9c1d724320d9ea035572e2537" resname="fos_user_resetting_send_email">
+        <source>fos_user_resetting_send_email</source>
+        <target>/resetting/send-email</target>
+      </trans-unit>
+      <trans-unit id="cd2c4abbc4e250614d72f2e7e928c5b7" resname="fos_user_security_check">
+        <source>fos_user_security_check</source>
+        <target>/login_check</target>
+      </trans-unit>
+      <trans-unit id="f35b96ae8498bfea6e4f916b40f3ef3e" resname="fos_user_security_login">
+        <source>fos_user_security_login</source>
+        <target>/dang-nhap</target>
+      </trans-unit>
+      <trans-unit id="267c312d8f9065349208190843a42a06" resname="fos_user_security_logout">
+        <source>fos_user_security_logout</source>
+        <target>/logout</target>
+      </trans-unit>
+      <trans-unit id="40b6950727064ac19679e7eacdbc3d4b" resname="sonata_admin_append_form_element">
+        <source>sonata_admin_append_form_element</source>
+        <target>/admin/core/append-form-field-element</target>
+      </trans-unit>
+      <trans-unit id="32a0519e9520705cf380a5722092eeea" resname="sonata_admin_dashboard">
+        <source>sonata_admin_dashboard</source>
+        <target>/admin/dashboard</target>
+      </trans-unit>
+      <trans-unit id="3b93727714e1e8d00d6b2214e18ca94e" resname="sonata_admin_retrieve_form_element">
+        <source>sonata_admin_retrieve_form_element</source>
+        <target>/admin/core/get-form-field-element</target>
+      </trans-unit>
+      <trans-unit id="951d3efa13c3e5c804c2fe8d3fb53471" resname="sonata_admin_set_object_field_value">
+        <source>sonata_admin_set_object_field_value</source>
+        <target>/admin/core/set-object-field-value</target>
+      </trans-unit>
+      <trans-unit id="b2e4ba305563294850b94e414a6ec22a" resname="sonata_admin_short_object_information">
+        <source>sonata_admin_short_object_information</source>
+        <target>/admin/core/get-short-object-description</target>
+      </trans-unit>
+      <trans-unit id="430240e2096dffe3fc1d54b22ebff388" resname="﻿Homepage">
+        <source>﻿Homepage</source>
+        <target>/</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

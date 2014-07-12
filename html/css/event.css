@@ -1,0 +1,23 @@
+#create-event {
+	margin-bottom:20px
+}
+.search-field input {height:30px}
+.select-block
+{
+	border:1px solid black;
+	width:200px;
+	height:200px;
+	margin-right:30px;
+	margin-bottom:20px;
+	cursor:pointer;
+}
+.select-block:hover
+{
+	opacity:0.8
+}
+#EventForm_categories_chzn { 
+width:185px!important;
+margin:0;
+height:32px}
+#listEvent th {text-align:center!important}
+#searchEvents_categories_chzn {margin:0}

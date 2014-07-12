@@ -1,0 +1,667 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/index.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}{{ 'Trang Chủ'|trans }}{% endblock %}
+
+{% block stylesheets_include %}
+
+	<link href="{{ asset('css/index.css') }}" type="text/css" rel="stylesheet" />
+	<link href="{{ asset('jquery-mentions-input-master/jquery.mentionsInput.css') }}" type="text/css" rel="stylesheet" />
+	<link href="//cdn.jsdelivr.net/tipsy/1.0/stylesheets/tipsy.css" type="text/css" rel="stylesheet" />
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<!-- FANCYBOX INTEGRATION -->
+	<link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css" />
+	<link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/fancybox/2.1.5/helpers/jquery.fancybox-thumbs.css" />
+	<link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.css" />
+	<script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/helpers/jquery.fancybox-media.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/helpers/jquery.fancybox-thumbs.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+	<!-- END FANCYBOX INTEGRATION -->
+
+	<script src="//cdn.jsdelivr.net/underscorejs/1.5.2/underscore-min.js"></script>
+	<script type="text/javascript" src="{{ asset('jquery-mentions-input-master/lib/jquery.elastic.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('jquery-mentions-input-master/lib/jquery.events.input.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('jquery-mentions-input-master/jquery.mentionsInput.js') }}"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/tipsy/1.0/javascripts/jquery.tipsy.js"></script>
+
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.jeditable/1.7.3/jquery.jeditable.js"></script>
+	
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}	
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+		<script type="text/javascript" src="{{ asset('js/googleCompletionIndex.js') }}" ></script>
+	{% endif %}
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.5/gmaps.js"></script>
+
+{% endblock %}
+
+
+{% block body %}
+	<!-- This is for hide google maps completion -->
+	<div id="test">
+		<style>
+		.pac-container {left:-600px!important};
+		</style>
+	</div>
+	<!-- End hide google maps completion -->
+	
+	
+	
+	<script>	
+	jQuery(document).ready(function() {
+
+		// EDIT STATUS //
+		 $(".jeditable").editable("{{ path('EditNews') }}", { 
+			  indicator : "<img src='img/indicator.gif'>",
+			  id : $(this).attr('id'),
+			  loadurl   : "",
+			  type      : "textarea",
+			  submit    : "Ok",
+			  cancel    : "{{'Hủy bỏ'|trans}}",
+		  });
+		  
+		$('.jeditable-activate').click(function() {
+			$(this).prev(".jeditable").click();
+			
+		});		
+		
+		jQuery("li").hover(
+			function() { jQuery(this).addClass('active'); },
+			function() { jQuery(this).removeClass('active'); }
+		);
+		
+		$('.tips').tipsy({gravity: 'w'});
+		  $('textarea.mention').mentionsInput({
+			onDataRequest:function (mode, query, callback) {
+				var myquery = 'query='+query;
+			  $.getJSON('{{ asset('getPlaceTag.php') }}', myquery, function(responseData) {
+				responseData = _.filter(responseData, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+
+				callback.call(this, responseData);
+			  });
+			}
+		});
+		// Switch image to play
+		var saveSrc = $('#sportImg').attr('src'); // on sauvegarde le SRC par défaut
+		$('#sportImg').click(function(e) { // on clic sur ton élément
+			jQuery('#statusText').attr('placeholder','Bạn hiện đang chơi thể thao ở đâu? Type @Tên sân');
+			
+			var obj = $(this);
+
+			if (saveSrc != obj.attr('src')) {
+				jQuery('#sportImg').attr('src', saveSrc);
+				jQuery('#statusText').attr('placeholder','Bạn đang chơi thể thao ha?');
+				jQuery('#doSportsInput').val(0);
+				//jQuery('#statusText').attr('id','statusText');
+				jQuery('#infosMore').toggle();
+				jQuery('body').append('<div id="test"><style>.pac-container {left:-600px!important};</style></div>');
+				
+			} else {
+				jQuery('#sportImg').attr('src','{{ asset('images/icons/sport-active-on.png') }}');
+				jQuery('#doSportsInput').val(1);
+				//jQuery('#statusText').attr('id','statusTextCompletionGoogle');
+				
+				//show autocomplete
+				jQuery('#test').remove();
+				jQuery('.pac-container').attr('left','200px!important');
+				jQuery('#infosMore').toggle();
+				
+			}
+			
+			
+		});
+		// FANCY BOX //
+		$(".fancy").fancybox({
+		'padding'       : 0,
+        'autoScale'     : false,
+        'transitionIn'  : 'none',
+        'transitionOut' : 'none',
+        'width'         : 640,
+        'height'        : 385,
+        'type'          : 'inline'
+		});
+		
+		// POST A COMMENT
+		 $('#message').keypress(function(e){
+			if(e.which == 13){//Enter key pressed
+					var contentPosted = $('#message').val();
+					var idNews = $('#message').attr("data-reactid");
+					
+					$.ajax({
+						type: "POST",
+						
+						data :{ content : contentPosted,newsID : idNews },
+						dataType: 'text',
+						url: "{{ path('AddComment') }}",
+						cache: false,
+						success: function(data){
+							$('#message').val('');
+							$('#comments').append('<div id="comment'+data+'" class="comments"><span class="name-content" style="color:#00a751">{%if user.prenom is defined %}{{ user.prenom }} {{ user.nom }}{%endif%}</span> '+contentPosted+'<div onclick="deleteComment('+data+')" class="deleteComment" data-reactid="'+data+'" style="float:right;cursor:pointer"> X </div></div>');
+							
+						}
+					});   
+			}
+		});
+			
+			
+		//SCROLL BOTTOM
+	
+		$(window).scroll(function() {
+		 if  ($(window).scrollTop()+200 >= ($(document).height() - ($(window).height()))){
+			   viewMore();
+		   }
+		});
+	});
+	
+	// POST STATUS
+	function StatusPost()
+	{
+		var statusContent = jQuery('#statusText').val();
+		var doSports = jQuery('#doSportsInput').val();
+		var sport = jQuery('#sportPlay').val();
+		var file_name = jQuery('#file-input').val();
+		$.ajax({
+			type: "POST",
+			
+			data :{ status : statusContent,doingSportPost : doSports,sportPlay:sport,file: file_name },
+			dataType: 'text',
+			url: "{{ path('AddStatus') }}",
+			cache: false,
+			success: function(data){
+				window.location.reload();
+			}
+		});    
+	}
+	
+	//DELETE Comment
+	function deleteComment(id) {
+		var commentIdPass = id;
+		
+		$.ajax({
+			type: "POST",
+			
+			data :{ id_comment : commentIdPass },
+			dataType: 'text',
+			url: "{{ path('DeleteComment') }}",
+			cache: false,
+			success: function(data){
+				jQuery('#comment .deleteComment').remove();
+				jQuery('#comment'+commentIdPass).remove();
+			}
+		});   
+	
+	}
+		
+	// VIEW MORE NEWS
+	var current = 5;
+	var temp;
+	function viewMore()
+	{
+		//This should use Symfony to reload the page easily....... and not ajax include.
+		$.ajax({
+			type: "POST",
+			data :{offset: current  },
+			dataType: 'html',
+			url: "ajax/loadNews.php",
+			//url: "{{ path('LoadMore') }}",
+			cache: false,
+			success: function(data){
+				//window.location.reload();
+				$('.news').append(data);
+				current = current+5;
+				
+			}
+		});    
+		
+	}
+	
+	 //PARTICIPATE
+	function participate(idPass)
+	{
+		$('#participant'+idPass).append('{% if user.prenom is defined %}{{user.prenom }} {{user.nom }} {%endif%}');
+		$.ajax({
+			type: "POST",
+			
+			data :{ id: idPass },
+			dataType: 'text',
+			url: "{{ path('Participate') }}",
+			cache: false,
+			success: function(data){
+				//window.location.reload();
+			}
+		});    
+	}
+	
+	
+	
+	function playSports(sport)
+	{
+		switch(sport)
+		{
+			case "football":
+				jQuery('#statusText').attr('placeholder','Bạn hiện đang chơi Bóng đá ở đâu? Type @Tên sân');
+				jQuery('#sportPlay').val(1);
+				if (jQuery('#imgFoot').attr('src') != '{{ asset("images/icons/soccer-selected.png") }}')
+					jQuery('#imgFoot').attr('src','{{ asset("images/icons/soccer-selected.png") }}');
+				else
+				{
+					jQuery('#imgFoot').attr('src','{{ asset("images/icons/soccer-none-select.png") }}');
+					jQuery('#statusText').attr('placeholder','Bạn tìm người chơi ha?');
+					jQuery('#doSportsInput').val(0);
+				}
+					
+				//unselect
+				jQuery('#imgTennis').attr('src','{{ asset("images/icons/tennis-none-select.png") }}');
+				jQuery('#imgVolley').attr('src','{{ asset("images/icons/volleyball-none-select.png") }}');
+				jQuery('#imgBasket').attr('src','{{ asset("images/icons/basketball-none-select.png") }}');
+				jQuery('#imgBadminton').attr('src','{{ asset("images/icons/badminton-none-select.png") }}');
+				break;
+			case "volley":
+				jQuery('#statusText').attr('placeholder','Bạn hiện đang chơi Bóng Chuyền ở đâu? Type @Tên sân');
+				jQuery('#sportPlay').val(3);
+				if (jQuery('#imgVolley').attr('src') != '{{ asset("images/icons/volleyball-selected.png") }}')
+					jQuery('#imgVolley').attr('src','{{ asset("images/icons/volleyball-selected.png") }}');
+				else
+				{
+					jQuery('#imgVolley').attr('src','{{ asset("images/icons/volleyball-none-select.png") }}');
+					jQuery('#statusText').attr('placeholder','Bạn tìm người chơi ha?');
+					jQuery('#doSportsInput').val(0);
+				}
+					
+				//unselect
+				jQuery('#imgTennis').attr('src','{{ asset("images/icons/tennis-none-select.png") }}');
+				jQuery('#imgFoot').attr('src','{{ asset("images/icons/soccer-none-select.png") }}');
+				jQuery('#imgBasket').attr('src','{{ asset("images/icons/basketball-none-select.png") }}');
+				jQuery('#imgBadminton').attr('src','{{ asset("images/icons/badminton-none-select.png") }}');
+				break;
+			case "basket":
+				jQuery('#statusText').attr('placeholder','Bạn hiện đang chơi Bóng rổ ở đâu? Type @Tên sân');
+				jQuery('#sportPlay').val(5);
+				if (jQuery('#imgBasket').attr('src') != '{{ asset("images/icons/basketball-selected.png") }}')
+					jQuery('#imgBasket').attr('src','{{ asset("images/icons/basketball-selected.png") }}');
+				else
+				{
+					jQuery('#imgBasket').attr('src','{{ asset("images/icons/basketball-none-select.png") }}');
+					jQuery('#statusText').attr('placeholder','Bạn tìm người chơi ha?');
+					jQuery('#doSportsInput').val(0);
+				}	
+				
+				//unselect
+				jQuery('#imgTennis').attr('src','{{ asset("images/icons/tennis-none-select.png") }}');
+				jQuery('#imgFoot').attr('src','{{ asset("images/icons/soccer-none-select.png") }}');
+				jQuery('#imgVolley').attr('src','{{ asset("images/icons/volleyball-none-select.png") }}');
+				jQuery('#imgBadminton').attr('src','{{ asset("images/icons/badminton-none-select.png") }}');
+				break;
+			case "tennis":
+				jQuery('#statusText').attr('placeholder','Bạn hiện đang chơi Tennis ở đâu? Type @Tên sân');
+				jQuery('#sportPlay').val(216);
+				if (jQuery('#imgTennis').attr('src') != '{{ asset("images/icons/tennis-selected.png") }}')
+					jQuery('#imgTennis').attr('src','{{ asset("images/icons/tennis-selected.png") }}');
+				else
+				{
+					jQuery('#imgTennis').attr('src','{{ asset("images/icons/tennis-none-select.png") }}');
+					jQuery('#statusText').attr('placeholder','Bạn tìm người chơi ha?');
+					jQuery('#doSportsInput').val(216);
+				}	
+	
+				//unselect
+				jQuery('#imgFoot').attr('src','{{ asset("images/icons/soccer-none-select.png") }}');
+				jQuery('#imgVolley').attr('src','{{ asset("images/icons/volleyball-none-select.png") }}');
+				jQuery('#imgBasket').attr('src','{{ asset("images/icons/basketball-none-select.png") }}');
+				jQuery('#imgBadminton').attr('src','{{ asset("images/icons/badminton-none-select.png") }}');
+				break;
+			case "badminton":
+				jQuery('#statusText').attr('placeholder','Bạn hiện đang chơi Cầu Lông ở đâu? Type @Tên sân');
+				jQuery('#sportPlay').val(2);
+				if (jQuery('#imgBadminton').attr('src') != '{{ asset("images/icons/badminton-selected.png") }}')
+					jQuery('#imgBadminton').attr('src','{{ asset("images/icons/badminton-selected.png") }}');
+				else
+				{
+					jQuery('#imgBadminton').attr('src','{{ asset("images/icons/badminton-none-select.png") }}');
+					jQuery('#statusText').attr('placeholder','Bạn tìm người chơi ha?');
+					jQuery('#doSportsInput').val(0);
+				}	
+				
+				//unselect
+				jQuery('#imgTennis').attr('src','{{ asset("images/icons/tennis-none-select.png") }}');
+				jQuery('#imgBasket').attr('src','{{ asset("images/icons/basketball-none-select.png") }}');
+				jQuery('#imgFoot').attr('src','{{ asset("images/icons/soccer-none-select.png") }}');
+				jQuery('#imgVolley').attr('src','{{ asset("images/icons/volleyball-none-select.png") }}');
+				break;
+				
+		}	
+		// set news ->Doing sports
+		jQuery('#doSportsInput').val(1);
+		
+	}
+	
+</script>
+ 
+	{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}	
+	<div id="no-connected" style="margin:20px;margin-top:40px">
+		<div id="intro">
+			<div id="slogan"><h1>Bạn tìm người chơi thể thao ?</h1></div>
+			<!-- Bạn yêu thích thể thao? -->
+			<div style="position:relative;left:268px;margin-top:50px">
+				<a href="dang-ky-ho-so"><div id="register-button">{{'Đăng ký'|trans}}</div></a>
+				<a id="fb_button" href="{{ facebook.loginUrl({ redirect_uri: url('FacebookLogin'), scope :'email' }) }}" title="Connect With Facebook">
+				Connect With Facebook</a>
+			</div>
+		</div>
+
+		<div style="margin-top:50px">
+			<div id="infos" style="float:left;width:480px">
+				
+				<div>
+					<img src="{{ asset('images/icons/icon-register-homepage.png') }}" style="float:left;clear:both" />
+					<div style="">
+						<div style="color:#00A650;position:relative;left:20px;font-weight:bold;">Đăng ký</div>
+						<div style="position:relative;left:20px;top:10px;width:415px;text-align:justify">
+							Chỉ cần 5 phút đăng kí là bạn có tài khoản <br/>
+							để sử dụng tất cả các tiện ích miễn phí và hiệu quả.
+						</div>
+					</div>
+				</div>
+			
+				
+				<div>
+					<div style="height:100px;margin-top:15px">
+				
+						<img src="{{ asset('images/icons/icon-team-homepage.png') }}" style="float:left;clear:both"/>
+						<div style="position:relative;top:-7px">
+							<div style="color:#00A650;position:relative;left:20px;font-weight:bold;margin-top:50px">Tìm người chơi và Tạo đội</div>
+							<div style="position:relative;left:20px;top:5px;width:415px;text-align:justify">
+								Không có người để cùng luyện tập thể thao?
+								Hãy đăng ký và bắt đầu tìm kiếm những thành viên
+								thích hợp để cùng chơi.
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+			<div id="infosRight">
+				<div>
+					<img src="{{ asset('images/icons/icon-place-homepage.png') }}" style="float:left;"/>
+					<div style="position:relative;top:-7px">
+						<div style="color:#00A650;position:relative;left:20px;font-weight:bold;">Tìm sân chơi</div>
+						<div style="position:relative;left:20px;text-align:justify;">
+							Bạn băn khoăn không biết trong quận của bạn có những sân chơi nào, và những ai đang chơi tại đó? 
+							Chức năng này sẽ giúp bạn tìm được sân chơi phù hợp nhất.
+						</div>
+					</div>
+				</div>
+				
+				<div>
+					<div>
+						<img src="{{ asset('images/icons/icon-play-homepage.png') }}" style="float:left;"/>
+						<div style="position:relative;top:-7px">
+						<div style="color:#00A650;position:relative;left:20px;font-weight:bold;margin-top:50px">Kết nối và chơi</div>
+						<div style="position:relative;left:20px;top:10px;text-align:justify">
+							Bạn cò thể kết bạn mới, gửi lời mời chơi,
+							thành lập đội, tổ chức sự kiện và rất nhiều tiện ích khác.
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		</div>	
+		
+	<div style="clear:both"></div>
+
+	</div>
+	{% else %}
+	<!------------------------------------------------------ CONNECTED ----------------------------------------------------------------------->
+	{% if user.document is defined %}	
+		{% for img in user.document %}
+		
+			{% if img.type == 'image' %}
+				{% set url = img.id ~ "." ~ img.url %}
+			{% endif %}
+			
+		{% else %}
+			{% set url = 'img_profile_default.jpg' %}
+		{% endfor %}
+	{% endif %}
+	<div class="" style="margin-top:40px">
+	
+	<div class="part-left" style="float:left">
+
+		<!-- FUNCTION SEE PEOPLE ARE CURRENTLY PLAY WHERE.. -->
+		
+		<script>
+		jQuery(document).ready(function() {
+			
+			map = new GMaps({
+			  div: '#currentPlayMap',
+			  lat: 10.58,
+			  lng: 106.40
+			});
+		});
+		</script>
+		<!-- LOAD MARKER FOR THE MAP -->
+		{% for mark in markers %}
+			<script>
+				// ADD MARKERS TO THE MAP
+				jQuery(document).ready(function() {
+					var id = "{{mark.id}}";
+					var button = $('#participantImage'+id).html();
+						GMaps.geocode({
+						  address: '{{ mark.content }}',
+						  callback: function(results, status) {
+							if (status == 'OK') {
+							  var latlng = results[0].geometry.location;
+							  map.setCenter(latlng.lat(), latlng.lng());
+							  map.setZoom(11);
+							  map.addMarker({
+								lat: latlng.lat(),
+								lng: latlng.lng(),
+								infoWindow: { 
+								//<div id="mapParticipant'+id+'" style="height:100px;width:150px" >'+button+' <br />
+								content:'{{mark.profile.prenom}} {{mark.profile.nom}} <br />{{ mark.content }}</div>'
+								}
+							  });
+							}
+						  }
+						});
+					// This add participant into the div for the map
+					
+					  
+				
+				});
+				
+			
+			</script>
+			
+		{% endfor %}
+		<!-- END LOAD MARKER MAP -->
+		
+		<div id="bloc-left">
+			<div style="color:red;font-weight:bold;;height:25px;padding-top:10px;text-align:center">Nơi mà bạn đang chơi</div>
+			<div id="currentPlayMap" style="height:200px"></div>
+		</div>
+		
+		<!-- END BRAND NEW FUNCTION SEE PEOPLE ARE CURRENTLY PLAY WHERE.. -->
+
+		
+		<!-- ADD YOUR PROFILE PHOTO FAST  -->
+		{% if url == 'img_profile_default.jpg' %}
+			<div id="bloc-left" class="fast-complete" style="background:#e1e5ef;padding:20px;width:600px">
+				<div class="closeBlock" onclick="jQuery(this).parent().slideToggle();" style="cursor:pointer">X</div>
+				{% if user.document is defined %}
+			
+					{% for img in user.document %}
+					
+						{% if img.type == 'image' %}
+							{% set url = img.id ~ "." ~ img.url %}
+						{% endif %}
+						
+					{% else %}
+						{% set url = 'img_profile_default.jpg' %}
+					{% endfor %}
+					<a href="{{ path('DetailProfile') }}"><img src="{{'../uploads/img/'~url| imagine_filter('my_thumb_60') }}" style="cursor:pointer;" ></a>
+				{% endif %}
+				
+				<span style="position:relative;top:-35px">{{ user.prenom }} {{ user.nom }} upload a profile picture ! </span>
+				<form action="{{ path('ImageProfile') }}" method="post" enctype="multipart/form-data">
+					<center> 
+					<input id='imageProfile' name='file' type='file'/>
+					<input type="submit" value="Upload">
+					</center>
+				 </form>
+			</div>
+		{% endif %}
+		<!-- END ADD YOUR PROFILE PHOTO FAST  -->
+	
+	
+		<div id="bloc-left">
+			
+			<div class="content" style="padding:20px">
+		
+				{% if user.document is defined %}
+		
+					{% for img in user.document %}
+					
+						{% if img.type == 'image' %}
+							{% set url = img.id ~ "." ~ img.url %}
+						{% endif %}
+						
+					{% else %}
+						{% set url = 'img_profile_default.jpg' %}
+					{% endfor %}
+				{% endif %}
+				<a href="{{ path('DetailProfile') }}"><img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" style="cursor:pointer;" ></a>
+				<div id="container-right-top">
+					<div class="container">
+						<textarea name="statusText" id="statusText" rows="2" cols="40" placeholder="Bạn tìm người chơi ha?" data-base-height="15" class="mention"></textarea>
+						
+					</div>
+					
+					<input type="submit" value="Share" style="background:#00a751;margin-left:10px" onclick="StatusPost();">
+					<!-- Currently play sport (old) 
+					<img id="sportImg" src="{{ asset('images/sport-active.png') }}" style="width:25px;cursor:pointer" class="tips" original-title="Click nếu bạn đang chơi thể thao ở HCM" />
+					-->
+					<input id="doSportsInput" type="hidden" value = 0 />
+					<!-- <input name="file_name" type="file" id="file-input" class="file-input" />-->
+					
+				</div>
+				<!-- PLAY SPORTS? -->
+				
+				<div style="">
+					<div>Bạn đang chơi thể thao ha?</div>
+					<img id = "imgFoot" src="/images/icons/soccer-none-select.png" style="cursor:pointer;width:35px;height:35px;" onclick="playSports('football');">
+					<img id = "imgVolley" src="/images/icons/volleyball-none-select.png" style="cursor:pointer;width:35px;height:35px;" onclick="playSports('volley');">
+					<img id = "imgBadminton" src="/images/icons/badminton-none-select.png" style="cursor:pointer;width:35px;height:35px;" onclick="playSports('badminton');">
+					<img id = "imgBasket" src="/images/icons/basketball-none-select.png" style="cursor:pointer;width:35px;height:35px;" onclick="playSports('basket');">
+					<img id = "imgTennis" src="/images/icons/tennis-none-select.png" style="cursor:pointer;width:35px;height:35px;" onclick="playSports('tennis');">		
+					<input id="sportPlay" type="hidden" />
+					<!--
+					<select id="sportPlay" name="sportPlay" style="float:left;">
+						{% for sport in allSports %}
+						<option value="{{sport.id}}">{{ sport.nameVn }}</option>
+						{% endfor %}
+					</select>
+					-->
+				</div>
+				
+			
+			</div>
+		</div>
+		
+		<!-- include news with {'article': article} -->
+
+		{% include 'SportimimiuserBundle:News:dynamicNews.html.twig' %}
+	
+	<div style="float:right;position:relative;top:-12px">
+		
+		<div id="bloc-right">
+		
+			<div class="content" style="padding:20px">
+				<h2 style="color:#00A751">Những thành viên hiện tại đang tìm người chơi cùng</h2>
+					{% for prof in profileMatch if prof.searchPlayer == 1%}
+						{% for img in prof.document %}
+						
+							{% if img.type == 'image' %}
+								{% set url = img.id ~ "." ~ img.url %}
+							{% endif %}
+							
+						{% else %}
+							{% set url = 'img_profile_default.jpg' %}
+						{% endfor %}
+					
+						<a href="{{ path('DetailProfile',{'id': prof.id}) }}">
+							<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}" style="cursor:pointer;float:left;" >
+							<div>
+								{{ prof.nom}} {{prof.prenom }} 
+							<span style="float:right"> <img src="{{ asset('images/') }}icons/icon-phone.png" style="width:25px;height:25px;float:left"/>
+							
+							{{ prof.phone }}
+							
+							</span>
+							
+							</div>
+						</a>
+						 
+						<br />
+						
+					{% endfor %}
+					{% if user.searchPlayer == 0 %}
+						<center><a href="{{ path('SetSearchPlayer', {'value': 1}) }}"><button style="background:#00a751;color:white;margin-top:15px">Tôi đang tìm kiếm người chơi</button></a></center>
+					{% else %}
+						<center><a href="{{ path('SetSearchPlayer', {'value': 0}) }}"><button style="background:red;color:white;margin-top:15px">Tôi kết thúc tìm kiếm tìm người chơi</button></a></center>
+	
+					{% endif %}
+			</div>
+		</div>
+		<div id="bloc-right">
+			<div class="closeBlock" onclick="jQuery(this).parent().hide();" style="cursor:pointer">X</div>
+			
+			<div class="content" style="padding:20px">
+				{% for sportRandom in randomSport if sportRandom not in user.sports  %}
+					
+						{% if loop.first == true %}
+							<h3 style="color:#00A751">Bạn chơi {{ sportRandom.nameVn}} ?<h3>
+							<a href="{{ path('AddSportProfile') }}?id={{ sportRandom.id }}"><input type="submit" value="Có" style="margin-top:20px;background:#00a751"></a>
+						{% endif %}
+					
+				{% endfor%} 
+				
+			</div>
+		</div>
+		
+		
+		
+		<div id="bloc-right">
+			<div class="content" style="padding:20px">
+				<h3 style="color:#00A751">Những người cùng sở thích thể thao trong cùng quận với bạn<h3>
+				
+				{% for prof in profileMatch|slice(0, 3)%}
+				
+						<span style="color:#029336;margin-left:50px"><a href="{{ path('DetailProfile', {'id': prof.id}) }}">{{ prof.nom }} {{ prof.prenom }}</a> </span><br />
+						<span style="margin-left:50px">TeamSport: {% for sport in prof.sports %}{{sport.nameVn}} {%endfor %} </span>
+						<hr>
+				
+					
+				{% endfor %}
+			</div>
+		</div>
+
+	</div>
+	
+
+	
+	
+	</div>	
+	{% endif %}
+	 
+	
+{% endblock %}
+

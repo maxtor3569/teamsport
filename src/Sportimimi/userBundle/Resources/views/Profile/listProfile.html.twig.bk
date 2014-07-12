@@ -1,0 +1,292 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/rechercheProfil.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Tìm kiếm người chơi{% endblock %}
+{% block stylesheets_include %}
+	<link rel="stylesheet" type="text/css" href="{{ asset('chosen-master/public/chosen.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('chosen-master/public/chosenImage/chosenImage.css') }}">
+	<link href="{{ asset('css/profile.css') }}" rel="stylesheet">
+{% endblock %}
+{% block javascript_top_include %}
+	<script src="{{ asset('chosen-master/public/chosenImage/chosenImage.jquery.js') }}"></script>
+	<script>  
+		$(document).ready(function(){
+			//$("#searchProfile_category").chosen({no_results_text: "No results matched"});
+			//$("body select").msDropDown();
+			$(".chosen").chosenImage({
+			  disable_search_threshold: 10
+			});
+		});
+	  </script>
+ {% endblock %}
+{% block javascripts %}
+
+	<script src="{{ asset('js/rating.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('shadowbox-3.0.3/shadowbox.css') }}">
+	<script type="text/javascript" src="{{ asset('shadowbox-3.0.3/shadowbox.js') }}"></script>
+	<script src="{{ asset('chosen-master/public/chosen.jquery.min.js') }}"></script>
+
+	<script src="//cdn.jsdelivr.net/jquery.pajinate/0.4/jquery.pajinate.min.js"></script>
+	
+	
+  
+  
+	<script type="text/javascript">
+	Shadowbox.init();
+	function addTeam(id) 
+	{
+		var value=$('#dropDownId').val();
+		$.ajax({
+        type: "POST",
+		data :{ idTeam : value,idProfile : id },
+		dataType: 'text',
+        url: "{{ path('AddProfileToTeam') }}",
+        cache: false,
+        success: function(data){
+			alert('This Players was added to your team');
+			window.parent.Shadowbox.close();
+			window.location.reload();
+        }
+		});    
+	}
+	
+	function inviteFriend(id) 
+	{
+
+		$.ajax({
+        type: "POST",
+		
+		data :{ idProfile : id },
+		dataType: 'text',
+        url: "{{ path('InviteFriend') }}",
+        cache: false,
+        success: function(data){
+			alert('Invitation send');
+			window.location.reload();
+        }
+		});    
+	}
+	//Progress
+	
+	function setProgress(progress,id)
+	{           
+		var progressBarWidth =progress*$("#container"+id).width()/ 100;  
+		$("#progressbar"+id).width(progressBarWidth).html(progress + "% ");
+	}
+	
+	$(document).ready(function(){
+		
+		$('#paging_container').pajinate({
+			start_page : 0,
+			items_per_page : 5,
+			num_page_links_to_display : 100,
+		});
+	});	
+	</script>
+	
+{% endblock %} 
+{% block body %}
+	{% set complete = 30 %}
+	{% set url = "" %}
+	<div class="searchBox" >
+		<h3>Danh Sách Các Môn Thể Thao</h3>
+		<div class="innerLR">
+                    
+                </div>
+		<form action="" method="post" {{ form_enctype(form) }}>
+		{# form_widget(form.search) #}
+		                                              
+			<div class="inline">
+					
+					<select name="sports[]" data-placeholder="Chọn Thể Thao" class="chosen" multiple=true style="width:140px!important;border:none;">
+						{% for sport in category %} 
+							<option value="{{sport.id}}" data-img-src="{{ asset('images/icons') }}/{{sport.imgSrc}}">{{ sport.nameVn }}</option>
+					
+						{% endfor %}
+						
+					</select>
+					
+				<!-- 
+				<div class="input-control select">
+					<span style="float:left">Date de Naissance :</span> {{ form_widget(form.dateNaissance) }} 
+				</div> 
+				-->
+				<div class="input-control select">{{ form_widget(form.sexe) }}</div>
+			
+			<div class="input-control select">{{ form_widget(form.country) }}</div>
+			<input type="submit" value="Tìm kiếm hồ sơ" style="margin:20px;background:#00a751"/>
+			</div>
+		
+			{{ form_widget(form) }}
+
+		
+		</form>
+
+	</div>
+	<div id="ficheProfile">
+	<div style="margin-top:10px"><b>Tìm thấy <span style="color:green">{{ numberProfile }}</span> hồ sơ</b></div>
+	<hr>
+	<div id="paging_container">
+	{% for prof in profile %}
+	 <ul class="content">
+	 <li>
+		<div class="profile-item">
+		<!-- Profile Image -->
+				{% if prof.document is defined %}
+			
+					{% for img in prof.document %}
+					
+						{% if img.type == 'image' %}
+							{% set url = img.id ~ "." ~ img.url %}
+						{% endif %}
+						
+					{% else %}
+						{% set url = 'img_profile_default.jpg' %}
+					{% endfor %}
+				{% endif %}
+				<div id="imageProfileSportif">
+						<a href="{{ path('DetailProfile', {'id': prof.id}) }}">
+							<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_80') }}">
+						</a>
+				</div>
+		<!-- End Profile Image -->
+			<div class="infos" style="width:600px">
+				<div class="nameSportif">
+				
+				<span style="color:#00a64e">
+					<a href="{{ path('DetailProfile', {'id': prof.id}) }}">{{ prof.prenom }} {{ prof.nom }}</a>
+				</span>
+				</div>
+				<!--{{ prof.dateNaissance|date('d-m-Y')  }}-->
+					<div id="age" style="margin-left:10px"	>{{ prof.getAge() }} {{ 'tuổi'|trans }}</div>
+				
+				
+				<div>{{ 'Quốc tịch'|trans }} : {%if prof.country.name is defined %}{{ prof.country.name}}{% endif %}</div>
+				
+				<div>{{ 'Thể thao'|trans }} : {% for sport in prof	.sports %}{{ sport.nameVn }}, {%endfor%} </div>
+				
+				<!--<td>
+					{% for level in prof.levels %}
+						{{ level.level}}
+					{% endfor %}
+				</td>
+				<td><div class="rating small" data-role="rating" data-param-rating="4"></div></td>-->
+				<div class="action">
+				{% set check = 0 %}
+				
+					
+					
+					{% set receiveInvit = 0 %}
+					{% for invitation in prof.invitations_receive %}
+						{% if invitation.profile_send.id == user.id %}
+							{% set receiveInvit = 1 %}
+						{% endif %}
+					{% endfor %}
+					
+					{% if receiveInvit != 1 and user not in prof.friends %}
+					<span onclick="inviteFriend({{ prof.id }})" style="cursor:pointer;" class="fast-link">
+						{% if user.id != prof.id %}
+							<img src="{{ asset('images/icons/add_friend.png') }}" title="Kết bạn"  "/> 
+							Kết bạn
+						{% endif %}
+					</span>
+					{% else %}
+						{% if receiveInvit != 1 %}
+							<span style="color:green;">{{ 'Bạn'|trans }}</span> 		
+						{% else %}
+							Cấp phát chính thức mời
+						{% endif %}
+					{% endif %}
+					
+						{%for team in prof.teams %}
+					
+						{% if user.teams is defined %}
+							{% if team in user.teams %}
+								{% set check = 1 %}
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+					{% if check == 0 %}
+						
+						{% if user.teams is defined %}
+						
+							
+							<span onclick="Shadowbox.open({
+							content:    'Select your team: <select id=\'dropDownId\'>{% for team in user.teams %}<option value=\'{{ team.id }}\'> {{ team.name }}</option>{% endfor %}</select><a onclick=\'addTeam({{ prof.id }})\'><button style=\'background:#00A751;color:white;\'>OK</button></a>',
+							player:     'html',
+							title:      'Add Player to my team',
+							height:     250,
+							width:      350
+							});" style="cursor:pointer" class="fast-link">
+								
+								<img src="{{ asset('images/icons/icon-team.png') }}" title="Add this player to my team" style="cursor:pointer"/> Mời tham gia Team
+								
+							</span>
+							{% endif %}
+						
+						
+					{% endif %}
+					
+					{% if is_granted("ROLE_ADMIN") %}
+							<a href="{{ path('DeleteProfile',{'id': prof.id}) }}">Supprimer l'annonce</a>
+					{% endif %}
+					
+				</div>
+				</div>
+				<!-- RANK ICONS -->
+				<div style="float:right;height:25px">
+					{% if prof.id == 27 %}<img src="{{ asset('favicon.ico') }}" style="cursor:pointer;position:relative;top:-87px"/> {% endif %}
+					{% if url != 'img_profile_default.jpg' %}
+						<img src="{{ asset('images/icons/rank-image-upload.png') }}" title="Tôi đã tải lên hình ảnh hồ sơ cá nhân của tôi" style="cursor:pointer;width:35px;height:35px;position:relative;top:-80px"/> 
+						{% set complete = complete +10 %}
+						
+					{% endif%}
+					
+					{% if prof.id == 27 %}
+						<img src="{{ asset('images/icons/rank-foot.png') }}" title="Chuyên gia của bóng đá trên teamsport" style="cursor:pointer;width:35px;height:35px;position:relative;top:-80px"/> 
+						{% set complete = complete +10 %}
+					{% endif%}
+					
+					{% set isLeader = 0 %}
+					
+					{% for team in teams %}
+					
+						{% if team.leader.id == prof.id %}
+							{% set isLeader = 1 %}
+							{% set complete = complete +10 %}
+						{% endif %}
+					{% endfor %}
+					{% if isLeader == 1 %}
+						<img src="{{ asset('images/icons/rank-leader-team.png') }}" title="Tôi là một người Leader" style="cursor:pointer;width:35px;height:35px;position:relative;top:-80px"/> 
+						{% set complete = complete +10 %}
+					{% endif %}
+					<script>
+						$(document).ready(function(){
+							setProgress({{complete}},{{prof.id}});
+						});
+					</script>
+					<!-- PROGRESS BAR --><br/>
+					<div class="container" id="container{{prof.id}}"><div class="progressbar" id="progressbar{{prof.id}}"></div></div>
+				</div>
+				<!-- END RANK ICONS -->
+				
+				
+			</div>
+				
+
+		</li></ul>
+		{% set complete = 30 %}
+	{% else %}
+		
+	{% endfor %}
+	<div class="page_navigation" style="margin-top:20px"></div>
+	</div> <!-- end pager -->
+	
+	
+	<div style="margin-top:10px;clear:both">
+	<img src="{{ asset('favicon.ico') }}" /> TeamSport Recomands <br/>
+	<span style="font-style:italic">Want this logo? contact sales@teamsport.vn / 0903030264</i>
+	
+	</div>
+</div>
+{% endblock %}

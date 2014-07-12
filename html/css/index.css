@@ -1,0 +1,142 @@
+#bloc-right
+{
+	background: #fff;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	font-size: 12px;
+	line-height: 14px;
+	color: #666;
+	font-weight: normal;
+	font-size: 100%;
+	/*float:right;*/
+	/*height:300px;*/
+	width:318px;
+	margin-bottom:15px;
+	
+}
+
+#bloc-left
+{
+	background: #fff;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	-moz-box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 0 rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+	font-size: 12px;
+	line-height: 14px;
+	color: #666;
+	font-weight: normal;
+	font-size: 100%;
+	float:left;
+	width:670px;
+	margin-bottom:15px;
+	clear:both;
+	
+}
+/* FAST LOGIN */
+.topTitle ul > li { display:inline-block;color:white;height:30px;padding:7px;border-right:1px solid black;padding-top:3px}
+.topTitle ul > li:last-child{border-right:none!important;}
+
+.topTitle ul {background:#007437;text-align:center;}
+.active {}
+.topTitle div {padding-top:10px;}
+#fastlogin {
+	background:#01A751;
+	height:300px;
+	width:340px;
+	margin-top:48px;
+	float:right
+}
+#fastlogin .content {padding:25px;padding-top:0px}
+
+#fastlogin input {height:30px;margin-bottom:10px;color:#00AE50;}
+input[type="submit"]:hover{background:#007437!important;color:white!important;}
+#statusText {
+
+	border:none;
+	background:transparant;
+	width:423px
+}
+.container {
+	background: #fdfdfd;
+	vertical-align: middle;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+	padding: 5px 6px 4px;
+	-webkit-box-shadow: 0 0 3px rgba(0,0,0,0.1) inset;
+	-moz-box-shadow: 0 0 3px rgba(0,0,0,0.1) inset;
+	box-shadow: 0 0 3px rgba(0,0,0,0.1) inset;
+	border: 1px solid #c1c1c1;
+	font-size: 13px;
+	line-height: 17px;
+	color: #333;
+	padding: 0;
+	margin: 0;
+	float:left;
+	width:430px;
+	
+}
+#container-right-top
+{
+	width: 600px;
+	position: relative;
+	top: -54px;
+	left: 70px;
+}
+#timerTurnament {
+	height: 50px;
+	padding: 0;
+	padding-top: 15px;
+}
+#fb_button {
+	border: none;
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 1.4;
+	border-radius: 4px;
+	padding: 12px 15px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-transition: 0.25s linear;
+	transition: 0.25s linear;
+	color: white!important;
+	background-color: #5072b1;
+	text-align:center;
+	width:140px;
+	margin-left:15px;
+	top:10px;
+	position:relative;
+	
+	
+}
+.pac-container:after{ content:none !important; }
+#slogan {
+	position:relative;
+	left:200px;
+	color:#01A751;
+	font-size:20px;
+	font-family:"Lato", Helvetica, Arial, sans-serif!important;
+
+}
+#register-button {
+	border: none;
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 1.4;
+	border-radius: 4px;
+	padding: 10px 15px;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-transition: 0.25s linear;
+	transition: 0.25s linear;
+	color: #ffffff;
+	background-color: #2ecc71;
+	text-align:center;
+	width:140px;
+	float:left;
+}
+#infos {
+
+}
+#intro {height:130px}

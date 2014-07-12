@@ -1,0 +1,116 @@
+{# src/Sportimimi/userBundle/Resources/views/Page/rechercheProfil.html.twig #}
+{% extends 'SportimimiuserBundle::layout.html.twig' %}
+
+{% block title %}Danh Sách Các Môn Sự Kiện{% endblock %}
+
+{% block stylesheets_include %}
+	<link href="{{ asset('css/event.css') }}" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="{{ asset('chosen-master/public/chosen.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('chosen-master/public/chosenImage/chosenImage.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('chosen-master/public/chosenImage/chosenImage.jquery.js') }}"></script>
+<script src="{{ asset('chosen-master/public/chosen.jquery.min.js') }}"></script> 
+<script>
+	$(function() {
+	  
+	  $(".chosen").chosenImage({
+			  disable_search_threshold: 10
+			});
+   });
+   function AddEventToProfile(id)
+   {
+		$.ajax({
+        type: "POST",
+		data :{ idEvent : id },
+		dataType: 'text',
+        url: "{{ path('AddProfileToEvent') }}",
+        cache: false,
+        success: function(data){
+	
+			window.location.reload();
+        }
+		});    
+   
+   }
+   
+      function DeleteEventToProfile(id)
+    {
+		$.ajax({
+        type: "POST",
+		data :{ idEvent : id },
+		dataType: 'text',
+        url: "{{ path('DeleteProfileToEvent') }}",
+        cache: false,
+        success: function(data){
+	
+			window.location.reload();
+        }
+		});    
+   
+   }
+  </script>
+{% endblock %}
+{% block body %}
+	<div id="eventList" style="float:left;margin-bottom:25px;">
+	<div class="searchBox">
+    <h2>Danh Sách Các Môn Sự Kiện</h2>
+	<a href="{{ path('AddEvent') }}"><button class="standart" style="background:#00a751;color:white">Tạo Sự Kiện</button> </a>
+	
+	<form action="" method="post">
+		<div class="inline">
+			<select name="sports[]" data-placeholder="Chọn Thể Thao" class="chosen" multiple=true>
+					{% for sport in category %} 
+						<option value="{{sport.id}}" data-img-src="{{ asset('images/icons') }}/{{sport.imgSrc}}">{{ sport.nameVn }}</option>
+				
+					{% endfor %}
+						
+			</select>
+			
+			<input type="submit" value="Tìm kiếm Sự Kiện" style="margin:20px;background:#00a751;color:white"/>
+			
+		</div>
+
+	</div>
+	</form>
+	
+	<div><b>Tìm thấy <span style="color:green">{{ events|length }}</span> Sự Kiện</b></div>
+
+	{% for event in events %}
+		<div class="event" style="background:white;min-height:150px;margin:20px;padding:15px">
+		<div style="float:left;width:150px;height:100px">
+			{{ event.dateEventStart|date("d/m/Y") }}
+			{{ event.timeStart }}
+		</div>
+		<div>
+			<a href="{{ path('DetailEvent', {'id':event.id }) }}">{{ event.name }}</a><br/>
+				
+				{% if event.categories is defined %}
+					{% for category in event.categories %}
+						{{ category.nameVn }} -
+					{% endfor %}
+				{% endif %}
+				<br/>
+				<img src="{{ asset('images/icons/icon-place-homepage.png') }}" style="width:20px;height:20px">{{ event.location }}<br/>
+				<b>{{ event.profile|length }} tham gia :</b>
+				{% for prof in event.profile %}
+					<a href="{{ path('DetailProfile', {'id': prof.id}) }}">{{prof.prenom }} {{ prof.nom }}</a> , 
+				{% endfor %}
+				
+		</div>		
+				{% if user not in event.profile %}
+					<button style="background:#00a751;color:white;float:right" onclick="AddEventToProfile({{event.id}});">{{'Tham gia'|trans}}</button>
+				{% else %}
+					<button style="background:red;color:white;float:right" onclick="DeleteEventToProfile({{event.id}});">{{'Rời khỏi'|trans}}</button>
+				{% endif %}
+		</div>
+	{% else %}
+		
+			Không được tìm thấy sự kiện.
+
+	{% endfor %}
+	
+	
+	</div>
+{% endblock %}
