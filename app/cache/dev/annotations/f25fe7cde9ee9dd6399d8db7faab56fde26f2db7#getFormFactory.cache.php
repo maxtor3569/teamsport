@@ -1,1 +1,0 @@
-<?php return unserialize('a:1:{i:0;O:41:"JMS\\DiExtraBundle\\Annotation\\LookupMethod":3:{s:5:"value";s:12:"form.factory";s:8:"required";N;s:6:"strict";b:1;}}');
