@@ -36,14 +36,10 @@ fos_oauth_server_token:
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
     
-rest : 
+rest:
   type : rest 
   resource : "routing_rest.yml"
   prefix : /api
+
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-
-    
-
-

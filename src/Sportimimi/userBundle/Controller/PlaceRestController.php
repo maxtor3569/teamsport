@@ -10,11 +10,12 @@ use Sportimimi\userBundle\Entity\Profile;
 
 class PlaceRestController extends Controller
 {
- 
-  public function getPlaceAction(){
-	$places = $this->getDoctrine()
-			->getRepository('SportimimiuserBundle:Place')->findAll();
-    
-    return $places;
-  }
- }
+
+    public function getPlaceAction()
+    {
+        $places = $this->getDoctrine()
+            ->getRepository('SportimimiuserBundle:Place')->findAll();
+
+        return $places;
+    }
+}

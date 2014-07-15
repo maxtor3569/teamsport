@@ -31,6 +31,9 @@ DetailProfile:
 DetailProfile:
     path:     /ho-so-cua-toi
     defaults: { _controller: SportimimiuserBundle:Profile:detail }
+generate_api_client:
+    path:     /oauth/authorize
+    defaults: { _controller: SportimimiuserBundle:Profile:createOAuthClient }
 PhotoProfile:
     path:     /photoProfile
     defaults: { _controller: SportimimiuserBundle:Profile:upload }
