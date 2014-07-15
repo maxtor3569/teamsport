@@ -1,7 +1,0 @@
-JMSPaymentCoreBundle:
-    resource: "@JMSPaymentCoreBundle/Resources/config/routing.yml"
-
-TestBundle:
-    resource: "@TestBundle/Controller/"
-    type: annotation
-    

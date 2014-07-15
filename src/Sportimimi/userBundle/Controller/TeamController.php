@@ -25,12 +25,14 @@ use Sportimimi\userBundle\Entity\InvitationTeam;
 use Sportimimi\userBundle\Form\CreateTeamForm;
 use Sportimimi\userBundle\Form\SearchTeam;
 
-class TeamController extends Controller {
+class TeamController extends Controller
+{
 
-    public function createTeamAction() {
+    public function createTeamAction()
+    {
         //User logged on
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         if (count($user->getTeams()) >= 3)
@@ -60,21 +62,21 @@ class TeamController extends Controller {
         }
 
 
-
         return $this->container->get('templating')->renderResponse(
-                        'SportimimiuserBundle:Profile:addTeam.html.twig', array(
-                    'form' => $form->createView(),
-                    'message' => $message,
-                    'user' => $user
+            'SportimimiuserBundle:Profile:addTeam.html.twig', array(
+            'form' => $form->createView(),
+            'message' => $message,
+            'user' => $user
         ));
     }
 
-    public function addPlayerToMyTeamAction() {
+    public function addPlayerToMyTeamAction()
+    {
         $request = $this->container->get('request');
         $em = $this->getDoctrine()->getManager();
         //User logged on
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         if ($request->isXmlHttpRequest()) {
@@ -82,12 +84,12 @@ class TeamController extends Controller {
             //Get the profile selected
             $idProfile = $_POST['idProfile'];
             $repository2 = $this->getDoctrine()
-                    ->getRepository('SportimimiuserBundle:Profile');
+                ->getRepository('SportimimiuserBundle:Profile');
             $ProfileAdd = $repository2->findOneById($idProfile);
             //Get the team
             $idTeam = $_POST['idTeam'];
             $repository = $this->getDoctrine()
-                    ->getRepository('SportimimiuserBundle:Team');
+                ->getRepository('SportimimiuserBundle:Team');
             $team = $repository->findOneById($idTeam);
 
             $team->addProfile($ProfileAdd);
@@ -102,7 +104,6 @@ class TeamController extends Controller {
             $em->persist($notification);
 
 
-
             $em->persist($team);
             $em->persist($ProfileAdd);
             $em->flush();
@@ -111,31 +112,33 @@ class TeamController extends Controller {
         return new Response($return, 200, array('Content-Type' => 'application/json')); //make sure it has the correct content type
     }
 
-    public function detailAction($name = null) {
+    public function detailAction($name = null)
+    {
 
         //User logged on
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $repository = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Team');
+            ->getRepository('SportimimiuserBundle:Team');
 
         $team = $repository->findOneByAlias($name);
         return $this->container->get('templating')->renderResponse(
-                        'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
-                    'team' => $team,
-                    'user' => $user
+            'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
+            'team' => $team,
+            'user' => $user
         ));
     }
 
-    public function deleteTeamAction() {
+    public function deleteTeamAction()
+    {
         $request = $this->container->get('request');
         $em = $this->getDoctrine()->getManager();
 
         //User logged on
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         /* if($request->isXmlHttpRequest())
@@ -144,7 +147,7 @@ class TeamController extends Controller {
         //Get the profile selected
         $idTeam = $_GET['id'];
         $repository = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Team');
+            ->getRepository('SportimimiuserBundle:Team');
         $team = $repository->findOneById($idTeam);
 
         if (!$team) {
@@ -180,21 +183,22 @@ class TeamController extends Controller {
           ); */
     }
 
-    public function challengeTeamAction() {
+    public function challengeTeamAction()
+    {
         //User logged on
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
         $em = $this->getDoctrine()->getManager();
         $request = $this->container->get('request');
         if ($request->isXmlHttpRequest()) {
             //Get the team who receive the challenge
             $repository = $this->getDoctrine()
-                    ->getRepository('SportimimiuserBundle:Team');
+                ->getRepository('SportimimiuserBundle:Team');
             $teamChallenged = $repository->findOneById($_POST['idTeamProfile']);
 
             $repository2 = $this->getDoctrine()
-                    ->getRepository('SportimimiuserBundle:Team');
+                ->getRepository('SportimimiuserBundle:Team');
             $teamChallenge = $repository2->findOneById($_POST['idTeam']);
 
             //get all users from this team
@@ -211,8 +215,7 @@ class TeamController extends Controller {
             $match = new Match();
             $match->addTeam($teamChallenged);
             $match->addTeam($teamChallenge);
-            $teamChallenged->addMatch($match);
-            ;
+            $teamChallenged->addMatch($match);;
             $teamChallenge->addMatch($match);
             $em->persist($match);
             $em->persist($teamChallenged);
@@ -222,16 +225,17 @@ class TeamController extends Controller {
 
 
         return $this->container->get('templating')->renderResponse(
-                        'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
-                    'team' => $teamChallenged,
-                    'user' => $user
+            'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
+            'team' => $teamChallenged,
+            'user' => $user
         ));
     }
 
-    public function listTeamAction(Request $request) {
+    public function listTeamAction(Request $request)
+    {
         //Get current user
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
         $em = $this->getDoctrine()->getManager();
         $teams = $em->getRepository('SportimimiuserBundle:Team')->findAll();
@@ -240,23 +244,24 @@ class TeamController extends Controller {
             $teams = $em->getRepository('SportimimiuserBundle:Team')->findByCategory($_GET['sport']);
 
         return $this->container->get('templating')->renderResponse(
-                        'SportimimiuserBundle:Team:listTeams.html.twig', array(
-                    'user' => $user,
-                    'teams' => $teams,
-                    'categories' => $categories
+            'SportimimiuserBundle:Team:listTeams.html.twig', array(
+            'user' => $user,
+            'teams' => $teams,
+            'categories' => $categories
         ));
     }
 
-    public function removeProfileAction() {
+    public function removeProfileAction()
+    {
         //Get current user
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $idTeam = $_GET['id_team'];
         $idProfile = $_GET['id_profile'];
         $repository = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Team');
+            ->getRepository('SportimimiuserBundle:Team');
         $team = $repository->findOneById($idTeam);
 
         if (!$team) {
@@ -264,7 +269,7 @@ class TeamController extends Controller {
         }
 
         $repository2 = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Profile');
+            ->getRepository('SportimimiuserBundle:Profile');
         $profile = $repository2->findOneById($idProfile);
 
         if (!$profile) {
@@ -278,26 +283,27 @@ class TeamController extends Controller {
         $em->flush();
 
         return $this->container->get('templating')->renderResponse(
-                        'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
-                    'team' => $team,
-                    'user' => $user
+            'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
+            'team' => $team,
+            'user' => $user
         ));
     }
 
-    public function changePositionAction() {
+    public function changePositionAction()
+    {
         //Get current user
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
         $team_id = $_POST['team_id'];
         $profile_id = $_POST['profile_id'];
         $positionName = $_POST['positionName'];
         $repository = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Profile');
+            ->getRepository('SportimimiuserBundle:Profile');
         $profile = $repository->findOneById($profile_id);
 
         $repository2 = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Team');
+            ->getRepository('SportimimiuserBundle:Team');
 
         $team = $repository2->findOneById($team_id);
         $request = $this->container->get('request');
@@ -305,7 +311,7 @@ class TeamController extends Controller {
         // if have ajax
         if ($request->isXmlHttpRequest()) {
             $repository3 = $this->getDoctrine()
-                    ->getRepository('SportimimiuserBundle:Position');
+                ->getRepository('SportimimiuserBundle:Position');
             $position = $repository3->findOneBy(array('profile' => $profile_id, 'team' => $team_id));
             if ($position == null)
                 $position = new Position();
@@ -322,21 +328,22 @@ class TeamController extends Controller {
         }
 
         return $this->container->get('templating')->renderResponse(
-                        'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
-                    'team' => $team,
-                    'user' => $user
+            'SportimimiuserBundle:Profile:detailTeam.html.twig', array(
+            'team' => $team,
+            'user' => $user
         ));
     }
 
-    public function inviteMeToTeamAction() {
+    public function inviteMeToTeamAction()
+    {
         $em = $this->getDoctrine()->getManager();
         //Get current user
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
         $team_id = $_POST['team_id'];
         $repository2 = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Team');
+            ->getRepository('SportimimiuserBundle:Team');
 
         $team = $repository2->findOneById($team_id);
 
@@ -362,15 +369,16 @@ class TeamController extends Controller {
         return new Response($return, 200, array('Content-Type' => 'application/json')); //make sure it has the correct content type
     }
 
-    public function acceptInvitationProfileTeamAction($id = null) {
+    public function acceptInvitationProfileTeamAction($id = null)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $repository2 = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:InvitationTeam');
+            ->getRepository('SportimimiuserBundle:InvitationTeam');
         $invitation = $repository2->findOneById($id);
         $profile = $invitation->getProfile();
         $team = $invitation->getTeam();
@@ -394,7 +402,7 @@ class TeamController extends Controller {
 
         // delete notification of sending..
         $repository3 = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Notification');
+            ->getRepository('SportimimiuserBundle:Notification');
         $notif = $repository3->findOneByInvitation_team($id);
         $em->remove($notif);
 
@@ -407,17 +415,18 @@ class TeamController extends Controller {
         return new RedirectResponse($referer);
     }
 
-    public function changeNameAction() {
+    public function changeNameAction()
+    {
         //var_dump($_POST);
         $id = $_POST['id_team'];
         $name = $_POST['value'];
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $repository2 = $this->getDoctrine()
-                ->getRepository('SportimimiuserBundle:Team');
+            ->getRepository('SportimimiuserBundle:Team');
         $team = $repository2->findOneById($id);
         $team->setName($name);
         $em->persist($team);
