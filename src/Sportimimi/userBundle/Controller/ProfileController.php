@@ -784,25 +784,4 @@ class ProfileController extends Controller {
             */
        }
     }
-
-    public function createOAuthClientAction(Request $request)
-    {
-        $clientManager = $this->get('fos_oauth_server.client_manager.default');
-        $client = $clientManager->createClient(); // we are creating a client for each token
-        // probably we would like to do something like
-//        $client = $clientManager->findClientByPublicId($request->get('client_id');
-        // and all this won't be necessary! ;)
-        $redirect_uri = $this->container->getParameter('api_facebook_server');
-        $client->setRedirectUris(array($redirect_uri, 'http://localhost:8000/app_dev.php'));
-        $client->setAllowedGrantTypes(array('token', 'authorization_code'));
-        $clientManager->updateClient($client);
-
-
-
-        return $this->redirect($this->generateUrl('fos_oauth_server_authorize', array(
-            'client_id'     => $client->getPublicId(),
-            'redirect_uri'  => 'http://localhost:8000/app_dev.php', // $redirect_uri
-            'response_type' => 'token'
-        )));
-    }
 }
