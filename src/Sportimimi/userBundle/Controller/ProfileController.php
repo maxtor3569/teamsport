@@ -213,17 +213,19 @@ class ProfileController extends Controller {
                 $user->setEmail($email);
                 $user->setUsername($email);
                 $user->setPlainPassword($pass);
-                //disable account
-                $user->setEnabled(false);
-                // set Confirmation token
-                $tokenGenerator = new TokenGenerator;
-                $user->setConfirmationToken($tokenGenerator->generateToken());
-                // send Confirmation mail
-                $mailer = new Mailer($this->get('mailer'), $this->get('router'), $this->get('templating'), array('confirmation.template' => 'SportimimiuserBundle:Page:email.txt.twig',
-                    'from_email' => array('confirmation' => 'info@teamsport.vn'))
-                );
-
-                $mailer->sendConfirmationEmailMessage($user);
+                // enable account by default
+                $user->setEnabled(true);
+//                exit;
+//                // set Confirmation token
+//                $tokenGenerator = new TokenGenerator;
+//                $user->setConfirmationToken($tokenGenerator->generateToken());
+//                // send Confirmation mail
+//                $mailer = new Mailer($this->get('mailer'), $this->get('router'), $this->get('templating'), array('confirmation.template' => 'SportimimiuserBundle:Page:email.txt.twig',
+//                    'from_email' => array('confirmation' => 'info@teamsport.vn'))
+//                );
+//
+//                $mailer->sendConfirmationEmailMessage($user);
+                var_dump($user->isEnabled()); exit;
 
                 $user->setProfile($profile);
                 $profile->setUser($user);
@@ -317,7 +319,7 @@ class ProfileController extends Controller {
             //if (!isset($_SESSION['fb']) && $_SESSION['fb']!= 1)
             //return $this->redirect($this->generateUrl('RegistrationComplete'), 301);
             $this->logUser($user->getUser());
-            return $this->redirect('https://teamsport.vn', 301);
+            return $this->redirect($request->getBaseUrl());
         }
         return $this->container->get('templating')->renderResponse(
                         'SportimimiuserBundle:Profile:addProfileStep2.html.twig', array(
@@ -535,7 +537,7 @@ class ProfileController extends Controller {
                 $user->setEmail($userProfile['email']);
                 $user->setUsername($userProfile['email']);
                 $user->setPlainPassword('123456');
-                //disable account
+                //enable account
                 $user->setEnabled(true);
                 /* // set Confirmation token
                   $tokenGenerator = new TokenGenerator;
