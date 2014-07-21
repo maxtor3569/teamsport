@@ -319,7 +319,7 @@ class ProfileController extends Controller {
             //if (!isset($_SESSION['fb']) && $_SESSION['fb']!= 1)
             //return $this->redirect($this->generateUrl('RegistrationComplete'), 301);
             $this->logUser($user->getUser());
-            return $this->redirect($request->getBaseUrl());
+            return $this->redirect($this->generateUrl('homepage', array("locale" => $request->getLocale())));
         }
         return $this->container->get('templating')->renderResponse(
                         'SportimimiuserBundle:Profile:addProfileStep2.html.twig', array(
