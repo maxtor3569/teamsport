@@ -56,7 +56,7 @@ class PageController extends Controller {
                     $user->setUsername($email);
                     $user->setPlainPassword($pass);
                     //disable account
-                    $user->setEnabled(false);
+                    $user->setEnabled(true);
                     // set Confirmation token
                     $tokenGenerator = new TokenGenerator;
                     $user->setConfirmationToken($tokenGenerator->generateToken());
