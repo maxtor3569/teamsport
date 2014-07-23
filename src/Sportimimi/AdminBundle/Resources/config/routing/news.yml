@@ -13,3 +13,7 @@ sportmimi_admin_news_show:
 sportmimi_admin_news_edit:
     pattern: /{id}/edit
     defaults: { _controller: teamsport.admin_controller.news:editAction }
+
+sportmimi_admin_news_delete:
+    pattern: /{id}/delete
+    defaults: { _controller: teamsport.admin_controller.news:deleteAction }

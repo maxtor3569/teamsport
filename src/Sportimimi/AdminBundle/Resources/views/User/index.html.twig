@@ -21,6 +21,7 @@
                         <th>Email</th>
                         <th>First name</th>
                         <th>Last name</th>
+                        <th>Sport</th>
                         <th>Country</th>
                         <th>Actions</th>
                     </tr>
@@ -32,10 +33,12 @@
                         <td>{{ user.email }}</td>
                         <td>{{ user.profile.nom }}</td>
                         <td>{{ user.profile.prenom }}</td>
+                        <td>{{ user.profile.sports | join(', ') }}</td>
                         <td>{{ user.profile.country }}</td>
                         <td class="text-right ">
                             <a class="btn btn-info btn-xs" href="{{ path('sportmimi_admin_user_show', {'id': user.id}) }}"><i class="fa fa-search-plus"></i> </a>
-                            <a class="btn btn-warning btn-xs" href="{{ path('sportmimi_admin_users_edit', {'id': user.id}) }}"><i class="fa fa-pencil"></i> </a>
+                            <a class="btn btn-warning btn-xs" href="{{ path('sportmimi_admin_user_edit', {'id': user.id}) }}"><i class="fa fa-pencil"></i> </a>
+                            <a class="btn btn-danger btn-xs" href="{{ path('sportmimi_admin_user_delete', {'id': user.id}) }}"><i class="fa fa-trash-o"></i> </a>
                         </td>
                     </tr>
                     {% endfor %}

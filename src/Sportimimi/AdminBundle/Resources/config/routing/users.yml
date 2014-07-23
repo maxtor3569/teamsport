@@ -1,4 +1,4 @@
-sportmimi_admin_users_index:
+sportmimi_admin_user_index:
     pattern: /
     defaults: { _controller: teamsport.admin_controller.users:indexAction }
 
@@ -6,6 +6,10 @@ sportmimi_admin_user_show:
     pattern: /{id}/show
     defaults: { _controller: teamsport.admin_controller.users:showAction }
 
-sportmimi_admin_users_edit:
+sportmimi_admin_user_edit:
     pattern: /{id}/edit
     defaults: { _controller: teamsport.admin_controller.users:editAction }
+
+sportmimi_admin_user_delete:
+    pattern: /{id}/delete
+    defaults: { _controller: teamsport.admin_controller.users:deleteAction }

@@ -40,19 +40,19 @@ class Profile {
     protected $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image",mappedBy="profile")
+     * @ORM\OneToMany(targetEntity="Image",mappedBy="profile", orphanRemoval=true)
      * @ORM\JoinColumn(name="document_id", referencedColumnName="id")
      */
     private $document;
 
     /**
-     * @ORM\OneToMany(targetEntity="Notification",mappedBy="profile")
+     * @ORM\OneToMany(targetEntity="Notification",mappedBy="profile", orphanRemoval=true)
      * @ORM\OrderBy({"id" = "DESC"})
      */
     private $notifications;
 
     /**
-     * @ORM\OneToMany(targetEntity="Invitation",mappedBy="profile_send")
+     * @ORM\OneToMany(targetEntity="Invitation",mappedBy="profile_send", orphanRemoval=true)
      */
     private $invitations_send;
 
@@ -125,7 +125,7 @@ class Profile {
 
     /**
      * @ORM\OneToOne(targetEntity="Skills")
-     * @ORM\JoinColumn(name="skills_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="skills_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $skills;
 
