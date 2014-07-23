@@ -1,0 +1,55 @@
+{% extends 'SportimimiAdminBundle::base.html.twig' %}
+
+{% block page_title %}
+    Show API Client: "{{ entity.name }}"
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-info">
+                <header class="panel-heading">API Client info</header>
+                <div class="panel-body">
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ entity.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Client Public ID</th>
+                            <td>{{ entity.publicId }}</td>
+                        </tr>
+                        <tr>
+                            <th>Client Secret ID</th>
+                            <td>{{ entity.secret }}</td>
+                        </tr>
+                        <tr>
+                            <th>Redirect URI's</th>
+                            <td>{{ entity.redirectUris | join(', ') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Allowed Grant Types</th>
+                            <td>{{ entity.allowedGrantTypes | join(', ') }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <section class="panel">
+                <header class="panel-heading">Actions</header>
+                <div class="panel-body">
+                    <a href="{{ path('sportmimi_admin_client_edit', {'id': entity.id}) }}" class="btn btn-primary btn-block">
+                        <i class="fa fa-pencil"></i> Edit News
+                    </a>
+                    <a href="{{ path('sportmimi_admin_client_index') }}" class="btn btn-info btn-block">
+                        <i class="fa fa-list"></i> Back to list
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}

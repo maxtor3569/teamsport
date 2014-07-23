@@ -1,0 +1,15 @@
+sportimimi_admin_homepage:
+    pattern:  /
+    defaults: { _controller: SportimimiAdminBundle:Dashboard:index }
+
+sportmimi_admin_users:
+    prefix: /users
+    resource: "@SportimimiAdminBundle/Resources/config/routing/users.yml"
+
+sportmimi_admin_news:
+    prefix: /news
+    resource: "@SportimimiAdminBundle/Resources/config/routing/news.yml"
+
+sportmimi_admin_client:
+    prefix: /client
+    resource: "@SportimimiAdminBundle/Resources/config/routing/clients.yml"

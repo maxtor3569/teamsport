@@ -7,6 +7,7 @@ namespace Sportimimi\userBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProfileForm extends AbstractType {
     
@@ -61,6 +62,7 @@ class ProfileForm extends AbstractType {
                     'label_attr' => array('class' => 'col-md-4 control-label'),
                         )
                 )
+
                 ->add('nom', 'text', array(
                     'label' => 'Họ',
                     'attr' => array(
@@ -118,6 +120,16 @@ class ProfileForm extends AbstractType {
           )) */
 
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Sportimimi\userBundle\Entity\Profile'
+        ));
     }
 
     public function getName() {

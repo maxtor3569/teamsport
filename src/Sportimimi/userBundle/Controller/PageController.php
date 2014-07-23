@@ -27,6 +27,8 @@ class PageController extends Controller {
 
     public function indexAction() {
 
+        try {
+
         // We retrieve the Session object
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
@@ -156,6 +158,11 @@ class PageController extends Controller {
                     'allSports' => $allSports,
                     'markers' => $markers
         ));
+
+        } catch (\Exception $e)
+        {
+            var_dump($e->getMessage()); exit;
+        }
     }
 
     public function aboutAction() {

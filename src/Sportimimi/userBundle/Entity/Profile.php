@@ -490,5 +490,10 @@ class Profile {
     public function getMessage_recieve() {
         return $this->message_recieve;
     }
+
+    public function __toString()
+    {
+        return sprintf('%s, %s', $this->nom, $this->prenom);
+    }
     
 }

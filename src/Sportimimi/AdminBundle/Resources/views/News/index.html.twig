@@ -1,0 +1,63 @@
+{% extends 'SportimimiAdminBundle::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/sportimimiadmin/css/plugins/dataTables.bootstrap.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block page_title %}
+    News
+{% endblock %}
+
+{% block main_content %}
+    <div class="panel">
+        <header class="panel-heading">News's list</header>
+        <div class="panel-body">
+
+            <p class="pull-right">
+                <a href="{{ path('sportmimi_admin_news_new') }}" class="btn btn-success"><i class="fa fa-plus"></i> Create News</a>
+            </p>
+
+            <div class="clearfix"></div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover datatable">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Date Created</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for news in entities %}
+                    <tr>
+                        <td>{{ news.title }}</td>
+                        <td>{{ news.profile }}</td>
+                        <td>{{ news.dateCreated }}</td>
+                        <td class="text-center ">
+                            <a class="btn btn-info btn-xs" href="{{ path('sportmimi_admin_news_show', {'id': news.id}) }}"><i class="fa fa-search-plus"></i> </a>
+                            <a class="btn btn-warning btn-xs" href="{{ path('sportmimi_admin_news_edit', {'id': news.id}) }}"><i class="fa fa-pencil"></i> </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/sportimimiadmin/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('bundles/sportimimiadmin/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.datatable').dataTable();
+        });
+    </script>
+{% endblock %}
