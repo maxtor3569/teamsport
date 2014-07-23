@@ -126,4 +126,9 @@ class Category {
     public function getEvents() {
         return $this->events;
     }
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
 }

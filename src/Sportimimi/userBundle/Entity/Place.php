@@ -171,4 +171,9 @@ class Place {
         $this->latitude = $latitude;
     }
 
+    public function __toString()
+    {
+        return $this->getPlaceName();
+    }
+
 }

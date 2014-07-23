@@ -26,6 +26,10 @@
                     <tr>
                         <th>Title</th>
                         <th>Author</th>
+                        <th>Place</th>
+                        <th>Content</th>
+                        <th>Sport</th>
+                        <th>Doing Sports</th>
                         <th>Date Created</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -35,15 +39,32 @@
                     <tr>
                         <td>{{ news.title }}</td>
                         <td>{{ news.profile }}</td>
+                        <td>{{ news.place }}</td>
+                        <td>{{ news.content }}</td>
+                        <td>{{ news.sport }}</td>
+                        <td class="text-center">
+                            {% if news.doingSports %}
+                            <i class="fa fa-check-circle-o"></i> yes
+                            {% else %}
+                            <i class="fa fa-times-circle-o"></i> no
+                            {% endif %}
+                        </td>
                         <td>{{ news.dateCreated }}</td>
                         <td class="text-center ">
                             <a class="btn btn-info btn-xs" href="{{ path('sportmimi_admin_news_show', {'id': news.id}) }}"><i class="fa fa-search-plus"></i> </a>
                             <a class="btn btn-warning btn-xs" href="{{ path('sportmimi_admin_news_edit', {'id': news.id}) }}"><i class="fa fa-pencil"></i> </a>
+                            <a class="btn btn-danger btn-xs" href="{{ path('sportmimi_admin_news_delete', {'id': news.id}) }}"><i class="fa fa-trash-o"></i> </a>
                         </td>
                     </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+                <div class="hidden" id="sports-filter">
+                    <label >Doing Sports:
+                    <input class="form-control input-sm" type="checkbox" value="1" />
+                    </label>
+                </div>
+
             </div>
         </div>
     </div>
@@ -57,7 +78,23 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.datatable').dataTable();
+            var datatable = $('.datatable').dataTable();
+
+            var sportsFilter = $("#sports-filter");
+
+            // create filter for doing sports
+            sportsFilter.find('input').change(function () {
+                if ($(this).is(':checked')) {
+                    datatable.fnFilter('yes', 2, true);
+                }
+                else {
+                    datatable.fnFilter('', 2, true);
+                }
+            });
+
+            $('.dataTables_wrapper .row .col-sm-6:last-child .dataTables_filter').prepend(sportsFilter);
+
+            sportsFilter.removeClass('hidden');
         });
     </script>
 {% endblock %}

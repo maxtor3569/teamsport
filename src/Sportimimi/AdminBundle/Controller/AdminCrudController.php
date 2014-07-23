@@ -3,6 +3,7 @@
 namespace Sportimimi\AdminBundle\Controller;
 
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -122,11 +123,16 @@ class AdminCrudController extends Controller
 
     public function showAction(Request $request)
     {
+        try {
         $entity = $this->findOr404($request);
 
         return $this->render(sprintf('%s:show.html.twig', $this->templatesRoot), array(
             'entity' => $entity
         ));
+        } catch(\Exception $e)
+        {
+            var_dump($e->getMessage()); exit;
+        }
     }
 
     /**
@@ -210,6 +216,27 @@ class AdminCrudController extends Controller
         ));
     }
 
+    /**
+     * @param  Request          $request
+     * @return RedirectResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $resource = $this->findOr404($request);
+        /** @var EntityManager $em */
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $this->dispatchEvent('pre_delete', $resource);
+
+        $em->remove($resource);
+        $em->flush();
+        $this->setFlash('success', 'delete');
+
+        $this->dispatchEvent('post_delete', $resource);
+
+        return $this->redirectToIndex();
+    }
+
     public function closeAction(Request $request)
     {
         $resource = $this->findOr404($request);
@@ -289,7 +316,7 @@ class AdminCrudController extends Controller
     public function redirectToIndex()
     {
         return $this->redirect(
-            $this->generateUrl($this->getResourcePathPrefix())
+            $this->generateUrl($this->getResourcePathPrefix() . "_index")
         );
     }
 

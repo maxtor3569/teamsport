@@ -7,7 +7,7 @@ Edit User: "{{ entity.username }}"
 {% block main_content %}
 <div class="row">
     <div class="col-md-12">
-        <form class="form-horizontal" action="{{ path('sportmimi_admin_users_edit', {'id': entity.id}) }}" method="post">
+        <form class="form-horizontal" action="{{ path('sportmimi_admin_user_edit', {'id': entity.id}) }}" method="post">
             {{ form_rest(form) }}
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

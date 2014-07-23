@@ -11,5 +11,5 @@ sportmimi_admin_news:
     resource: "@SportimimiAdminBundle/Resources/config/routing/news.yml"
 
 sportmimi_admin_client:
-    prefix: /client
+    prefix: /clients
     resource: "@SportimimiAdminBundle/Resources/config/routing/clients.yml"

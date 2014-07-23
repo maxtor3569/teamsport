@@ -28,8 +28,7 @@ class Team {
 
     /**
      * @ORM\ManyToOne(targetEntity="Profile", inversedBy="leader")
-     * @ORM\JoinColumn(name="leader_id", referencedColumnName="id")
-
+     * @ORM\JoinColumn(name="leader_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $leader; //leader of the team
 
