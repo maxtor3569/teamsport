@@ -86,4 +86,25 @@ class User extends BaseUser {
     public function setLastActive($dateActive) {
         $this->lastActive = $dateActive;
     }
+
+    /**
+     * @param mixed $newsletter
+     *
+     * @return $this
+     */
+    public function setNewsletter($newsletter)
+    {
+        $this->newsletter = $newsletter;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNewsletter()
+    {
+        return $this->newsletter;
+    }
+
+
 }

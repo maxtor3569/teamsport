@@ -1,0 +1,15 @@
+sportmimi_admin_client_index:
+    pattern: /
+    defaults: { _controller: teamsport.admin_controller.client:indexAction }
+
+sportmimi_admin_client_new:
+    pattern: /new
+    defaults: { _controller: teamsport.admin_controller.client:newAction }
+
+sportmimi_admin_client_show:
+    pattern: /{id}/show
+    defaults: { _controller: teamsport.admin_controller.client:showAction }
+
+sportmimi_admin_client_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: teamsport.admin_controller.client:editAction }

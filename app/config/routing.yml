@@ -1,4 +1,8 @@
-﻿sportimimiuser:
+﻿sportimimi_admin:
+    resource: "@SportimimiAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+sportimimiuser:
     resource: "@SportimimiuserBundle/Resources/config/routing.yml"
     prefix:   /
 

@@ -108,6 +108,17 @@ class News {
         return $this->title;
     }
 
+    /**
+     * @param mixed $title
+     *
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
     public function getContent() {
         return $this->content;
     }
@@ -171,5 +182,4 @@ class News {
         return $this->comments;
     }
 
-	
 }

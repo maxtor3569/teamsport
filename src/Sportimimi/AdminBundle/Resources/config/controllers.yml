@@ -1,0 +1,30 @@
+services:
+  teamsport.admin_controller.users:
+      class: Sportimimi\AdminBundle\Controller\AdminCrudController
+      calls:
+        - [setContainer, [@service_container]]
+        - [setResourceName, ['User']]
+        - [setFactory, [@fos_user.user_manager]]
+        - [setFormType, [@teamsport.admin_form.user]]
+        - [setRepository, [@fos_user.user_manager]]
+        - [setTemplatesRoot, ['SportimimiAdminBundle:User']]
+
+  teamsport.admin_controller.news:
+      class: Sportimimi\AdminBundle\Controller\AdminCrudController
+      calls:
+        - [setContainer, [@service_container]]
+        - [setResourceName, ['News']]
+        - [setFactory, [@teamsport.admin_factory.news]]
+        - [setFormType, [@teamsport.admin_form.news]]
+        - [setRepository, [@teamsport.admin_factory.news]]
+        - [setTemplatesRoot, ['SportimimiAdminBundle:News']]
+
+  teamsport.admin_controller.client:
+      class: Sportimimi\AdminBundle\Controller\AdminCrudController
+      calls:
+        - [setContainer, [@service_container]]
+        - [setResourceName, ['Client']]
+        - [setFactory, [@teamsport.admin_factory.client]]
+        - [setFormType, [@teamsport.admin_form.client]]
+        - [setRepository, [@teamsport.admin_factory.client]]
+        - [setTemplatesRoot, ['SportimimiAdminBundle:Client']]

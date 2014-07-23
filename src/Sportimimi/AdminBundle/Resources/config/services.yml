@@ -1,0 +1,30 @@
+parameters:
+    teamsport.admin_factory.news.class: Sportimimi\userBundle\Entity\News
+    teamsport.admin_factory.client.class: Sportimimi\userBundle\Entity\Client
+
+services:
+    teamsport.admin_form.user:
+        class: Sportimimi\AdminBundle\Form\UserAdminType
+        tags:
+          - { name: form.type, alias: teamsports_admin_user_form }
+
+
+## news related services
+    teamsport.admin_factory.news:
+        class: Sportimimi\AdminBundle\Factory\NewsFactory
+        arguments: [@doctrine.orm.entity_manager, %teamsport.admin_factory.news.class%]
+
+    teamsport.admin_form.news:
+        class: Sportimimi\AdminBundle\Form\NewsAdminType
+        tags:
+          - { name: form.type, alias: teamsports_admin_news_form }
+
+## client related services
+    teamsport.admin_factory.client:
+        class: Sportimimi\AdminBundle\Factory\ClientFactory
+        arguments: [@doctrine.orm.entity_manager, %teamsport.admin_factory.client.class%]
+
+    teamsport.admin_form.client:
+        class: Sportimimi\AdminBundle\Form\ClientAdminType
+        tags:
+          - { name: form.type, alias: teamsports_admin_client_form }

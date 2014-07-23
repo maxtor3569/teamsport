@@ -1,0 +1,7 @@
+admin_crud:
+    resource:
+        create: The %resource% was created successfully.
+        update: The %resource% was udpated successfully
+        delete: The %resource% was deleted successfully
+        close: The %resource% was closed successfully
+        open: The %resource% was opened successfully
