@@ -786,4 +786,17 @@ class ProfileController extends Controller {
             */
        }
     }
+    
+    // Fast fix for stock user imei
+    public function setImeiAction(){
+    
+	    $em = $this->getDoctrine()->getManager();
+	    $imei = $_POST['imei'];
+	    $user_id = $_POST['user_id'];
+	    $repository = $this->getDoctrine()->getRepository('SportimimiuserBundle:User');
+	    $user = $repository->findOneById($user_id);
+	    $em->setImei($imei);
+	    $em->persist($user);
+	    $em->flush();
+    }
 }

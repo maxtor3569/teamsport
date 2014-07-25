@@ -47,6 +47,12 @@ class User extends BaseUser {
      * @ORM\Column(type="integer", nullable=true)
      */
     private $newsletter;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Expose
+     */
+    private $imei;
 
     /**
      * Get id
@@ -105,6 +111,13 @@ class User extends BaseUser {
     {
         return $this->newsletter;
     }
+    
+    public function getImei() {
+	    return $this->imei;
+    }
 
+	public function setImei($imei) {
+	     $this->imei = $imei;
+    }
 
 }

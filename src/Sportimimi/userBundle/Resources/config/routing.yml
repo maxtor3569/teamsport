@@ -266,3 +266,6 @@ PushNotification:
 OAuth:
     path: /connect
     defaults: {_controller: SportimimiuserBundle:Api:index}
+Store_iemi:
+    path: /storeIemi
+    defaults: {_controller: SportimimiuserBundle:Profile:setImei}
