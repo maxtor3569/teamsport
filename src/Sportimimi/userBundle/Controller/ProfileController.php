@@ -25,7 +25,6 @@ use Sportimimi\userBundle\Entity\Place;
 use Sportimimi\userBundle\Entity\Category;
 use Sportimimi\userBundle\Entity\Country;
 use Sportimimi\userBundle\Entity\Image;
-//use Sportimimi\userBundle\Entity\Group;
 use Sportimimi\userBundle\Entity\User;
 use Sportimimi\userBundle\Entity\Notification;
 // Add Forms
@@ -791,12 +790,15 @@ class ProfileController extends Controller {
     public function setImeiAction(){
     
 	    $em = $this->getDoctrine()->getManager();
-	    $imei = $_POST['imei'];
-	    $user_id = $_POST['user_id'];
+	    $imei = $_GET['imei'];
+	    $user_id = $_GET['user_id'];
+	    
 	    $repository = $this->getDoctrine()->getRepository('SportimimiuserBundle:User');
-	    $user = $repository->findOneById($user_id);
-	    $em->setImei($imei);
+	    $user = $repository->findOneByEmail($user_id);
+	    $user->setImei($imei);
 	    $em->persist($user);
 	    $em->flush();
+	    return new Response('IMEI SAVE', 200, array('Content-Type' => 'application/json'));
+	    
     }
 }

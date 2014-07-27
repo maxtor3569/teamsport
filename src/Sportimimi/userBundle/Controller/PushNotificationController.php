@@ -6,21 +6,32 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Httpfoundation\Request;
+use Sportimimi\userBundle\Entity\User;
+use Sportimimi\userBundle\Entity\Profile;
 
 class PushNotificationController extends Controller {
 
 	public function pushAction()
 	{
-		/*$message = new AndroidMessage();
+		$receive_id = $_POST['receive_id'];
+		$sender_id = $_POST['sender_id'];
+		$repository = $this->getDoctrine()->getRepository('SportimimiuserBundle:User');
+	    $userReceive = $repository->findOneById($receive_id);
+	    $userSender = $repository->findOneByEmail($sender_id);
+	    
+		$message = new AndroidMessage();
 		$message->setGCM(true);
-		$message->setMessage('Oh my god! A push notification!');
-        $message->setDeviceIdentifier($_GET['regId']);
+		$message->setMessage($userSender->getProfile()->getPrenom().$userSender->getProfile()->getNom().' muốn chơi với bạn');
+		
+        $message->setDeviceIdentifier($userReceive->getUser()->getImei());// we pass the author_id of the news..so it's profile id
 
         $this->container->get('rms_push_notifications')->send($message);
 
-        return new Response('Push notification send!');	*/
+        return new Response('Push notification send!');
+        
+        
         // this is faster... or not..
-        $url = 'https://android.googleapis.com/gcm/send';
+        /*$url = 'https://android.googleapis.com/gcm/send';
         $registrationIDs = array( $_GET['regId']);
          $message = array("Notice" => "test");
          $fields = array(
@@ -55,7 +66,7 @@ class PushNotificationController extends Controller {
    
          // Close connection
          curl_close($ch);
-         echo $result;
+         echo $result;*/
 		
 	}
 
