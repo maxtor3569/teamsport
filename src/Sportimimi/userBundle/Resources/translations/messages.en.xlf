@@ -298,8 +298,29 @@
     </trans-unit> 
 	<trans-unit resname="Tìm Sân Chơi">
         <source>Tìm Sân Chơi</source>
-	<target>Find Sports Fields</target>
+		<target>Find Sports Fields</target>
     </trans-unit> 
+    <trans-unit resname="Tìm Sân Chơi">
+        <source>Tìm Sân Chơi</source>
+		<target>Find Sports Fields</target>
+    </trans-unit>
+    
+    <trans-unit resname="Tôi Đang Chơi">
+        <source>Tôi Đang Chơi</source>
+		<target>I'm currently playing</target>
+    </trans-unit>
+    
+    <trans-unit resname="Bình luận">
+        <source>Bình luận</source>
+		<target>Comments</target>
+    </trans-unit>
+    
+    <trans-unit resname="Hãy viết bình luận của bạn">
+        <source>Hãy viết bình luận của bạn</source>
+		<target>Comments</target>
+    </trans-unit>
+     
+   
     </body>
   </file>
 </xliff>

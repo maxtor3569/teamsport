@@ -14,6 +14,7 @@
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.5/gmaps.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.jeditable/1.7.3/jquery.jeditable.js"></script>
+    
     {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <script src="{{ asset('assets/components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
         <script src="{{ asset('js/form-validator-fast-register.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
@@ -325,9 +326,9 @@
                                 <input id="doSportsInput" type="hidden" value = 0 />
                             </div>
                             <ul class="list-unstyled">
-                                <li id="li-nosport" class="active" onclick="DoSport();" style="cursor:pointer;color: white;font-weight: bold;"><i class="fa fa-fw fa-clock-o"></i> <span>Tìm người chơi</span>
+                                <li id="li-nosport" class="active" onclick="DoSport();" style="cursor:pointer;color: white;font-weight: bold;"><i class="fa fa-fw fa-clock-o"></i> <span>{{ 'Tìm Người Chơi'|trans }}</span>
                                 </li>
-                                <li id="li-sport" class="" onclick="DoSport();" style="cursor:pointer;color: white;font-weight: bold;"><i class="fa fa-fw icon-location-2"></i> <span>Đang chơi</span>
+                                <li id="li-sport" class="" onclick="DoSport();" style="cursor:pointer;color: white;font-weight: bold;"><i class="fa fa-fw icon-location-2"></i> <span>{{ 'Tôi Đang Chơi'|trans }}</span>
                                 </li>
                                 <li><a href="{{ path('DetailProfile') }}"><i class="fa fa-fw fa-user"></i> <span>{{ 'Hồ Sơ Của Tôi'|trans }}</span></a>
                                 </li>

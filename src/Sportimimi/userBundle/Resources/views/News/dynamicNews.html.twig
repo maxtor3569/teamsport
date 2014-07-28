@@ -120,7 +120,7 @@
    </p>
    {% endif %}
    <!-- //Content -->
-   <a href="#comments-collapse" class="innerAll border-top display-block " data-toggle="collapse"><i class="innerLR fa fa-bars"></i> Bình luận
+   <a href="#comments-collapse" class="innerAll border-top display-block " data-toggle="collapse"><i class="innerLR fa fa-bars"></i> {{ 'Bình luận'|trans }}
    <span class="text-muted">{{ line.comments|length }}+ comments</span>
    </a>
    <div class="commentBlock">
@@ -157,7 +157,7 @@
       {% endif %}
    </div>
    <div class="input-group comment">
-      <input id="message{{ line.id }}" data-reactid="{{ line.id }}"type="text" class="form-control" placeholder="{{ 'Bình luận...'|trans }}">
+      <input id="message{{ line.id }}" data-reactid="{{ line.id }}"type="text" class="form-control" placeholder="{{ 'Hãy viết bình luận của bạn'|trans }}">
       <div class="input-group-btn">
          <button type="button" class="btn btn-primary" href="#" onclick="comment({{ line.id }})"><i class="fa fa-comment"></i>
          </button>
