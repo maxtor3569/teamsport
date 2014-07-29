@@ -62,6 +62,18 @@
                         <th>Phone</th>
                         <td>{{ entity.profile.phone }}</td>
                     </tr>
+                    
+                     <tr>
+                        <th>Places</th>
+                        <td>
+                        	{% set places = entity.profile.place %}
+							{% for place in places %}
+								{{ place.name }}
+							{% endfor %}
+						</td>
+                    </tr>
+                    
+                    
                     </tbody>
                 </table>
             </div>

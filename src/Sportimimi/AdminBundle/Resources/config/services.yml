@@ -1,7 +1,7 @@
 parameters:
     teamsport.admin_factory.news.class: Sportimimi\userBundle\Entity\News
     teamsport.admin_factory.client.class: Sportimimi\userBundle\Entity\Client
-
+    teamsport.admin_factory.place.class: Sportimimi\userBundle\Entity\Place
 services:
     teamsport.admin_form.user:
         class: Sportimimi\AdminBundle\Form\UserAdminType
@@ -28,3 +28,13 @@ services:
         class: Sportimimi\AdminBundle\Form\ClientAdminType
         tags:
           - { name: form.type, alias: teamsports_admin_client_form }
+
+## Places related services
+    teamsport.admin_factory.place:
+        class: Sportimimi\AdminBundle\Factory\PlaceFactory
+        arguments: [@doctrine.orm.entity_manager, %teamsport.admin_factory.place.class%]
+
+    teamsport.admin_form.place:
+        class: Sportimimi\AdminBundle\Form\PlaceAdminType
+        tags:
+          - { name: form.type, alias: teamsports_admin_place_form }

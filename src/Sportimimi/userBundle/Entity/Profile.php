@@ -42,6 +42,7 @@ class Profile {
     /**
      * @ORM\OneToMany(targetEntity="Image",mappedBy="profile", orphanRemoval=true)
      * @ORM\JoinColumn(name="document_id", referencedColumnName="id")
+     * @Expose
      */
     private $document;
 

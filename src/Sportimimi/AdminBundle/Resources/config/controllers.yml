@@ -28,3 +28,15 @@ services:
         - [setFormType, [@teamsport.admin_form.client]]
         - [setRepository, [@teamsport.admin_factory.client]]
         - [setTemplatesRoot, ['SportimimiAdminBundle:Client']]
+       
+  teamsport.admin_controller.place:
+      class: Sportimimi\AdminBundle\Controller\AdminCrudController
+      calls:
+        - [setContainer, [@service_container]]
+        - [setResourceName, ['Place']]
+        - [setFactory, [@teamsport.admin_factory.place]]
+        - [setFormType, [@teamsport.admin_form.place]]
+        - [setRepository, [@teamsport.admin_factory.place]]
+        - [setTemplatesRoot, ['SportimimiAdminBundle:Place']]
+   
+
