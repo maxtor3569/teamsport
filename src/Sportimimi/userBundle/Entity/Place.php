@@ -123,6 +123,12 @@ class Place {
     public function getPrice() {
         return $this->price;
     }
+    
+    public function getWebsite() {
+        return $this->website;
+    }
+    
+
 
     public function getAddress() {
         return $this->address;
@@ -136,7 +142,7 @@ class Place {
         return $this->capacity;
     }
 
-    public function getphoneContact() {
+    public function getPhoneContact() {
         return $this->phoneContact;
     }
 
@@ -164,6 +170,14 @@ class Place {
     public function getId() {
         return $this->id;
     }
+    
+    public function getLatitude() {
+        return $this->latitude;
+    }
+    public function getLongitude() {
+        return $this->longitude;
+    }
+    
     public function setLongitude($longitude) {
         $this->longitude = $longitude;
     }

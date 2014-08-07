@@ -26,7 +26,9 @@ class User extends BaseUser {
      */
     protected $id;
 
-    /** @ORM\OneToOne(targetEntity="Profile", mappedBy="user", cascade={"all"}) */
+    /** @ORM\OneToOne(targetEntity="Profile", mappedBy="user", cascade={"all"}) 
+	*   @Expose    
+    */
     private $profile;
 
     /**

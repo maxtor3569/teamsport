@@ -36,6 +36,7 @@ class Profile {
     /**
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="profile")
      * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     * @Expose
      */
     protected $country;
 
@@ -92,6 +93,7 @@ class Profile {
     /**
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="profile")
      * @ORM\JoinTable(name="profile_sports")
+     * @Expose
      */
     protected $sports;
 
@@ -111,6 +113,7 @@ class Profile {
 
     /**
      * @ORM\OneToMany(targetEntity="Position",mappedBy="profile")
+     * @Expose
      */
     private $positions;
 
@@ -157,6 +160,7 @@ class Profile {
     /**
      * @ORM\Column(type="date",nullable=true)
      * @Assert\NotBlank()
+     * @Expose
      */
     private $dateNaissance;
 
@@ -169,11 +173,13 @@ class Profile {
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Expose
      */
     private $description;
 
     /**
      * @ORM\Column(type="string",length=255, nullable=true)
+     * @Expose
      */
     protected $phone;
 
@@ -492,6 +498,10 @@ class Profile {
         return $this->message_recieve;
     }
 
+
+	public function getNews() { 
+		return $this->news;
+	}
     public function __toString()
     {
         return sprintf('%s, %s', $this->nom, $this->prenom);

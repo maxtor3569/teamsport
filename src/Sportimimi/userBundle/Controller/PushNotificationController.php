@@ -13,27 +13,29 @@ class PushNotificationController extends Controller {
 
 	public function pushAction()
 	{
-		$receive_id = $_POST['receive_id'];
-		$sender_id = $_POST['sender_id'];
+		$receive_id = $_GET['receive_id'];
+		$sender_id = $_GET['sender_id'];
 		$repository = $this->getDoctrine()->getRepository('SportimimiuserBundle:User');
-	    $userReceive = $repository->findOneById($receive_id);
-	    $userSender = $repository->findOneByEmail($sender_id);
+		$repositoryProfile = $this->getDoctrine()->getRepository('SportimimiuserBundle:Profile');
+	    $userReceive = $repositoryProfile->findOneById($receive_id);
+	    $userSender = $repository->findOneById($sender_id);
 	    
-		$message = new AndroidMessage();
+	    $messageF = $userSender->getProfile()->getPrenom(). ' '.$userSender->getProfile()->getNom().' muốn chơi với bạn';
+		
+		/*$message = new AndroidMessage();
 		$message->setGCM(true);
-		$message->setMessage($userSender->getProfile()->getPrenom().$userSender->getProfile()->getNom().' muốn chơi với bạn');
+		$message->setMessage($messageF);
 		
         $message->setDeviceIdentifier($userReceive->getUser()->getImei());// we pass the author_id of the news..so it's profile id
 
-        $this->container->get('rms_push_notifications')->send($message);
+        $this->container->get('rms_push_notifications')->send($message);*/
 
-        return new Response('Push notification send!');
-        
+                
         
         // this is faster... or not..
-        /*$url = 'https://android.googleapis.com/gcm/send';
-        $registrationIDs = array( $_GET['regId']);
-         $message = array("Notice" => "test");
+        $url = 'https://android.googleapis.com/gcm/send';
+        $registrationIDs = array( $userReceive->getUser()->getImei());
+         $message = array("Notice" => $messageF);
          $fields = array(
              'registration_ids' => $registrationIDs,
              'data' => $message,
@@ -66,7 +68,10 @@ class PushNotificationController extends Controller {
    
          // Close connection
          curl_close($ch);
-         echo $result;*/
+         echo $result;
+         
+         return new Response('Push notification send!');	
+
 		
 	}
 

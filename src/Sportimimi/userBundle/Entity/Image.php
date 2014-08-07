@@ -31,6 +31,7 @@ class Image
  
   /**
    * @ORM\Column(name="url", type="string", length=255)
+   $ @Expose
    */
   private $url;
  

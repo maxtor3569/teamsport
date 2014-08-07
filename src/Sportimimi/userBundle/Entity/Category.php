@@ -6,10 +6,17 @@ namespace Sportimimi\userBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+//Serialize entity for rest.
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="category")
+ * @ExclusionPolicy("all")
  */
 class Category {
 
@@ -30,6 +37,7 @@ class Category {
     /**
      * @ORM\Column(type="string",length=255)
      * @Assert\NotBlank()
+     * @Expose
      */
     private $nameVn;
 

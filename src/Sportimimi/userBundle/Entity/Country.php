@@ -2,10 +2,17 @@
 namespace Sportimimi\userBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+//Serialize entity for rest.
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="country")
+ * @ExclusionPolicy("all")
  */
 
 class Country
@@ -21,6 +28,7 @@ class Country
 
     /**
      * @ORM\Column( type="string", length=30, name="name", nullable=false )
+     * @Expose
      */
     private $name;
 

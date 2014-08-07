@@ -38,4 +38,20 @@ class ProfilesRestController extends Controller
  
     return $profile->getMessage_recieve();
   }
+  
+  public function getProfileNewsAction($slug){
+	$profile = $this->getDoctrine()
+			->getRepository('SportimimiuserBundle:Profile')->findOneById($slug);
+	
+ 
+    return $profile->getNews();
+  }
+  
+  public function getProfileFriendsAction($slug){
+	$profile = $this->getDoctrine()
+			->getRepository('SportimimiuserBundle:Profile')->findOneById($slug);
+	
+ 
+    return $profile->getFriends();
+  }
 }
