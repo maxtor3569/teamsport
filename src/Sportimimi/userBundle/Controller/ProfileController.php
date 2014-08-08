@@ -224,7 +224,7 @@ class ProfileController extends Controller {
 //                );
 //
 //                $mailer->sendConfirmationEmailMessage($user);
-                var_dump($user->isEnabled()); exit;
+               
 
                 $user->setProfile($profile);
                 $profile->setUser($user);
