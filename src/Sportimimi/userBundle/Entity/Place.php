@@ -127,8 +127,6 @@ class Place {
     public function getWebsite() {
         return $this->website;
     }
-    
-
 
     public function getAddress() {
         return $this->address;

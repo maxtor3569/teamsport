@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pablo
- * Date: 7/22/14
- * Time: 6:31 PM
- */
 
 namespace Sportimimi\AdminBundle\Form;
 
@@ -18,14 +12,15 @@ class PlaceAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('content', 'textarea', array(
-                'attr' => array('class' => 'form-control', 'rows' => 8)
-            ))
+            ->add('placeName')
+            ->add('address')
+            ->add('price')
+            ->add('website')
+            ->add('phoneContact')
             ->add('profile')
-            ->add('doingSports', 'integer', array(
-                'required' => false,
-            ))
+            ->add('district')
+            ->add('capacity')
+            ->add('type')
         ;
     }
 

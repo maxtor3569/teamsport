@@ -25,12 +25,15 @@
                     <thead>
                     <tr>
                         <th>Place name</th>
-                        <th>Author</th>
-                        <th>Place</th>
-                        <th>Content</th>
-                        <th>Sport</th>
-                        <th>Doing Sports</th>
-                        <th>Date Created</th>
+                        <th>Address</th>
+                        <th>District</th>
+                        <th>Type</th>
+                        <th>phoneContact</th>
+                        <th>Website</th>
+                        <th>Price</th>
+                        <th>Contact Name</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
                         <th class="text-center">Actions</th>
                     </tr>
                     </thead>
@@ -38,6 +41,21 @@
                     {% for place in entities %}
                     <tr>
                         <td>{{ place.placeName }}</td>
+                        <td>{{ place.address }}</td>
+                        <td>{{ place.district }}</td>
+                        <td>{{ place.type }}</td>
+                        <td>{{ place.phoneContact }}</td>
+                        <td>{{ place.website }}</td>
+                        <td>{{ place.price }}</td>
+                        <td>{{ place.contactName }}</td>
+                        <td>{{ place.latitude }}</td>
+                        <td>{{ place.longitude }}</td>
+                        <td>
+	                        <a class="btn btn-info btn-xs" href="{{ path('sportmimi_admin_place_show', {'id': place.id}) }}"><i class="fa fa-search-plus"></i> </a>
+	                            <a class="btn btn-warning btn-xs" href="{{ path('sportmimi_admin_place_edit', {'id': place.id}) }}"><i class="fa fa-pencil"></i> </a>
+
+                          <a class="btn btn-danger btn-xs" href="{{ path('sportmimi_admin_place_delete', {'id': place.id}) }}"><i class="fa fa-trash-o"></i> </a>
+                        <a href="{{ path('sportmimi_admin_place_geocode',{place : place.id}) }}">Geocode it</a></td>
                     </tr>
                     {% endfor %}
                     </tbody>

@@ -357,4 +357,35 @@ class AdminCrudController extends Controller
     {
         return $this->container->get('security.context')->isGranted($attributes, $object);
     }
+    
+    public function geocodeAction($place)
+	{
+		$em = $this->get('doctrine.orm.entity_manager');
+        $placeO = $em->getRepository('SportimimiuserBundle:Place')->findOneById($place);		
+        
+        $coords=array();
+		$base_url="http://maps.googleapis.com/maps/api/geocode/xml?";
+		// ajouter &region=FR si ambiguité (lieu de la requete pris par défaut)
+		$request_url = $base_url . "address=" . urlencode($placeO->getAddress()).'&sensor=false';
+		$xml = simplexml_load_file($request_url) or die("url not loading");
+		//print_r($xml);
+		$coords['lat']='';
+		$coords['lon']='';
+		$coords['status'] = $xml->status ;
+		if($coords['status']=='OK')
+		{
+		 $coords['lat'] = $xml->result->geometry->location->lat ;
+		 $coords['lon'] = $xml->result->geometry->location->lng ;
+		}
+
+        
+		$placeO->setLongitude($coords['lon']);
+		$placeO->setLatitude($coords['lat']);
+		$em->persist($placeO);
+		$em->flush();
+		$referer = $this->getRequest()->headers->get('referer');
+
+		return $this->redirect($referer);
+	}
+
 }

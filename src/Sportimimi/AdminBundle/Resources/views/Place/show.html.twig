@@ -1,0 +1,50 @@
+{% extends 'SportimimiAdminBundle::base.html.twig' %}
+
+{% block page_title %}
+    Show Place: "{{ entity.placeName }}"
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-info">
+                <header class="panel-heading">Place info</header>
+                <div class="panel-body">
+                    <table class="table table-condensed">
+                        <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ entity.placeName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ entity.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>Map</th>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <section class="panel">
+                <header class="panel-heading">Actions</header>
+                <div class="panel-body">
+                    <a href="{{ path('sportmimi_admin_place_edit', {'id': entity.id}) }}" class="btn btn-primary btn-block">
+                        <i class="fa fa-pencil"></i> Edit Place
+                    </a>
+                    <a href="{{ path('sportmimi_admin_place_delete', {'id': entity.id}) }}" class="btn btn-danger btn-block">
+                        <i class="fa fa-trash-o"></i> Delete Place
+                    </a>
+                    <a href="{{ path('sportmimi_admin_place_index') }}" class="btn btn-info btn-block">
+                        <i class="fa fa-list"></i> Back to list
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
