@@ -20,3 +20,7 @@ places:
   type: rest
   resource: "SportimimiuserBundle:PlaceRest"
   name_prefix:  api_
+category:
+  type: rest
+  resource: "SportimimiuserBundle:CategoryRest"
+  name_prefix:  api_
