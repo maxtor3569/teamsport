@@ -11,6 +11,12 @@ comments:
     resource: Sportimimi\userBundle\Controller\Rest\UserCommentsController
     name_prefix: api_
 
+comments:
+    type:     rest
+    parent:   users
+    resource: Sportimimi\userBundle\Controller\Rest\UserRatingsController
+    name_prefix: api_
+
 news:
     type: rest
     resource: "SportimimiuserBundle:NewsRest"

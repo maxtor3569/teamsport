@@ -18,7 +18,8 @@ use JMS\Serializer\Annotation\Type;
  * @ORM\Table(name="profile")
  * @ExclusionPolicy("all")
  */
-class Profile {
+class Profile
+{
 
     /**
      * @ORM\GeneratedValue
@@ -134,6 +135,11 @@ class Profile {
     private $userComments;
 
     /**
+     * @ORM\OneToMany(targetEntity="UserRating",mappedBy="profile")
+     */
+    private $userRates;
+
+    /**
      * @ORM\OneToOne(targetEntity="Skills")
      * @ORM\JoinColumn(name="skills_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -231,219 +237,267 @@ class Profile {
      * @ORM\OneToMany(targetEntity="Message", mappedBy="profile_recieve")
      */
     protected $message_recieve;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="MessageReply", mappedBy="profile")
      */
     protected $message_reply;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userComments = new ArrayCollection();
+        $this->userRates = new ArrayCollection();
     }
 
-    public function getNom() {
+    public function getNom()
+    {
         return $this->nom;
     }
 
-    public function setNom($nom) {
+    public function setNom($nom)
+    {
         $this->nom = $nom;
     }
 
-    public function getPrenom() {
+    public function getPrenom()
+    {
         return $this->prenom;
     }
 
-    public function setPrenom($prenom) {
+    public function setPrenom($prenom)
+    {
         $this->prenom = $prenom;
     }
 
-    public function getDateNaissance() {
+    public function getDateNaissance()
+    {
         return $this->dateNaissance;
     }
 
-    public function setDateNaissance($date) {
+    public function setDateNaissance($date)
+    {
         $this->dateNaissance = $date;
     }
 
     // GENDER
-    public function getSexe() {
+    public function getSexe()
+    {
         return $this->sexe;
     }
 
-    public function setSexe($sexe) {
+    public function setSexe($sexe)
+    {
         $this->sexe = $sexe;
     }
 
     //SPORTS
-    public function getSports() {
+    public function getSports()
+    {
         return $this->sports;
     }
 
-    public function setSports($sports) {
+    public function setSports($sports)
+    {
         $this->sports = $sports;
     }
 
-    public function addSports($sport) {
+    public function addSports($sport)
+    {
         $this->sports[] = $sport;
     }
 
     // DOCUMENT
-    public function getDocument() {
+    public function getDocument()
+    {
         return $this->document;
     }
 
-    public function setDocument(\Sportimimi\userBundle\Entity\Image $document) {
+    public function setDocument(\Sportimimi\userBundle\Entity\Image $document)
+    {
         $this->document = $document;
     }
 
     //Phone
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
     }
 
     // DESCRIPTION
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
     //COUNTRY
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 
-    public function setCountry(\Sportimimi\userBundle\Entity\Country $country) {
+    public function setCountry(\Sportimimi\userBundle\Entity\Country $country)
+    {
         $this->country = $country;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setPassword($pass) {
+    public function setPassword($pass)
+    {
         $this->password = '';
     }
 
-    public function setUser(\Sportimimi\userBundle\Entity\User $user = null) {
+    public function setUser(\Sportimimi\userBundle\Entity\User $user = null)
+    {
         $this->user = $user;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getEvents() {
+    public function getEvents()
+    {
         return $this->events;
     }
 
-    public function addEvent(\Sportimimi\userBundle\Entity\Event $event) {
+    public function addEvent(\Sportimimi\userBundle\Entity\Event $event)
+    {
         $this->events[] = $event;
         return $this;
     }
 
-    public function removeEvent(\Sportimimi\userBundle\Entity\Event $event) {
+    public function removeEvent(\Sportimimi\userBundle\Entity\Event $event)
+    {
         $this->events->removeElement($event);
     }
 
-    public function addTeam(\Sportimimi\userBundle\Entity\Team $team) {
+    public function addTeam(\Sportimimi\userBundle\Entity\Team $team)
+    {
         $this->teams[] = $team;
         return $this;
     }
 
-    public function getTeams() {
+    public function getTeams()
+    {
         return $this->teams;
     }
 
     //PLACES
-    public function addPlace(\Sportimimi\userBundle\Entity\Place $place) {
+    public function addPlace(\Sportimimi\userBundle\Entity\Place $place)
+    {
         $this->places[] = $place;
         return $this;
     }
 
-    public function getPlaces() {
+    public function getPlaces()
+    {
         return $this->places;
     }
 
     //SKILLS
-    public function getSkills() {
+    public function getSkills()
+    {
         return $this->skills;
     }
 
-    public function setSkills(\Sportimimi\userBundle\Entity\Skills $skills) {
+    public function setSkills(\Sportimimi\userBundle\Entity\Skills $skills)
+    {
         $this->skills = $skills;
     }
 
     //NOTIFICATIONS
 
-    public function getNotifications() {
+    public function getNotifications()
+    {
         return $this->notifications;
     }
 
-    public function addNotifications(\Sportimimi\userBundle\Entity\Notification $notification) {
+    public function addNotifications(\Sportimimi\userBundle\Entity\Notification $notification)
+    {
         $this->notifications[] = $notification;
         return $this;
     }
 
-    public function removeTeam(\Sportimimi\userBundle\Entity\Team $team) {
+    public function removeTeam(\Sportimimi\userBundle\Entity\Team $team)
+    {
         $this->teams->removeElement($team);
     }
 
     //POSITIONS
-    public function getPositions() {
+    public function getPositions()
+    {
         return $this->positions;
     }
 
-    public function addPosition(\Sportimimi\userBundle\Entity\Position $position) {
+    public function addPosition(\Sportimimi\userBundle\Entity\Position $position)
+    {
         $this->positions[] = $position;
         return $this;
     }
 
     //FRIENDS
-    public function addFriend(\Sportimimi\userBundle\Entity\Profile $profile) {
+    public function addFriend(\Sportimimi\userBundle\Entity\Profile $profile)
+    {
         $this->myFriends[] = $profile;
         return $this;
     }
 
-    public function getFriends() {
+    public function getFriends()
+    {
         return $this->myFriends;
     }
 
     // INVITAITIONS
-    public function getInvitations_send() {
+    public function getInvitations_send()
+    {
         return $this->invitations_send;
     }
 
-    public function getInvitations_receive() {
+    public function getInvitations_receive()
+    {
         return $this->invitations_receive;
     }
 
-    public function getInvitations_team_send() {
+    public function getInvitations_team_send()
+    {
         return $this->invitations_team_send;
     }
 
-    public function removeFriend(\Sportimimi\userBundle\Entity\Profile $profile) {
+    public function removeFriend(\Sportimimi\userBundle\Entity\Profile $profile)
+    {
         $this->myFriends->removeElement($profile);
         $this->friendsWithMe->removeElement($profile);
     }
 
-    public function getAge() {
+    public function getAge()
+    {
         if (isset($this->dateNaissance)) {
             $dateInterval = $this->dateNaissance->diff(new \DateTime());
             if ($dateInterval->y == 22)
@@ -454,16 +508,19 @@ class Profile {
 
     // Levels
 
-    public function getLevels() {
+    public function getLevels()
+    {
         return $this->levels;
     }
 
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
     //online or not?
-    public function online() {
+    public function online()
+    {
         $now = date('Y-m-d H:i:s');
         $lastActive = $this->lastActive;
         if ($lastActive == null)
@@ -477,31 +534,38 @@ class Profile {
     }
 
     //1 : player is looking for someone 0 : none
-    public function setSearchPlayer($value) {
+    public function setSearchPlayer($value)
+    {
         $this->searchPlayer = $value;
     }
 
-    public function getSearchPlayer() {
+    public function getSearchPlayer()
+    {
         return $this->searchPlayer;
     }
 
     // return place user are currently playing
-    public function getPlaceCurrentlyPlay() {
+    public function getPlaceCurrentlyPlay()
+    {
         return $this->placeCurrentlyPlay;
     }
 
     //Make a user participate to a news
-    public function addPlayNews(\Sportimimi\userBundle\Entity\News $news) {
+    public function addPlayNews(\Sportimimi\userBundle\Entity\News $news)
+    {
         $this->playingTogether[] = $news;
         return $this;
     }
-    public function removePlayNews(\Sportimimi\userBundle\Entity\News $news) {
+
+    public function removePlayNews(\Sportimimi\userBundle\Entity\News $news)
+    {
         $this->playingTogether->removeElement($news);
 
     }
 
     //get message
-    public function getMessage_recieve() {
+    public function getMessage_recieve()
+    {
         return $this->message_recieve;
     }
 
@@ -533,4 +597,22 @@ class Profile {
         return $this->userComments;
     }
 
+    /**
+     * @param mixed $userRates
+     *
+     * @return $this
+     */
+    public function setUserRates($userRates)
+    {
+        $this->userRates = $userRates;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserRates()
+    {
+        return $this->userRates;
+    }
 }
