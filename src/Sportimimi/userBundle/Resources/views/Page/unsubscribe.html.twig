@@ -1,0 +1,13 @@
+{% block title %}Unsubscribe{% endblock %}
+
+
+{% block body %}
+    {% if result is defined %}
+        {{ result }}
+    {% else %}
+        <form method="post">
+            <input type="text" name="user" placeholder="Enter your email to unsubscribe" value="{{ email }}"/>
+            <input type="button" class="button" value="unsubscribe"/>
+        </form>
+    {% endif %}
+{% endblock %}

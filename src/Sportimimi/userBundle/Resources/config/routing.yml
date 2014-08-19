@@ -7,6 +7,9 @@ Contact:
 About:
     path:     /ve-chung-toi
     defaults: { _controller: SportimimiuserBundle:Page:about }
+Unsubscribe:
+    path: /unsubcribe
+    defaults: { _controller: SportimimiuserBundle:Page:unsubscribe }
 RechercheProfile:
     path:     /searchProfile
     defaults: { _controller: SportimimiuserBundle:Profile:search }
@@ -148,14 +151,6 @@ AddStatus:
 SetSearchPlayer:
     pattern: /searchPlayer/{value}
     defaults: { _controller: SportimimiuserBundle:Profile:setSearchPlayer,value: 0 }
-
-Administrator:
-    path: /private
-    defaults: { _controller: SportimimiuserBundle:Admin:index }
-
-DeleteUser:
-    pattern: /deleteUser/{id}
-    defaults: { _controller: SportimimiuserBundle:Admin:deleteUser,id: default_slug }
 EditNews:
     pattern : /editNews
     defaults: { _controller: SportimimiuserBundle:News:editNews}

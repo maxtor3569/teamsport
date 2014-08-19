@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sportimimi\userBundle\Entity\Repository\CategoryRepository")
  * @ORM\Table(name="category")
  * @ExclusionPolicy("all")
  */

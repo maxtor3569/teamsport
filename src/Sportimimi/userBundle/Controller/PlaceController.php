@@ -253,10 +253,9 @@ class PlaceController extends Controller {
         return new Response('Record save', 200, array('Content-Type' => 'application/html'));
     }
 
-    public function placeListJsonAction() {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT p FROM SportimimiuserBundle:Place p');
-        $result = $query->getArrayResult();
+    public function placeListJsonAction(Request $request) {
+        $name = $request->get('q');
+        $result = $this->getDoctrine()->getRepository('SportimimiuserBundle:Place')->findLikeName($name);
 
         return new Response(json_encode($result), 200);
     }

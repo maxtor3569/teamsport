@@ -17,7 +17,8 @@ use JMS\Serializer\Annotation\VirtualProperty;
  * @ORM\Table(name="fos_user")
  * @ExclusionPolicy("all") 
  */
-class User extends BaseUser {
+class User extends BaseUser
+{
 
     /**
      * @ORM\Id

@@ -56,6 +56,7 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+
           
 # Swiftmailer Configuration
 swiftmailer:
@@ -190,7 +191,7 @@ monolog:
     handlers:
         mail:
             type:         fingers_crossed
-            action_level: error
+            action_level: critical
             handler:      buffered
         buffered:
             type:    buffer
