@@ -2,6 +2,7 @@
 
 namespace Sportimimi\userBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -128,6 +129,11 @@ class Profile {
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="UserComment",mappedBy="profile")
+     */
+    private $userComments;
+
+    /**
      * @ORM\OneToOne(targetEntity="Skills")
      * @ORM\JoinColumn(name="skills_id", referencedColumnName="id", onDelete="CASCADE")
      */
@@ -234,6 +240,7 @@ class Profile {
     public function __construct() {
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userComments = new ArrayCollection();
     }
 
     public function getNom() {
@@ -506,5 +513,24 @@ class Profile {
     {
         return sprintf('%s, %s', $this->nom, $this->prenom);
     }
-    
+
+    /**
+     * @param mixed $userComments
+     *
+     * @return $this
+     */
+    public function setUserComments($userComments)
+    {
+        $this->userComments = $userComments;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserComments()
+    {
+        return $this->userComments;
+    }
+
 }
