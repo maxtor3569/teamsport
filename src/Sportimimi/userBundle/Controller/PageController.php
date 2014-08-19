@@ -356,4 +356,29 @@ class PageController extends Controller {
         ));
     }
 
+    public function unsubscribeAction(Request $request)
+    {
+        $email = '';
+        if (isset($_GET['email']))
+            $email = $_GET['email'];
+        if ($request->getMethod() == 'POST') {
+
+            $em = $this->getDoctrine()->getManager();
+            $repository = $this->getDoctrine()->getRepository('SportimimiuserBundle:User');
+            if (isset($_POST['user']))
+                $user = $_POST['user'];
+
+            $user = $repository->findOneByEmail($_POST['user']);
+            $user->setNewsletter(0);
+            $em->persist($user);
+            $em->flush();
+            return $this->render('SportimimiuserBundle:Page:unsubscribe.html.twig', array('result' => 'Unsubscribe OK'));
+
+        }
+
+        return $this->render('SportimimiuserBundle:Page:unsubscribe.html.twig', array('email' => $email));
+
+
+    }
+
 }
