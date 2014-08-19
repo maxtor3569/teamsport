@@ -26,6 +26,8 @@ use Sportimimi\userBundle\Form\SearchTeam;
 class NewsController extends Controller {
 
     public function addStatusAction() {
+        try {
+
         //User logged on
         $user = $this->get('security.context')->getToken()->getUser();
         if ($user != 'anon.')// Check user is not anonyme
@@ -48,9 +50,10 @@ class NewsController extends Controller {
 	            $news->setSport($sport);
             }
             
-            //set up where the play is playing 
-            //if the plaecc is not in the database..create one 
-            if ($_POST['newPlace'] == 1)
+            //set up where the play is playing
+            //if the plaecc is not in the database..create one
+            $placePlayed = $em->getRepository('SportimimiuserBundle:Place')->findOneByAddress($_POST['status']);
+            if ($_POST['newPlace'] == 1 or is_null($placePlayed))
             {
             	$place = new Place();
 				$place->setAddress($_POST['status']);
@@ -64,7 +67,6 @@ class NewsController extends Controller {
             else
             {
             	$address = null;
-	            $placePlayed = $em->getRepository('SportimimiuserBundle:Place')->findOneByAddress($_POST['status']);
 	            $address = $placePlayed->getAddress();
 	            if($placePlayed->getAddress() == null)
 	            	$address = $placePlayed->getPlaceName();
@@ -86,6 +88,10 @@ class NewsController extends Controller {
 
         $em->persist($news);
         $em->flush();
+        } catch(\Exception $e)
+        {
+            var_dump($e->getMessage()); exit;
+        }
         // render mot news..
          return $this->render('SportimimiuserBundle:News:renderOneNews.html.twig', 
         	array('news' => $news, 'user' => $user)
