@@ -1,22 +1,43 @@
-users : 
-  type: rest
-  resource:     "SportimimiuserBundle:UserRest"
-  name_prefix:  api_
-  requirements:
-    text: .+
+users:
+    type: rest
+    resource:     "SportimimiuserBundle:UserRest"
+    name_prefix:  api_
+    requirements:
+      text: .+
+
+comments:
+    type:     rest
+    parent:   users
+    resource: Sportimimi\userBundle\Controller\Rest\UserCommentsController
+    name_prefix: api_
+
+ratings:
+    type:     rest
+    parent:   users
+    resource: Sportimimi\userBundle\Controller\Rest\UserRatingsController
+    name_prefix: api_
+
 news:
-  type: rest
-  resource: "SportimimiuserBundle:NewsRest"
-  name_prefix:  api_
+    type: rest
+    resource: "SportimimiuserBundle:NewsRest"
+    name_prefix:  api_
+
 profiles:
-  type: rest
-  resource: "SportimimiuserBundle:ProfilesRest"
-  name_prefix:  api_
+    type: rest
+    resource: "SportimimiuserBundle:ProfilesRest"
+    name_prefix:  api_
+
 notifications:
-  type: rest
-  resource: "SportimimiuserBundle:NotificationsRest"
-  name_prefix:  api_
+    type: rest
+    resource: "SportimimiuserBundle:NotificationsRest"
+    name_prefix:  api_
+
 places:
+    type: rest
+    resource: "SportimimiuserBundle:PlaceRest"
+    name_prefix:  api_
+
+category:
   type: rest
-  resource: "SportimimiuserBundle:PlaceRest"
+  resource: "SportimimiuserBundle:CategoryRest"
   name_prefix:  api_

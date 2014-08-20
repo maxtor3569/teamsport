@@ -11,7 +11,7 @@
 
 {% block javascripts %}
 
-    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="https://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.5/gmaps.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.jeditable/1.7.3/jquery.jeditable.js"></script>
     
@@ -20,6 +20,8 @@
         <script src="{{ asset('js/form-validator-fast-register.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
         
     {% else %}
+
+
     
     <script>
         //DELETE Comment
@@ -145,6 +147,10 @@
         }
         function DoSport()
         {
+            // show the map div
+            //$('#place-suggestion-map').show();
+            //initializePlaceSuggest();
+
         	if(jQuery('#doSportsInput').val() == 0)
         	{
 	            // set news ->Doing sports
@@ -177,7 +183,14 @@
 
         $(document).ready(function() {
             $("#sportPlay").select2({
+                minimumInputLength: 3,
                 ajax: {
+                    data: function (term, page) { // page is the one-based page number tracked by Select2
+                        return {
+                            q: term, //search term
+                            page: page
+                        };
+                    },
                     dataType: "json",
                     maximumSelectionSize: 1,
                     url: "{{ path('SportsListJson') }}",
@@ -198,7 +211,15 @@
 			  $("#place_played").select2({
 			      tags: [],
 			      maximumSelectionSize: 1,
+                  minimumInputLength: 5,
 			      ajax: {
+                      data: function (term, page) { // page is the one-based page number tracked by Select2
+                          //updatePlaceSuggestion(term);
+                          return {
+                              q: term, //search term
+                              page: page
+                          };
+                      },
 			          dataType: "json",
 			          maximumSelectionSize: 1,
 			          url: "{{ path('PlaceListJson') }}",
@@ -223,6 +244,7 @@
 			          	
 			              return this.placeName.localeCompare(term) === 0;
 			          }).length === 0) {
+                          console.log(term);
 			              return {
 			                  placeName: term,
 			                  address: term,

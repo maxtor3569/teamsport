@@ -746,10 +746,10 @@ class ProfileController extends Controller {
         return new Response(json_encode($result), 200);
     }
 
-    public function sportsListJsonAction() {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT p FROM SportimimiuserBundle:Category p');
-        $result = $query->getArrayResult();
+    public function sportsListJsonAction(Request $request)
+    {
+        $name = $request->get('q');
+        $result = $this->getDoctrine()->getRepository('SportimimiuserBundle:Category')->findLikeName($name);
 
         return new Response(json_encode($result), 200);
     }

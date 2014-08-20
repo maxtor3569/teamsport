@@ -62,6 +62,7 @@ class ProfilesRestController extends Controller
 	public function postRegisterAction()
 	{
 		$message = '';
+		echo "test";die;
 		$profile = new Profile();
 		$user = new User();
 
