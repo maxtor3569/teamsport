@@ -1,144 +1,389 @@
-<div class="innerAll">
-   <div class="widget">
-      <div class="widget-body padding-none">
-         <div class="margin-none center bg-white">
-            <h1 class="separator bottom">Bạn tìm người chơi thể thao ?</h1>
-            <p>Tham gia vào mạng lưới thể thao tốt nhất tại Việt Nam. Tìm bạn bè để chơi, tìm phòng để chơi, Tạo nhóm của bạn.</p>
-            <div id="register" class="row">
-               <form class="form-horizontal margin-none" id="validateSubmitForm" method="post" autocomplete="off" novalidate="novalidate" {{ form_enctype(form) }}>
-               <div class="col-md-6">
-                  <img class="col-xs-12" src="{{ asset('images/image_homepage.jpg') }}" />
-               </div>
-               <div class="col-md-6">
-                  <div class="col-md-6" style="margin-top:15px;">
-                     <div class="form-group" style="margin:0;">
-                        {{ form_widget(form.prenom) }}                         
-                     </div>
-                  </div>
-                  <div class="col-md-6" style="margin-top:15px;">
-                     <div class="form-group" style="margin:0;">
-                        {{ form_widget(form.nom) }}
-                     </div>
-                  </div>
-                  <div class="col-md-6" style="margin-top:15px;">
-                     <div class="form-group" style="margin:0;">
-                        {{ form_widget(form.email) }}
-                     </div>
-                  </div>
-                  <div class="col-md-6" style="margin-top:15px;">
-                     <div class="form-group" style="margin:0;">
-                        {{ form_widget(form.password) }}
-                     </div>
-                  </div>
-                  <div class="col-md-6" style="margin-top:15px;">
-                     <div class="form-group" style="margin:0;">                                 
-                        {{ form_widget(form.sports) }}
-                     </div>
-                  </div>
-                  <div class="col-md-6" style="margin-top:15px;">
-                     <div class="form-group" style="margin:0;">
-                        {{ form_widget(form.phone) }}
-                     </div>
-                  </div>
-                  <div class="col-md-11" style="margin-top:15px;margin-bottom:15px">
-                     Bằng cách đăng ký trên Teamsport, bạn đồng ý với Điều khoản Dịch vụ, Chính sách bảo mật và Chính sách cookie Teamsport.
-                  </div>
-                  <div class="col-md-11" style="margin-top:15px;margin-bottom:15px">
-                     <div style="display:none">{{ form_widget(form) }}</div>
-                     <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-check-circle"></i> {{ 'Đăng ký'|trans }}</button>
-                     <a id="fb_button" class="btn btn-primary btn-lg" style="background:#4c66a4" href="{{ facebook.loginUrl({ redirect_uri: url('FacebookLogin'), scope :'email' }) }}" title="Connect With Facebook">
-                     {{'Đăng ký'|trans}} với Facebook</a>
-                  </div>
-               </div>
-               </form>
+{% block stylesheets_include %}
+    <style type="text/css">
+        #customBtn, #customBtnYahoo, #customBtnFacebook {
+            display: inline-block;
+            background: #dd4b39;
+            color: white;
+            width: 250px;
+            border-radius: 5px;
+            white-space: nowrap;
+            cursor: pointer
+        }
+
+        #customBtnYahoo {
+            background: #7a0095;
+
+        }
+
+        #customBtnFacebook {
+            background: #4c66a4;
+
+        }
+
+        #customBtn:hover, #customBtnYahoo:hover, #customBtnFacebook:hover {
+            background: #e74b37;
+            cursor: hand;
+        }
+
+        span.label {
+            font-weight: bold;
+        }
+
+        span.icon {
+            background: url('{{ asset('images/icons/btn_red_32.png') }}') transparent 5px 50% no-repeat;
+            display: inline-block;
+            vertical-align: middle;
+            width: 35px;
+            height: 35px;
+            border-right: rgba(0, 0, 0, 0.2) 1px solid;
+        }
+
+        span.buttonText {
+            display: inline-block;
+            vertical-align: middle;
+            padding-left: 15px;
+            padding-right: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            /* Use the Roboto font that is loaded in the <head>
+            font-family: 'Roboto',arial,sans-serif; */
+        }
+    </style>
+{% endblock %}
+
+<!-- START SLIDER -->
+<div class="row hide-for-small">
+    <div class="hover-slider">
+
+        <div class="medium-4 large-5 columns left" style="padding-top: 10%">
+            <h2>
+                <div class="row" style="margin-bottom:10px">
+                    <div class="medium-9 large-9 slogan1">{{ 'Bạn tìm người'|trans }}</div>
+                </div>
+
+                <div class="row">
+                    <div class="medium-9 large-9 slogan1">
+                        {{ 'chơi thể thao ?'|trans }}
+                    </div>
+                </div>
+
+            </h2>
+            <div class="row">
+                <div class="slogan2">
+                    {{ 'Tham gia vào mạng lưới thể thao tốt nhất tại Việt Nam.'|trans }}
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
-   <div class="row">
-      <div class="col-md-4">
-         <div class="widget widget-heading-simple widget-body-white">
-            <div class="widget-body innerAll inner-2x">
-               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
-                  <p class="margin-none">
-                     <img class="img-responsive" src="{{ asset('images/562px-Adidas_Logo.svg.png') }}" style="height:200px" />
-                  </p>
-               </div>
+            <div class="row">
+                <div class="slogan2" style="margin-top:10px">
+                    {{ 'Tìm bạn bè để chơi, tìm phòng để chơi, tạo nhóm của bạn.'|trans }}
+                </div>
             </div>
-         </div>
-      </div>
-      <div class="col-md-4">
-         <div class="widget widget-heading-simple widget-body-white">
-            <div class="widget-body innerAll inner-2x">
-               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
-                  <p class="margin-none">
-                     <img class="img-responsive" src="{{ asset('images/Nike_logo.png') }}" style="height:200px" />
-                  </p>
-               </div>
+            <div class="row" style="padding-top:15px">
+                <a href="https://play.google.com/store/apps/details?id=com.teamsport.app">
+                    <img alt="Android app on Google Play" src="{{ asset('images/buttons/en_app_rgb_wo_45.png') }}"/>
+                </a>
+
+                <a href="https://play.google.com/store/apps/details?id=com.teamsport.app">
+                    <img alt="Android app on Google Play" src="{{ asset('images/buttons/apple_store.png') }}"/>
+                </a>
             </div>
-         </div>
-      </div>
-      <div class="col-md-4">
-         <div class="widget widget-heading-simple widget-body-white">
-            <div class="widget-body innerAll inner-2x">
-               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
-                  <p class="margin-none">
-                     <img class="img-responsive" src="{{ asset('images/Puma-Logo.png') }}"  style="height:200px"/>
-                  </p>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="row">
-      <div class="col-md-4">
-         <div class="widget widget-heading-simple widget-body-white">
-            <div class="widget-body innerAll inner-2x">
-               <div class="glyphicons glyphicon-xlarge glyphicon-top group">
-                  <i></i>
-                  <h4>Tìm người chơi và Tạo đội</h4>
-                  <p class="margin-none"> Không có người để cùng luyện tập thể thao?
-                     Hãy đăng ký và bắt đầu tìm kiếm những thành viên
-                     thích hợp để cùng chơi.
-                     <br /><br />
-                  </p>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="col-md-4">
-         <div class="widget widget-heading-simple widget-body-white">
-            <div class="widget-body innerAll inner-2x">
-               <div class="glyphicons glyphicon-xlarge glyphicon-top soccer_ball">
-                  <i></i>
-                  <h4>Tìm sân chơi</h4>
-                  <p class="margin-none">Bạn băn khoăn không biết trong quận của bạn có những sân chơi nào, và những ai đang chơi tại đó? 
-                     Chức năng này sẽ giúp bạn tìm được sân chơi phù hợp nhất.
-                     <br>
-                  </p>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="col-md-4">
-         <div class="widget widget-heading-simple widget-body-white">
-            <div class="widget-body innerAll inner-2x">
-               <div class="glyphicons glyphicon-xlarge glyphicon-top message_new">
-                  <i></i>
-                  <h4>Kết nối và chơi</h4>
-                  <p class="margin-none"> Bạn cò thể kết bạn mới, gửi lời mời chơi,
-                     thành lập đội, tổ chức sự kiện và rất nhiều tiện ích khác.<br />
-                     <br>
-                  </p>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+        <div id="sign-up" class="medium-7 large-5 columns right">
+            <div class="large-12 columns text-center" style="font-size:16pt;padding:15px">{{ 'ĐĂNG KÝ'|trans }}</div>
+            <form id="registerForm" method="post" action="{{ path('AddProfile') }}">
+                <div class="medium-5 medium-only-text-left large-12 columns">
+                    <input class="radius fieldRegister" type="text" name="profile[prenom]"
+                           placeholder="{{ 'Nhập tên của bạn'|trans }}" style="margin-bottom: 10px"/>
+                    <input class="radius fieldRegister" type="text" name="profile[nom]"
+                           placeholder="{{ 'Nhập họ của bạn'|trans }}" style="margin-bottom: 10px"/>
+                    <input class="radius fieldRegister" type="email" name="profile[email]"
+                           placeholder="{{ 'Nhập emaiḷ của bạn'|trans }}" style="margin-bottom: 10px"/>
+                    <input class="radius fieldRegister" type="text" name="profile[phone]"
+                           placeholder="{{ 'Nhập số điện thoại của bạn'|trans }}" style="margin-bottom: 10px"/>
+                    <input class="radius fieldRegister" type="password" name="profile[password]"
+                           placeholder="{{ 'Nhập mật khẩu mới'|trans }}" style="margin-bottom: 10px"/>
+                </div>
+                <div class="medium-7 large-12 columns">
+                    <p style="font-size:8pt">
+                        {{ 'Bằng cách đăng ký trên Teamsport, bạn đồng ý với Điều khoản Dịch vụ, Chính sách bảo mật và Chính sách cookie Teamsport.'|trans }}
+                    </p>
+
+
+                </div>
+                <div class="medium-7 large-12 columns text-center">
+                    <a href="#" id="registerButton" class="button radius"><i class="fi-arrow-right"
+                                                                             style="height:10px"></i> {{ 'Đăng ký'|trans }}
+                    </a><br/>
+
+                    <div style="padding-bottom: 10px;padding-top:10px">or</div>
+
+
+                    <div id="gSignInWrapper" style="padding-bottom: 5px">
+                        <div id="customBtnFacebook" class="customGPlusSignIn">
+                            <span class="icon"></span>
+                            <span class="buttonText">{{ 'Đăng ký với Facebook'|trans }}</span>
+                        </div>
+                    </div>
+
+                    <div id="gSignInWrapper" style="padding-bottom: 5px">
+                        <div id="customBtn" class="customGPlusSignIn">
+                            <span class="icon"></span>
+                            <span class="buttonText">{{ 'Đăng ký với Google +'|trans }}</span>
+                        </div>
+                    </div>
+
+                    <div id="gSignInWrapper">
+                        <div id="customBtnYahoo" class="customGPlusSignIn">
+                            <span class="icon"></span>
+                            <span class="buttonText">{{ 'Đăng ký với Yahoo!'|trans }}</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<script>
-   $( document ).ready(function() {
-   	jQuery('#profile_sports').prepend('<option value="" disabled selected>Bạn chơi thể thao nào?</option>');
-   });
-   
-</script>
+<div id="sliderHome" class="owl-carousel">
+
+    <div><img src="{{ asset('images/slider/football.jpg') }}" alt="football" style=""/></div>
+    <div><img src="{{ asset('images/slider/basketball.jpg') }}" alt="basketball" style=""/></div>
+    <div><img src="{{ asset('images/slider/badminton.jpg') }}" alt="badminton" style=""/></div>
+    <div><img src="{{ asset('images/slider/tennis.jpg') }}" alt="tennis" style=""/></div>
+    <div><img src="{{ asset('images/slider/volley.jpg') }}" alt="volley" style=""/></div>
+</div>
+<!-- END SLIDER -->
+
+<div class="row" style="padding-top:25px">
+    <div class="small-4 medium-4 large-4 columns text-center">
+        <img src="{{ asset('images/icons/find_players.png') }}" alt="find players"/>
+
+        <div class="MuseoSlab-500" style="padding-top: 5px;"> {{ 'Tìm người chơi và'|trans }} <br/>{{ 'tạo đội'|trans }}
+        </div>
+
+    </div>
+    <div class="small-4 medium-4 large-4 columns text-center">
+        <img src="{{ asset('images/icons/playgrounds.png') }}" alt="find players"/>
+
+        <div class="MuseoSlab-500" style="padding-top: 5px;"> {{ 'Tìm sân chơi'|trans }}</div>
+
+    </div>
+    <div class="small-4 medium-4 large-4 columns text-center">
+        <img src="{{ asset('images/icons/message.png') }}" alt="find players"/>
+
+        <div class="MuseoSlab-500" style="padding-top: 5px;">{{ 'Kết nối và chơi'|trans }} </div>
+
+
+    </div>
+</div>
+<div class="row featured-sub-desc hide-for-small" style="padding-bottom: 40px">
+    <div class="small-4 medium-4 large-4 columns text-center">
+        <div class="featured-sub-desc hide-for-small">
+            No to the same exercise routine? Sign up and start looking for suitable members to play.
+        </div>
+    </div>
+    <div class="small-4 medium-4 large-4 columns text-center">
+
+        <div class="featured-sub-desc hide-for-small">
+            You wonder if your county has any playground, and those who play in it? This feature will help you find the
+            most suitable playground.
+        </div>
+    </div>
+    <div class="small-4 medium-4 large-4 columns text-center">
+
+        <div class="featured-sub-desc hide-for-small">
+            No to the same exercise routine? Sign up and start looking for suitable members to play.
+        </div>
+
+    </div>
+
+
+</div>
+<div class="row">
+    <hr/>
+    <hr/>
+</div>
+<div id="logos" class="row">
+
+    <div class="small-4 medium-4 large-4 columns text-center">
+        <img src="{{ asset('images/562px-Adidas_Logo.svg.png') }}" alt="addidas logo"/>
+    </div>
+
+    <div class="small-4 medium-4 large-4 columns text-center">
+        <img style="padding-top:15px" src="{{ asset('images/nike_logo.png') }}" alt="nike logo"/>
+    </div>
+
+    <div class="small-4 medium-4 large-4 columns text-center">
+        <img src="{{ asset('images/puma-logo.png') }}" alt="puma logo"/>
+    </div>
+
+</div>
+
+<div id="why-us" class="row">
+
+    <div class="small-6 medium-6 large-6 columns">
+        <div style="float:left">Tại sao chọn Teamsport?</div>
+        <hr style="width:50%;clear:none"/>
+        <hr style="width:50%;clear:none"/>
+        <div class="content">
+            <div style="padding-top:5px;padding-bottom:5px;color:#747474"><img
+                        src="{{ asset('images/icons/arrow_why_us.png') }}" alt="arrow why us"/> <span
+                        style="margin-left:10px">{{ 'Miễn phí'|trans }}</span></div>
+            <div style="padding-top:5px;padding-bottom:5px;color:#747474"><img
+                        src="{{ asset('images/icons/arrow_why_us.png') }}" alt="arrow why us"/> <span
+                        style="margin-left:10px">{{ 'Chơi với người nước ngoài' }}</span></div>
+            <div style="padding-top:5px;padding-bottom:5px;color:#747474"><img
+                        src="{{ asset('images/icons/arrow_why_us.png') }}" alt="arrow why us"/> <span
+                        style="margin-left:10px">{{ 'Dễ sử dụng'|trans }}</span></div>
+        </div>
+    </div>
+
+    <div class="small-6 medium-6 large-6 columns">
+        <div style="float:left">Recent Players</div>
+        <hr style="width:60%;clear:none"/>
+        <hr style="width:60%;clear:none"/>
+        <div id="sliderPlayers" class="content">
+            {% for player in players %}
+                {% if player.document is defined %}
+                    {% for img in player.document %}
+                        {% if img.type == 'image' %}
+                            {% set url = img.id ~ "." ~ img.url %}
+                        {% endif %}
+                    {% else %}
+                        {% set url = 'img_profile_default.jpg' %}
+                    {% endfor %}
+                {% endif %}
+
+                <div>
+
+                    <div class="small-6 medium-6 large-6 columns" style="padding:0"><img
+                                src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
+                                class="img-circle"/><b>{{ player.prenom }} {{ player.nom }}</b></div>
+                    <div class="small-6 medium-6 large-6 columns">Rating: <img
+                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
+                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
+                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
+                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
+                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/></div>
+                    <div>comment</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+{% block javascripts %}
+    <script>
+        jQuery('#registerButton').click(function () {
+
+            jQuery('#registerForm').submit();
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#sliderHome").owlCarousel({
+                items: 5,
+                itemsCustom: false,
+                itemsDesktop: [1199, 4],
+                itemsDesktopSmall: [980, 3],
+                itemsTablet: [768, 2],
+                itemsTabletSmall: false,
+                itemsMobile: [479, 1],
+                singleItem: true,
+                itemsScaleUp: false,
+
+                //Basic Speeds
+                slideSpeed: 200,
+                paginationSpeed: 800,
+                rewindSpeed: 1000,
+
+                //Autoplay
+                autoPlay: true,
+                stopOnHover: false,
+
+                // Navigation
+                navigation: false,//true set up the arrow later
+                navigationText: [
+                    "<i class='icon-chevron-left icon-white'></i>",
+                    "<i class='icon-chevron-right icon-white'></i>"
+                ],
+                rewindNav: true,
+                scrollPerPage: false,
+
+                //Pagination
+                pagination: false,
+                paginationNumbers: false,
+
+                // Responsive
+                responsive: true,
+                responsiveRefreshRate: 200,
+                responsiveBaseWidth: window,
+
+                // CSS Styles
+                baseClass: "owl-carousel",
+                theme: "owl-theme",
+
+                //Lazy load
+                lazyLoad: true,
+                lazyFollow: true,
+                lazyEffect: "fade",
+
+                //Auto height
+                autoHeight: false,
+
+                //JSON
+                jsonPath: false,
+                jsonSuccess: false,
+
+                //Mouse Events
+                dragBeforeAnimFinish: true,
+                mouseDrag: true,
+                touchDrag: true,
+
+                //Transitions
+                transitionStyle: false,
+
+                // Other
+                addClassActive: false,
+
+                //Callbacks
+                beforeUpdate: false,
+                afterUpdate: false,
+                beforeInit: false,
+                afterInit: false,
+                beforeMove: false,
+                afterMove: false,
+                afterAction: false,
+                startDragging: false,
+                afterLazyLoad: false
+
+
+            });
+            $("#sliderPlayers").owlCarousel({
+                singleItem: true,
+                autoPlay: true,
+                pagination: false
+            });
+        });
+        (function () {
+            var po = document.createElement('script');
+            po.type = 'text/javascript';
+            po.async = true;
+            po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(po, s);
+        })();
+
+        function render() {
+            gapi.signin.render('customBtn', {
+                //'callback': 'signinCallback',
+                'clientid': '841077041629.apps.googleusercontent.com',
+                'cookiepolicy': 'single_host_origin',
+                'requestvisibleactions': 'http://schema.org/AddAction',
+                'scope': 'https://www.googleapis.com/auth/plus.login'
+            });
+        }
+    </script>
+{% endblock %}

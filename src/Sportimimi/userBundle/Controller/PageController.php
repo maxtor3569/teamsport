@@ -32,13 +32,13 @@ class PageController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $facebook = $this->get('facebook');
         $offset = 5;
-        
-        
+
+
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
         if ($user != 'anon.')// Check user is not anonyme
             $user = $user->getProfile();
-     
+
         // RENDER THE PAGE FOR ANONYME USER 
         if ($user == 'anon.')
         {
@@ -62,7 +62,7 @@ class PageController extends Controller {
                     $user->setConfirmationToken($tokenGenerator->generateToken());
                     // send Confirmation mail
                     $mailer = new Mailer($this->get('mailer'), $this->get('router'), $this->get('templating'), array('confirmation.template' => 'SportimimiuserBundle:Page:email.txt.twig',
-                        'from_email' => array('confirmation' => 'info@teamsport.vn'))
+                            'from_email' => array('confirmation' => 'info@teamsport.vn'))
                     );
 
                     $mailer->sendConfirmationEmailMessage($user);
@@ -92,39 +92,48 @@ class PageController extends Controller {
 
                     return $this->redirect($this->generateUrl('AddProfileStep2'), 301);
                 }
-                
-            }  
+
+            }
+
+            $query = $em->createQuery('SELECT p FROM SportimimiuserBundle:Profile p');
+            $query->setMaxResults(5);
+            $players = $query->getResult();
+
+
+            //shuffle($players);
+
             //return the page
             return $this->render('SportimimiuserBundle:Page:index.html.twig', array(
-                    'user' => $user,                   
-                    'facebook' => $facebook,
-                    'form' => $form->createView(),
+                'user' => $user,
+                'facebook' => $facebook,
+                'form' => $form->createView(),
+                'players' => $players
             ));
-            
+
         }
-        
+
         $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:Profile p');
+            'SELECT p FROM SportimimiuserBundle:Profile p');
 
         $recentProfile = $query->getResult();
         $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:Team p');
+            'SELECT p FROM SportimimiuserBundle:Team p');
 
         $recentTeam = $query->getResult();
 
         $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:Category p');
+            'SELECT p FROM SportimimiuserBundle:Category p');
         $allSports = $query->getResult();
-        
+
         $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:Profile p');
+            'SELECT p FROM SportimimiuserBundle:Profile p');
         $profileMatch = $query->getResult();
         shuffle($profileMatch);
 
         if ($user != 'anon.') {
 
             $query = $em->createQuery(
-                    'SELECT p FROM SportimimiuserBundle:Category p ORDER BY p.order ASC');
+                'SELECT p FROM SportimimiuserBundle:Category p ORDER BY p.order ASC');
             $query->setMaxResults(5);
             $randomSport = $query->getResult();
 
@@ -135,26 +144,26 @@ class PageController extends Controller {
 
         // Load news
         $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:News p ORDER by p.dateCreated DESC');
+            'SELECT p FROM SportimimiuserBundle:News p ORDER by p.dateCreated DESC');
         $query->setMaxResults($offset);
         $news = $query->getResult();
 
         //For markers
         $query2 = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:News p WHERE p.doingSports = 1 ORDER by p.dateCreated DESC');
+            'SELECT p FROM SportimimiuserBundle:News p WHERE p.doingSports = 1 ORDER by p.dateCreated DESC');
 
         $markers = $query2->getResult();
 
         return $this->render('SportimimiuserBundle:Page:index.html.twig', array(
-                    'user' => $user,
-                    'recentProfile' => $recentProfile,
-                    'recentTeam' => $recentTeam,
-                    'profileMatch' => $profileMatch,
-                    'facebook' => $facebook,
-                    'randomSport' => $randomSport,
-                    'news' => $news,
-                    'allSports' => $allSports,
-                    'markers' => $markers
+            'user' => $user,
+            'recentProfile' => $recentProfile,
+            'recentTeam' => $recentTeam,
+            'profileMatch' => $profileMatch,
+            'facebook' => $facebook,
+            'randomSport' => $randomSport,
+            'news' => $news,
+            'allSports' => $allSports,
+            'markers' => $markers
         ));
     }
 
@@ -258,7 +267,7 @@ class PageController extends Controller {
             $user = $user->getProfile();
 
         $session = $this->getRequest()->getSession();
-        //set up start result 
+        //set up start result
         if (isset($_POST['start']))
             $start = $_POST['start'];
         else
@@ -279,8 +288,8 @@ class PageController extends Controller {
         $query->setFirstResult($start);
         $query->setMaxResults($offset);
         $news = $query->getResult();
-        return $this->render('SportimimiuserBundle:News:dynamicNews.html.twig', 
-        	array('news' => $news, 'user' => $user)
+        return $this->render('SportimimiuserBundle:News:dynamicNews.html.twig',
+            array('news' => $news, 'user' => $user)
         );
     }
 
@@ -318,14 +327,13 @@ class PageController extends Controller {
         if (isset($_POST['id_profile_select']))
             $id_profile_select = $_POST['id_profile_select'];
         $em = $this->container->get('doctrine')->getManager();
-        if ($request->isXmlHttpRequest() && isset($id_profile_select))           
-            {   $sql = 'SELECT p FROM SportimimiuserBundle:Message p WHERE (p.profile_send = ' . $id_profile . ' AND p.profile_recieve = ' . $id_profile_select . ') OR (p.profile_send = ' . $id_profile_select . ' AND p.profile_recieve = ' . $id_profile . ' )';
+        if ($request->isXmlHttpRequest() && isset($id_profile_select)) {   $sql = 'SELECT p FROM SportimimiuserBundle:Message p WHERE (p.profile_send = ' . $id_profile . ' AND p.profile_recieve = ' . $id_profile_select . ') OR (p.profile_send = ' . $id_profile_select . ' AND p.profile_recieve = ' . $id_profile . ' )';
                 $query = $em->createQuery($sql);
                 $conversation = $query->getSingleResult();
-               
-            }
+
+        }
             // $conversations = $em->getRepository('SportimimiuserBundle:Message')->findAll();
-       
+
         return $this->render('SportimimiuserBundle:Page:chat_message.html.twig', array(
                     'conversation' => $conversation,
                     'user' => $user
@@ -338,7 +346,7 @@ class PageController extends Controller {
         $user = $this->get('security.context')->getToken()->getUser();
         if ($user != 'anon.')// Check user is not anonyme
             $user = $user->getProfile();
-        
+
         return $this->render('SportimimiuserBundle:Page:pro_account.html.twig', array(
                     'user' => $user
         ));
@@ -350,7 +358,7 @@ class PageController extends Controller {
         $user = $this->get('security.context')->getToken()->getUser();
         if ($user != 'anon.')// Check user is not anonyme
             $user = $user->getProfile();
-        
+
         return $this->render('SportimimiuserBundle:Page:privacy_policy.html.twig', array(
                     'user' => $user
         ));
