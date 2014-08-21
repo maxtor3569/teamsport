@@ -24,9 +24,60 @@
         </div>
     </div>
     -->
+    <div class="flexslider">
+        <h5 style="padding:10px">{{ 'Những thành viên hiện tại đang tìm người chơi cùng'|trans }}</h5>
+        <ul class="slides">
+
+            {% for prof in profileMatch if prof.searchPlayer == 1 %}
+                <li>
+                    <div class="media border-bottom innerAll margin-none">
+                        {% for img in prof.document %}
+
+                            {% if img.type == 'image' %}
+                                {% set url = img.id ~ "." ~ img.url %}
+                            {% endif %}
+
+                        {% else %}
+                            {% set url = 'img_profile_default.jpg' %}
+                        {% endfor %}
+                        <a href="{{ path('DetailProfile',{'id': prof.id}) }}">
+                            <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
+                                 class="pull-left media-object"/>
+                        </a>
+
+                        <div class="slide-text">
+                            <!--<a href="" class="pull-right text-muted innerT half">
+                                <i class="fa fa-comments"></i> 4
+                            </a>-->
+                            <a href="{{ path('DetailProfile',{'id': prof.id}) }}" class="text-inverse"
+                               style="font-weight:bold;color:#00A650">{{ prof.nom }} {{ prof.prenom }}</a>
+
+                            <div>
+                                {% for sport in prof.sports %}
+                                    {{ sport.nameVn }}
+                                {% endfor %}
+                            </div>
+                            <br/>
+                            <small>
+                                {% if user.id != prof.id %}
+                                    <a href="#modal-3" data-toggle="modal" class="btn btn-info btn-sm">
+                                        <i class="icon-turn-right"></i> Mời chơi cùng
+                                    </a>
+                                {% endif %}
+                            </small>
+                            <!-- <small>on February 2nd, 2014</small>-->
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+
+
     <div class="widget">
-        <h5 class="innerAll margin-none border-bottom bg-gray">Những thành viên hiện tại đang tìm người chơi cùng</h5>
-        <div class="widget-body padding-none">
+
+    <div class="widget-body padding-none">
             {% for prof in profileMatch if prof.searchPlayer == 1%}
                 <div class="media border-bottom innerAll margin-none">
                     {% for img in prof.document %}

@@ -5,7 +5,7 @@
 
 {% block stylesheets_include %}
 
-
+    <link rel="stylesheet" href="{{ asset('flexSlider/flexslider.css') }}"/>
 
 {% endblock %}
 
@@ -20,6 +20,16 @@
         <script src="{{ asset('js/form-validator-fast-register.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
 
     {% else %}
+        <script src="{{ asset('flexSlider/jquery.flexslider-min.js') }}"></script>
+        <script type="text/javascript" charset="utf-8">
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    controlNav: false,
+
+                });
+            });
+        </script>
         <script>
         //DELETE Comment
         function deleteComment(id) {
