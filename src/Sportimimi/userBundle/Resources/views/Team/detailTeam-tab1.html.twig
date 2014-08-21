@@ -1,259 +1,266 @@
 <!-- Tab content -->
 <div class="tab-pane active" id="tab1-3">
-	<div class="row">
-		<h4>Thành viên</h4>
-        <div class="col-lg-4">
-			 {% if team.category.id == 1 %}
-				<div id="bloc_terrain">
-					<div id="terrain">
-						<div id="goalPosition"></div>
-						<div id="defenderPosition"></div>
-						<div id="midfielder"></div>			
-						<div id="attackerLeftPosition"></div>
-						<div id="attackerRightPosition"></div>	
-						<div id="attackerPosition"></div>	
-							
-					</div>
-				</div>
-			 {% endif %}
-				
-			 {% if team.category.id == 5 %}
-					<div id="bloc_terrain" style="width:300px">
-						<div id="terrainBasket">
-							<div id="point-guard"></div>
-							<div id="shooting-guard"></div>
-							<div id="small-forward"></div>
-							<div id="center-forward"></div>
-							<div id="power-forward"></div>
-						</div>
-					</div>
-			 {% endif %}
-				
-			 {% if team.category.id == 3 %}
-					<div id="bloc_terrain" style="width:300px">
-						<div id="terrainVolley">
-							<div id="point-guard"></div>
-							<div id="shooting-guard"></div>
-							<div id="small-forward"></div>
-							<div id="center-forward"></div>
-							<div id="power-forward"></div>
-						</div>
-					</div>
-			 {% endif %}
-				
-			 {% if team.category.id == 2 %}
-					<div id="bloc_terrain" style="width:300px">
-						<div id="terrainVolley">
-							<div id="point-guard"></div>
-							<div id="shooting-guard"></div>
-							<div id="small-forward"></div>
-							<div id="center-forward"></div>
-							<div id="power-forward"></div>
-						</div>
-					</div>
-			 {% endif %}
-		</div>
-			
-   	<div class="col-lg-8">
-            <div class="widget-head">
-                
-                <div class=" pull-right">
-                    {% if user not in team.profile %}
-                        {% set receiveInvit = 0 %}
-                        {% for invitation in user.invitations_team_send %}
-                                {% if invitation.profile.id == user.id %}
-                                        {% if invitation.team.id is defined%}
-                                                {% if invitation.team.id == team.id %}
-                                                        {% set receiveInvit = 1 %}
-                                                {% endif %}
-                                        {% endif %}
-                                {% endif %}
-                        {% endfor %}
-                        {% if receiveInvit != 1 %}
-                            <button class="btn btn-xs btn-default" onclick="inviteMe({{ team.id }});"><i class="fa fa-plus"></i>Tham gia nhóm này
-                                <i class="fa fa-user fa-fw"></i>
-                            </button>
+<div class="row">
+<h4>{{ 'Thành viên'|trans }}</h4>
+
+<div class="col-lg-4">
+    {% if team.category.id == 1 %}
+        <div id="bloc_terrain">
+            <div id="terrain">
+                <div id="goalPosition"></div>
+                <div id="defenderPosition"></div>
+                <div id="midfielder"></div>
+                <div id="attackerLeftPosition"></div>
+                <div id="attackerRightPosition"></div>
+                <div id="attackerPosition"></div>
+
+            </div>
+        </div>
+    {% endif %}
+
+    {% if team.category.id == 5 %}
+        <div id="bloc_terrain" style="width:300px">
+            <div id="terrainBasket">
+                <div id="point-guard"></div>
+                <div id="shooting-guard"></div>
+                <div id="small-forward"></div>
+                <div id="center-forward"></div>
+                <div id="power-forward"></div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if team.category.id == 3 %}
+        <div id="bloc_terrain" style="width:300px">
+            <div id="terrainVolley">
+                <div id="point-guard"></div>
+                <div id="shooting-guard"></div>
+                <div id="small-forward"></div>
+                <div id="center-forward"></div>
+                <div id="power-forward"></div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if team.category.id == 2 %}
+        <div id="bloc_terrain" style="width:300px">
+            <div id="terrainVolley">
+                <div id="point-guard"></div>
+                <div id="shooting-guard"></div>
+                <div id="small-forward"></div>
+                <div id="center-forward"></div>
+                <div id="power-forward"></div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<div class="col-lg-8">
+    <div class="widget-head">
+
+        <div class=" pull-right">
+            {% if user not in team.profile %}
+                {% set receiveInvit = 0 %}
+                {% for invitation in user.invitations_team_send %}
+                    {% if invitation.profile.id == user.id %}
+                        {% if invitation.team.id is defined %}
+                            {% if invitation.team.id == team.id %}
+                                {% set receiveInvit = 1 %}
+                            {% endif %}
                         {% endif %}
                     {% endif %}
-                   
-                </div>
-               
-            </div>
-		
-		{% set item = 1 %}
-		
-		{% for profile in team.profile %}	
-			<div class="col-md-6" style="margin-bottom:20px">
-				{% if profile.document is defined %}
-			
-					{% for img in profile.document %}
-					
-						{% if img.type == 'image' %}
-							{% set url = img.id ~ "." ~ img.url %}
-						{% endif %}
-						
-					{% else %}
-						{% set url = 'img_profile_default.jpg' %}
-					{% endfor %}
-				{% endif %}
-				<div id="imageProfileSportif">
-					<img src="../uploads/img/{{ url }}" style="cursor:pointer;width:50px;height:50px;float:left;margin-right:15px" />
-				</div>
-				
-				{% if user.id != profile.id %}
-					<a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }} {{ profile.prenom }}	</a>
-				{% else %}
-					<a href="{{ path('DetailProfile', {'id': profile.id}) }}">
-						<span style="color:blue">Tôi</span>
-					</a>
-				{% endif %}
-			
-			
-				{% if profile.id == team.leader.id %} ( Leader )
-				{% else %}
-					{% if user.id == team.leader.id %}
-					<a href="{{ path('RemoveProfileToTeam', {'id_profile': profile.id,'id_team': team.id}) }}">
-						<span style="color:red">X</span>
-					</a>
-					{% endif %}
-				{% endif %}
-				
-				{% if user.id == profile.id %}
-					{% set check = 1 %}
-				{% endif %}
-			
-					{% for position in profile.positions  %}
-					{% if position.team.id is defined %}
-					{% if position.team.id == team.id %}
-						<div id="position{{profile.id}}">
-							Position: {{ position.name }}
-							{% if position.name =='Goal' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#goalPosition').html('<div class="draggable"><center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center></div>');					
-								});
-							</script>
-							{% elseif position.name =='Attacker' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#attackerPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
-								});
-							</script>
-							{% elseif position.name =='Attacker Left' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#attackerLeftPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
-								});
-							</script>
-							
-							{% elseif position.name =='Attacker Right' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#attackerRightPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
-								});
-							</script>
-							
-							
-							{% elseif position.name =='Midfielder' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#midfielder').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');					
-								});
-							</script>
-							
-							{% elseif position.name =='Point Guard' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#point-guard').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
-								});
-							</script>
-						
-							
-							{% elseif position.name =='Small Forward' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#small-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
-								});
-							</script>
-							
-							{% elseif position.name =='Shooting Guard' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#shooting-guard').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
-								});
-							</script>
-							{% elseif position.name =='Center Forward' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#center-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
-								});
-							</script>
-							{% elseif position.name =='Power Forward' %}
-							<script>
-								$( document ).ready(function() {
-									jQuery('#power-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');					
-								});
-							</script>
-							{% endif %}<!-- end script position -->
-						
-							{% if position is not defined %}
-								<select>
-									
-									<option>Goalkeeper</option>
-									<option>Midfielder</option>
-									<option>Attacker Left</option>
-									<option>Attacker Right</option>
-									<option>Attacker</option>
-								</select>
-							{% endif %}
-							
-						{% endif %}
-						</div>
-						{% endif %}
-					
-					
-					
-				{% endfor %}
-				<!-- end for position -->
-				
-				{% if user.id == team.leader.id %}
-					{% if team.category.id == 1 %}
-						<select id="positionSelect" name="positionSelect" onChange="changePositionF(jQuery(this).val(),{{ team.id }},{{ profile.id }})">
-							<option value=""> - Chọn - </option>
-							<option value="Goal">Goalkeeper</option>
-							<option value="Midfielder">Midfielder</option>
-							<option value="Attacker Right">Attacker Right</option>
-							<option value="Attacker Left">Attacker Left</option>
-							<option value="Attacker">Attacker</option>
-						</select>
-					{% endif %}
-					{% if team.category.id == 5 %}
-						<select id="positionSelect" name="positionSelect" onChange="changePositionF(jQuery(this).val(),{{ team.id }},{{ profile.id }})">
-							<option value=""> - Chọn - </option>
-							<option value="Point Guard">Point Guard</option>
-							<option value="Shooting Guard">Shooting Guard</option>
-							<option value="Small Forward">Small Forward</option>
-							<option value="Center Forward">Center Forward</option>
-							<option value="Power Forward">Power Forward</option>
-						</select>
-					{% endif %}
-					
-				{% endif %}
-			{% set i = i + 1 %}
-				
-				
-			{% set item = item+1 %}
-			</div>
-		{% endfor %}
-		
-		{% if check == 1 %}
-			<div  style="margin-top:15px"><a href="{{path('ListProfile') }}">Mời mọi người vào đội của tôi</a></div>
-		{% endif %}
-		
-			
-		</div> 
-		         
+                {% endfor %}
+                {% if receiveInvit != 1 %}
+                    <button class="btn btn-xs btn-default" onclick="inviteMe({{ team.id }});"><i class="fa fa-plus"></i>Tham
+                        gia nhóm này
+                        <i class="fa fa-user fa-fw"></i>
+                    </button>
+                {% endif %}
+            {% endif %}
+
+        </div>
+
     </div>
-    <!-- // row content END -->
+
+    {% set item = 1 %}
+
+    {% for profile in team.profile %}
+        <div class="col-md-6" style="margin-bottom:20px">
+            {% if profile.document is defined %}
+
+                {% for img in profile.document %}
+
+                    {% if img.type == 'image' %}
+                        {% set url = img.id ~ "." ~ img.url %}
+                    {% endif %}
+
+                {% else %}
+                    {% set url = 'img_profile_default.jpg' %}
+                {% endfor %}
+            {% endif %}
+
+            <div id="imageProfileSportif">
+                <img src="../uploads/img/{{ url }}"
+                     style="cursor:pointer;width:50px;height:50px;float:left;margin-right:15px"/>
+            </div>
+
+            {% if user.id != profile.id %}
+                <a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }} {{ profile.prenom }}    </a>
+            {% else %}
+                <a href="{{ path('DetailProfile', {'id': profile.id}) }}">
+                    <span style="color:blue">Tôi</span>
+                </a>
+            {% endif %}
+
+
+            {% if profile.id == team.leader.id %} ( Leader )
+            {% else %}
+                {% if user.id == team.leader.id %}
+                    <a href="{{ path('RemoveProfileToTeam', {'id_profile': profile.id,'id_team': team.id}) }}">
+                        <span style="color:red">X</span>
+                    </a>
+                {% endif %}
+            {% endif %}
+
+            {% if user.id == profile.id %}
+                {% set check = 1 %}
+            {% endif %}
+
+            {% for position in profile.positions %}
+                {% if position.team.id is defined %}
+                    {% if position.team.id == team.id %}
+                        <div id="position{{ profile.id }}">
+                        Position: {{ position.name }}
+                        {% if position.name =='Goal' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#goalPosition').html('<div class="draggable"><center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center></div>');
+                                });
+                            </script>
+                            {% elseif position.name =='Attacker' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#attackerPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');
+                                });
+                            </script>
+                            {% elseif position.name =='Attacker Left' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#attackerLeftPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><br /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');
+                                });
+                            </script>
+
+                            {% elseif position.name =='Attacker Right' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#attackerRightPosition').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');
+                                });
+                            </script>
+
+
+                            {% elseif position.name =='Midfielder' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#midfielder').html('<center><b><img src="{{ asset('images/icons/player_red.png') }}" style="width:25px" /><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b></center>');
+                                });
+                            </script>
+
+                            {% elseif position.name =='Point Guard' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#point-guard').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');
+                                });
+                            </script>
+
+
+                            {% elseif position.name =='Small Forward' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#small-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');
+                                });
+                            </script>
+
+                            {% elseif position.name =='Shooting Guard' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#shooting-guard').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');
+                                });
+                            </script>
+                            {% elseif position.name =='Center Forward' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#center-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');
+                                });
+                            </script>
+                            {% elseif position.name =='Power Forward' %}
+                            <script>
+                                $(document).ready(function () {
+                                    jQuery('#power-forward').html('<b><a href="{{ path('DetailProfile', {'id': profile.id}) }}">{{ profile.nom }}</a></b>');
+                                });
+                            </script>
+                        {% endif %}<!-- end script position -->
+
+                        {% if position is not defined %}
+                            <select>
+
+                                <option>Goalkeeper</option>
+                                <option>Midfielder</option>
+                                <option>Attacker Left</option>
+                                <option>Attacker Right</option>
+                                <option>Attacker</option>
+                            </select>
+                        {% endif %}
+
+                    {% endif %}
+                    </div>
+                {% endif %}
+
+
+
+            {% endfor %}
+            <!-- end for position -->
+
+            {% if user.id == team.leader.id %}
+                {% if team.category.id == 1 %}
+                    <select id="positionSelect" name="positionSelect"
+                            onChange="changePositionF(jQuery(this).val(),{{ team.id }},{{ profile.id }})">
+                        <option value=""> - Chọn -</option>
+                        <option value="Goal">Goalkeeper</option>
+                        <option value="Midfielder">Midfielder</option>
+                        <option value="Attacker Right">Attacker Right</option>
+                        <option value="Attacker Left">Attacker Left</option>
+                        <option value="Attacker">Attacker</option>
+                    </select>
+                {% endif %}
+                {% if team.category.id == 5 %}
+                    <select id="positionSelect" name="positionSelect"
+                            onChange="changePositionF(jQuery(this).val(),{{ team.id }},{{ profile.id }})">
+                        <option value=""> - Chọn -</option>
+                        <option value="Point Guard">Point Guard</option>
+                        <option value="Shooting Guard">Shooting Guard</option>
+                        <option value="Small Forward">Small Forward</option>
+                        <option value="Center Forward">Center Forward</option>
+                        <option value="Power Forward">Power Forward</option>
+                    </select>
+                {% endif %}
+
+            {% endif %}
+            {% set i = i + 1 %}
+
+
+            {% set item = item+1 %}
+        </div>
+    {% endfor %}
+
+    {% if check == 1 %}
+        <div style="margin-top:15px"><a href="{{ path('ListProfile') }}">{{ 'Mời mọi người vào đội của tôi'|trans }}</a>
+        </div>
+    {% endif %}
+
+
+</div>
+
+</div>
+<!-- // row content END -->
 </div>
 <!-- // Tab content END -->

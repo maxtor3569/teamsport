@@ -1,5 +1,6 @@
 {% include 'SportimimiuserBundle:Page:inviteToPlayPopUp.html.twig' %}
 <div class="col-md-4 col-lg-3">
+    <!--
     <div class="widget">
         <div class="widget-body text-center">
             {% if user.document is defined %}
@@ -10,55 +11,56 @@
                         {% set url = img.id ~ "." ~ img.url %}
                     {% endif %}
 
-                    {% else %}
-                        {% set url = 'img_profile_default.jpg' %}
+                {% else %}
+                    {% set url = 'img_profile_default.jpg' %}
                 {% endfor %}
             {% endif %}
             <a href="{{ path('DetailProfile') }}"><img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" style="cursor:pointer;" ></a>
-                                                <h2 class="strong margin-none">{{ user.prenom }} {{ user.nom }}</h2>
-                                                <!--<div class="innerB">Working at MOSAICPRO</div>-->
-                                                <!--<a href="" class="btn btn-primary text-center btn-block">PRO Account</a>-->
-                                                <div class="btn-group-vertical btn-block">
-                                                    <a href="{{ path('DetailProfile') }}" class="btn btn-default"><i class="fa fa-cog pull-right"></i>{{'Chỉnh sửa tài khoản của tôi'|trans }}</a>
-                                                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default">{{ 'Thoát'|trans }}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-
+            <h2 class="strong margin-none">{{ user.prenom }} {{ user.nom }}</h2>
+            <div class="btn-group-vertical btn-block">
+                <a href="{{ path('DetailProfile') }}" class="btn btn-default"><i class="fa fa-cog pull-right"></i>{{ 'Chỉnh sửa tài khoản của tôi'|trans }}</a>
+                <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default">{{ 'Thoát'|trans }}</a>
+            </div>
+        </div>
+    </div>
+    -->
     <div class="widget">
         <h5 class="innerAll margin-none border-bottom bg-gray">Những thành viên hiện tại đang tìm người chơi cùng</h5>
         <div class="widget-body padding-none">
             {% for prof in profileMatch if prof.searchPlayer == 1%}
                 <div class="media border-bottom innerAll margin-none">
                     {% for img in prof.document %}
-						
-			{% if img.type == 'image' %}
+
+                        {% if img.type == 'image' %}
                             {% set url = img.id ~ "." ~ img.url %}
                         {% endif %}
-							
-			{% else %}
-                            {% set url = 'img_profile_default.jpg' %}
+
+                    {% else %}
+                        {% set url = 'img_profile_default.jpg' %}
                     {% endfor %}
-                <a href="{{ path('DetailProfile',{'id': prof.id}) }}">
-                <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}" class="pull-left media-object" />
-                </a>
-                <div class="media-body">
-                    <!--<a href="" class="pull-right text-muted innerT half">
-                        <i class="fa fa-comments"></i> 4
-                    </a>-->
-                    <h5 class="margin-none"><a href="{{ path('DetailProfile',{'id': prof.id}) }}" class="text-inverse">{{ prof.nom}} {{prof.prenom }}</a>
-                    </h5>
-                    <br />
-                    <small>
-                    {% if user.id != prof.id %}
-                        <a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm">
-                            <i class="icon-turn-right"></i> Mời chơi cùng
-                        </a>
-                    {% endif %}
-                    </small>
-                    <!-- <small>on February 2nd, 2014</small>-->
+                    <a href="{{ path('DetailProfile',{'id': prof.id}) }}">
+                        <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
+                             class="pull-left media-object"/>
+                    </a>
+
+                    <div class="media-body">
+                        <!--<a href="" class="pull-right text-muted innerT half">
+                            <i class="fa fa-comments"></i> 4
+                        </a>-->
+                        <h5 class="margin-none"><a href="{{ path('DetailProfile',{'id': prof.id}) }}"
+                                                   class="text-inverse">{{ prof.nom }} {{ prof.prenom }}</a>
+                        </h5>
+                        <br/>
+                        <small>
+                            {% if user.id != prof.id %}
+                                <a href="#modal-3" data-toggle="modal" class="btn btn-info btn-sm">
+                                    <i class="icon-turn-right"></i> Mời chơi cùng
+                                </a>
+                            {% endif %}
+                        </small>
+                        <!-- <small>on February 2nd, 2014</small>-->
+                    </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
