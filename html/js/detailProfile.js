@@ -15,7 +15,7 @@
 
 	Shadowbox.init();
 
-	var contentBox ="<form action='{{ path('ImageProfile') }}' method='post' enctype='multipart/form-data'>Ch?n hình ?nh :<input id='imageProfile' name='file' type='file'/><input type='submit'></form>";
+	var contentBox ="<form action='{{ path('ImageProfile') }}' method='post' enctype='multipart/form-data'>Ch?n hï¿½nh ?nh :<input id='imageProfile' name='file' type='file'/><input type='submit'></form>";
 
  
    	function inviteFriend(id) 
@@ -45,7 +45,7 @@
         url: "{{ path('RemoveFriend') }}",
         cache: false,
         success: function(data){
-			alert('B?n xoá thành công');
+			alert('B?n xoï¿½ thï¿½nh cï¿½ng');
 			window.location.reload();
         }
 		});    
@@ -80,7 +80,7 @@
         success: function(data){
 		
 	
-			Alertify.dialog.alert('Thu m?i choi cùng dã du?c g?i t?i ngu?i choi. Cám on.');
+			Alertify.dialog.alert('Thu m?i choi cï¿½ng dï¿½ du?c g?i t?i ngu?i choi. Cï¿½m on.');
 			window.parent.Shadowbox.close();
 			window.setTimeout(window.location.reload(), 2000);
         }
@@ -120,23 +120,7 @@ $('#more').click(function(e) {
 	$(document).ready(function() {
 		// show initial set
 		showNext($('#friends'));
-			
-		$('#calendar').fullCalendar({
-		defaultView: 'agendaWeek',
-			header: false,
-			firstDay : 1,
-			height: 250,
-			events: "json_events.php",
-			dayClick: function() {
-					Alertify.dialog.prompt("Event", function (e) {
-					if (e) {
-						// user clicked "ok"
-					} else {
-						// user clicked "cancel"
-					}
-				});
-			}
-		});
-		
-	});
+
+
+    });
 
