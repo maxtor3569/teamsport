@@ -516,10 +516,10 @@
 <script data-id="App.Config">
     var App = {};
     var basePath = '',
-            commonPath = '../assets/',
-            rootPath = '../',
+            commonPath = '{{ asset('assets') }}',
+            rootPath = '{{ asset('') }}',
             DEV = false,
-            componentsPath = '../../assets/components/';
+            componentsPath = '{{ asset('assets/components/') }}';
     var primaryColor = '#25ad9f',
             dangerColor = '#b55151',
             successColor = '#609450',
@@ -530,8 +530,6 @@
 </script>
 <script src="{{ asset('assets/components/modules/admin/maps/google/assets/custom/maps-google.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
-
     <script src="{{ asset('assets/components/library/bootstrap/js/bootstrap.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
     <script src="{{ asset('assets/components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
     <script src="{{ asset('assets/components/plugins/breakpoints/breakpoints.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>

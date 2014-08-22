@@ -53,8 +53,8 @@
                                style="font-weight:bold;color:#00A650">{{ prof.nom }} {{ prof.prenom }}</a>
 
                             <div>
-                                {% for sport in prof.sports %}
-                                    {{ sport.nameVn }}
+                                {% for sport in prof.sports|slice(0,5) %}
+                                    <div>{{ sport.nameVn }}</div>
                                 {% endfor %}
                             </div>
                             <br/>
@@ -65,7 +65,7 @@
                                     </a>
                                 {% endif %}
                             </small>
-                            <!-- <small>on February 2nd, 2014</small>-->
+
                         </div>
                     </div>
                 </li>
@@ -74,45 +74,4 @@
         </ul>
     </div>
 
-
-    <div class="widget">
-
-    <div class="widget-body padding-none">
-            {% for prof in profileMatch if prof.searchPlayer == 1%}
-                <div class="media border-bottom innerAll margin-none">
-                    {% for img in prof.document %}
-
-                        {% if img.type == 'image' %}
-                            {% set url = img.id ~ "." ~ img.url %}
-                        {% endif %}
-
-                    {% else %}
-                        {% set url = 'img_profile_default.jpg' %}
-                    {% endfor %}
-                    <a href="{{ path('DetailProfile',{'id': prof.id}) }}">
-                        <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
-                             class="pull-left media-object"/>
-                    </a>
-
-                    <div class="media-body">
-                        <!--<a href="" class="pull-right text-muted innerT half">
-                            <i class="fa fa-comments"></i> 4
-                        </a>-->
-                        <h5 class="margin-none"><a href="{{ path('DetailProfile',{'id': prof.id}) }}"
-                                                   class="text-inverse">{{ prof.nom }} {{ prof.prenom }}</a>
-                        </h5>
-                        <br/>
-                        <small>
-                            {% if user.id != prof.id %}
-                                <a href="#modal-3" data-toggle="modal" class="btn btn-info btn-sm">
-                                    <i class="icon-turn-right"></i> Mời chơi cùng
-                                </a>
-                            {% endif %}
-                        </small>
-                        <!-- <small>on February 2nd, 2014</small>-->
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
 </div>

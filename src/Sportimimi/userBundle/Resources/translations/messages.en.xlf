@@ -332,6 +332,15 @@
             <target>Invite a new player in my team</target>
         </trans-unit>
 
+        <trans-unit resname="Quên mật khẩu?">
+            <source>Quên mật khẩu?</source>
+            <target>Forget password?</target>
+        </trans-unit>
+
+        <trans-unit resname="Chưa có tài khoản? Xin vui lòng đăng ký">
+            <source>Chưa có tài khoản? Xin vui lòng đăng ký</source>
+            <target>Not have account yet? Register here</target>
+        </trans-unit>
    
     </body>
   </file>
