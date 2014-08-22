@@ -341,7 +341,13 @@
             <source>Chưa có tài khoản? Xin vui lòng đăng ký</source>
             <target>Not have account yet? Register here</target>
         </trans-unit>
-   
+
+        <trans-unit resname="Trang chủ">
+            <source>Trang chủ</source>
+            <target>Not have account yet? Register h</target>
+        </trans-unit>
+
+
     </body>
   </file>
 </xliff>
