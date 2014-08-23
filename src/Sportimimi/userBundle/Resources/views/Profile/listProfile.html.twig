@@ -71,7 +71,7 @@
                                    class="strong">{{ prof.nom }} {{ prof.prenom }}</a>
 
                                 <div>
-                                    {% for sport in prof.sports %}
+                                    {% for sport in prof.sports|slice(0,5) %}
                                         <div>{{ sport.nameVn }}</div>
                                     {% endfor %}
                                 </div>
