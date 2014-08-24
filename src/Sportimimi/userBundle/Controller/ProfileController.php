@@ -21,6 +21,8 @@ use \DateTime;
 use Doctrine\ORM\Query\ResultSetMapping;
 // Import new namespaces
 use Sportimimi\userBundle\Entity\Profile;
+use Sportimimi\userBundle\Entity\UserComment;
+
 use Sportimimi\userBundle\Entity\Place;
 use Sportimimi\userBundle\Entity\Category;
 use Sportimimi\userBundle\Entity\Country;
@@ -38,6 +40,58 @@ class ProfileController extends Controller {
     protected $token;
 
     //List of profile
+
+
+    public function listCommentsAction() {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($user != 'anon.') {// Check user is not anonyme
+            $userComments = $user->getProfile()->getUserComments();
+        }
+        $profile = $user->getProfile();
+
+        $form = $this->container->get('form.factory')->create(new \Sportimimi\userBundle\Form\UserCommentType());
+
+
+        return $this->container->get('templating')->renderResponse(
+                        'SportimimiuserBundle:Profile:listComments.html.twig', array('userComments' => $userComments, 'profile' => $profile,
+                    'form' => $form->createView()));
+    }
+
+    public function addUserCommentAction() {
+        //User logged on
+        try {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($user != 'anon.')// Check user is not anonyme
+            $profile = $user->getProfile();
+
+        $em = $this->container->get('doctrine')->getManager();
+
+        $profile_id = $_POST['id'];
+        $content = $_POST['content'];
+        $comment = new UserComment();
+        $comment->setContent($content);
+        $comment->setProfile($profile);
+        $em->persist($comment);
+        $em->flush();
+        $form = $this->container->get('form.factory')->create(new \Sportimimi\userBundle\Form\UserCommentType());
+         $userComments = $user->getProfile()->getUserComments();
+        return $this->render(
+                        'SportimimiuserBundle:Profile:listComments.html.twig', array('userComments' => $userComments, 'profile' => $profile, 'form' => $form->createView()));
+        }  catch (\Exception $e){
+            echo $e;
+        }
+    }
+
+    public function listGamesAction() {
+        $user = $this->get('security.context')->getToken()->getUser();
+         $em = $this->container->get('doctrine')->getManager();
+        if ($user != 'anon.') {// Check user is not anonyme
+            $news = $user->getProfile()->getNews();
+        }
+      
+        return $this->container->get('templating')->renderResponse(
+                        'SportimimiuserBundle:Profile:listGames.html.twig', array('news' => $news));
+    }
 
     public function logUser($user) {
         $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles()); // 'main' is the name of the firewall
@@ -177,7 +231,7 @@ class ProfileController extends Controller {
                     'user' => $user,
         ));
     }
-    
+
     //Register a profile
     public function addAction() {
 
@@ -224,7 +278,7 @@ class ProfileController extends Controller {
 //                );
 //
 //                $mailer->sendConfirmationEmailMessage($user);
-               
+
 
                 $user->setProfile($profile);
                 $profile->setUser($user);
@@ -286,7 +340,7 @@ class ProfileController extends Controller {
 
         if ($request->getMethod() == 'POST') {
 
-            if ($_POST['new_name_place'] != '' && $_POST['new_adress_place'] != '' ) {
+            if ($_POST['new_name_place'] != '' && $_POST['new_adress_place'] != '') {
 
                 $name = $_POST['new_name_place'];
                 $address = $_POST['new_adress_place'];
@@ -299,17 +353,15 @@ class ProfileController extends Controller {
             } else if (isset($_POST['placeSelected']) && $_POST['placeSelected'] != '') {
 
                 foreach ($_POST["placeSelected"] as $value) {
-					if ($value!='' && $value!=null)
-					{
-	                    $place_add = $repository->findOneByPlaceName($value);
-	                    if ($place_add!=null)
-	                    {
-		                    $user->addPlace($place_add); // this not work
-		                    $place_add->addProfile($user);
-		                    $em->persist($user);
-		                    $em->persist($place_add);
-		                    $em->flush();
-	                    }
+                    if ($value != '' && $value != null) {
+                        $place_add = $repository->findOneByPlaceName($value);
+                        if ($place_add != null) {
+                            $user->addPlace($place_add); // this not work
+                            $place_add->addProfile($user);
+                            $em->persist($user);
+                            $em->persist($place_add);
+                            $em->flush();
+                        }
                     }
                 }
             }
@@ -630,27 +682,26 @@ class ProfileController extends Controller {
             $em->persist($profile);
             $em->persist($user);
             $em->flush();
-			// send email to the player..
-			$message = \Swift_Message::newInstance()
-				->setSubject('Teamsport: '.$user->getPrenom().' '.$user->getNom().' muốn chơi với bạn')
-				->setFrom(array('admin@teamsport.vn' => 'Teamsport.vn'))
-				->setTo($profile->getUser()->getEmail())
-				->setContentType("text/html")
-				->setBody(
-					$this->renderView(
-					'SportimimiuserBundle:Mail:inviteToPlay.html.twig',
-					array('user' => $user,'user2' => $profile,'timePlay' => $timePlay,'placePlay' => $placePlay )
-					)
-					)
-					;
-					$this->get('mailer')->send($message);
-					$spool = $this->get('mailer')->getTransport()->getSpool();
-					$transport = $this->get('swiftmailer.transport.real');
-					$spool->flushQueue($transport);
+            // send email to the player..
+            $message = \Swift_Message::newInstance()
+                    ->setSubject('Teamsport: ' . $user->getPrenom() . ' ' . $user->getNom() . ' muốn chơi với bạn')
+                    ->setFrom(array('admin@teamsport.vn' => 'Teamsport.vn'))
+                    ->setTo($profile->getUser()->getEmail())
+                    ->setContentType("text/html")
+                    ->setBody(
+                    $this->renderView(
+                            'SportimimiuserBundle:Mail:inviteToPlay.html.twig', array('user' => $user, 'user2' => $profile, 'timePlay' => $timePlay, 'placePlay' => $placePlay)
+                    )
+                    )
+            ;
+            $this->get('mailer')->send($message);
+            $spool = $this->get('mailer')->getTransport()->getSpool();
+            $transport = $this->get('swiftmailer.transport.real');
+            $spool->flushQueue($transport);
 
-			
-			
-			
+
+
+
             return new Response('ok', 200, array('Content-Type' => 'application/json')); //make sure it has the correct content type
         }
     }
@@ -746,23 +797,21 @@ class ProfileController extends Controller {
         return new Response(json_encode($result), 200);
     }
 
-    public function sportsListJsonAction(Request $request)
-    {
+    public function sportsListJsonAction(Request $request) {
         $name = $request->get('q');
         $result = $this->getDoctrine()->getRepository('SportimimiuserBundle:Category')->findLikeName($name);
 
         return new Response(json_encode($result), 200);
     }
-    
-    public function getAllProfileOnlineAction()
-    {
+
+    public function getAllProfileOnlineAction() {
         //User logged on
         $user = $this->get('security.context')->getToken()->getUser();
         if ($user != 'anon.')// Check user is not anonyme
             $user = $user->getProfile();
         $request = $this->container->get('request');
         if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();        
+            $em = $this->getDoctrine()->getManager();
             // Custom query
             $rsm = new ResultSetMapping();
             $rsm->addEntityResult('Sportimimi\userBundle\Entity\User', 'u');
@@ -770,35 +819,35 @@ class ProfileController extends Controller {
             $rsm->addFieldResult('u', 'lastActive', 'lastActive');
             $now = date("Y-m-d H:i:s");
             $sql = 'SELECT u.id,u.lastActive FROM fos_user u HAVING TIMESTAMPDIFF(MINUTE,u.lastActive,NOW()) < 1';
-            $query = $em->createNativeQuery($sql,$rsm);
+            $query = $em->createNativeQuery($sql, $rsm);
             $result = $query->getResult();
             // render again the controller  
-            $answer['html'] = $this->forward('SportimimiuserBundle:Page:baseRight', array('profileOnlinePass' => $result))->getContent(); 
-            $response = new Response();                                                
+            $answer['html'] = $this->forward('SportimimiuserBundle:Page:baseRight', array('profileOnlinePass' => $result))->getContent();
+            $response = new Response();
             $response->headers->set('Content-type', 'application/json; charset=utf-8');
             $response->setContent(json_encode($answer));
             return $response;
             // End render controller
-            /*   
-            $result = $query->getArrayResult();
-            return new Response(json_encode($result), 200);
-            */
-       }
+            /*
+              $result = $query->getArrayResult();
+              return new Response(json_encode($result), 200);
+             */
+        }
     }
-    
+
     // Fast fix for stock user imei
-    public function setImeiAction(){
-    
-	    $em = $this->getDoctrine()->getManager();
-	    $imei = $_GET['imei'];
-	    $user_id = $_GET['user_id'];
-	    
-	    $repository = $this->getDoctrine()->getRepository('SportimimiuserBundle:User');
-	    $user = $repository->findOneByEmail($user_id);
-	    $user->setImei($imei);
-	    $em->persist($user);
-	    $em->flush();
-	    return new Response('IMEI SAVE', 200, array('Content-Type' => 'application/json'));
-	    
+    public function setImeiAction() {
+
+        $em = $this->getDoctrine()->getManager();
+        $imei = $_GET['imei'];
+        $user_id = $_GET['user_id'];
+
+        $repository = $this->getDoctrine()->getRepository('SportimimiuserBundle:User');
+        $user = $repository->findOneByEmail($user_id);
+        $user->setImei($imei);
+        $em->persist($user);
+        $em->flush();
+        return new Response('IMEI SAVE', 200, array('Content-Type' => 'application/json'));
     }
+
 }
