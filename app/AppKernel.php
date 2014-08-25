@@ -37,7 +37,8 @@ class AppKernel extends Kernel {
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new RMS\PushNotificationsBundle\RMSPushNotificationsBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(), // for auth mobile other device
-            new Sportimimi\AdminBundle\SportimimiAdminBundle()
+            new Sportimimi\AdminBundle\SportimimiAdminBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

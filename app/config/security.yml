@@ -18,6 +18,18 @@ security:
             id: fos_user.user_manager     
  
     firewalls:
+        secured_area:
+            anonymous: ~
+            oauth:
+                resource_owners:
+                    google:        "/login/check-google"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+            oauth_user_provider:
+                service: hwi_oauth.user.provider.entity
+
+                
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js|assets)/
             security: false

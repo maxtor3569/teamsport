@@ -210,4 +210,21 @@ fos_oauth_server:
     auth_code_class:     Sportimimi\userBundle\Entity\AuthCode   
     service:
         user_provider: fos_user.user_manager
-        
+
+hwi_oauth:
+    # name of the firewall in which this bundle is active, this setting MUST be set
+    firewall_name: secured_area
+    resource_owners:
+        google:
+            type:                google
+            client_id:           %api_google_secret%
+            client_secret:       %api_google_secret%
+            scope:               "https://www.googleapis.com/auth/plus.login"
+        yahoo:
+            type:                yahoo
+            client_id:           %api_yahoo_key%
+            client_secret:       %api_yahoo_secret%
+
+services:
+    hwi_oauth.user.provider.entity:
+        class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
