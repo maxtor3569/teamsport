@@ -352,7 +352,9 @@
                 <a href="{{ path('Message') }}"><i
                             class="icon-comment-typing"></i><span>{{ 'Tin nhắn'|trans }}</span></a>
             </li>
-
+            <li>
+                <a href="{{ app.request.baseUrl }}/logout">{{ 'Thoát'|trans }}</a>
+            </li>
         </ul>
     </div>
 </div>
@@ -431,52 +433,28 @@
             </ul>
             <div class="user-action pull-left menu-right-hidden-xs menu-left-hidden-xs border-left">
                 <div class="dropdown username pull-left">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <a class="dropdown-toggle" href="{{ path('DetailProfile') }}">
                                 <span class="media margin-none">
                                     <span class="pull-left">
-                                                        {% if user.document is defined %}
+                                        {% if user.document is defined %}
+                                            {% for img in user.document %}
 
-                                                            {% for img in user.document %}
-
-                                                                {% if img.type == 'image' %}
-                                                                    {% set url = img.id ~ "." ~ img.url %}
-                                                                {% endif %}
-
-                                                            {% else %}
-                                                                {% set url = 'img_profile_default.jpg' %}
-                                                            {% endfor %}
-                                                        {% endif %}
+                                                {% if img.type == 'image' %}
+                                                    {% set url = img.id ~ "." ~ img.url %}
+                                                {% endif %}
+                                            {% else %}
+                                                {% set url = 'img_profile_default.jpg' %}
+                                            {% endfor %}
+                                        {% endif %}
                                         <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
                                              alt="user"
                                              class="img-circle"/>
                                     </span>
-                                    <span class="media-body">{{ user.prenom }} {{ user.nom }}
-                                        <span class="caret"></span>
-                                    </span>
+                                    <span class="media-body">{{ user.prenom }} {{ user.nom }}</span>
                                  </span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ path('DetailProfile') }}">{{ 'Hồ Sơ Của Tôi'|trans }}</a>
-                        </li>
-                        <li><a href="{{ path('Message') }}">{{ 'Tin nhắn'|trans }}</a>
-                        </li>
-                        <li>
-                            {% if app.request.locale == 'en' %}
-                                <a href="{{ path(app.request.get('_route'), {"_locale": "vi"}) }}"
-                                   style="text-decoration:none">
-                                    Vietnamese
-                                </a>
-                            {% else %}
-                                <a href="{{ path(app.request.get('_route'), {"_locale": "en"}) }}"
-                                   style="text-decoration:none">
-                                    English
-                                </a>
 
-                            {% endif %}
-                        </li>
-                        <li><a href="{{ app.request.baseUrl }}/logout">{{ 'Thoát'|trans }}</a>
-                        </li>
-                    </ul>
+
                 </div>
             </div>
             <!--<div class="input-group hidden-xs pull-left">

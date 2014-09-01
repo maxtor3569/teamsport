@@ -344,7 +344,7 @@
 
         <trans-unit resname="Trang chủ">
             <source>Trang chủ</source>
-            <target>Not have account yet? Register h</target>
+            <target>Home</target>
         </trans-unit>
 
 
