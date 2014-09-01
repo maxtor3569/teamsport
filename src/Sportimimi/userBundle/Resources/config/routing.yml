@@ -203,6 +203,8 @@ NotificationViewAll:
 AddUserComment:
     pattern: /addUserComment
     defaults: { _controller: SportimimiuserBundle:Profile:addUserComment}
+    options:
+      expose: true
 
 AddComment:
     pattern: /addComment

@@ -17,7 +17,7 @@
        var content = jQuery('#users_comment_content').val();
        $.ajax({
            type: "POST",
-           data: {id: {{ profile.id }}, content: content},
+           data: {id: {{ user.id }}, content: content},
            dataType: 'text',
            url: "{{ path('AddUserComment') }}",
            cache: false,

@@ -12,6 +12,7 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FOS\RestBundle\Controller\Annotations\Route;
 
 class UserCommentsController extends Controller
 {
@@ -26,6 +27,12 @@ class UserCommentsController extends Controller
             ));
     }
 
+    /**
+     * @Route(options={"expose"=true})
+     * @param Request $request
+     * @param $id
+     * @return View
+     */
     public function postCommentsAction(Request $request, $id)
     {
         $user = $this->findUserOr404($id);
