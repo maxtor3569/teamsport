@@ -211,20 +211,34 @@ fos_oauth_server:
     service:
         user_provider: fos_user.user_manager
 
-#hwi_oauth:
-#    # name of the firewall in which this bundle is active, this setting MUST be set
-#    firewall_name: secured_area
-#    resource_owners:
-#        google:
-#            type:                google
-#            client_id:           %api_google_secret%
-#            client_secret:       %api_google_secret%
-#            scope:               "https://www.googleapis.com/auth/plus.login"
-#        yahoo:
-#            type:                yahoo
-#            client_id:           %api_yahoo_key%
-#            client_secret:       %api_yahoo_secret%
-#
-#services:
-#    hwi_oauth.user.provider.entity:
-#        class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
+hwi_oauth:
+    connect:
+        account_connector: sportimimi_oauth_provider
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            # these properties will be used/redefined later in the custom FOSUBUserProvider service.
+            facebook: facebook_id
+            google: google_id
+            yahoo: yahoo_id
+    resource_owners:
+        google:
+            type:                google
+            client_id:           %api_google_secret%
+            client_secret:       %api_google_secret%
+            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+        facebook:
+            type:                facebook
+            client_id:           "%api_facebook_id%"
+            client_secret:       "%api_facebook_secret%"
+            scope:         "email"
+            infos_url:     "https://graph.facebook.com/me?fields=username,name,email,picture.type(square)"
+            paths:
+                email:          email
+                profilepicture: picture.data.url
+                realname:  name
+        yahoo:
+            type:                yahoo
+            client_id:           %api_yahoo_key%
+            client_secret:       %api_yahoo_secret%

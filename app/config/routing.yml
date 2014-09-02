@@ -1,9 +1,24 @@
-#hwi_oauth_redirect:
-#    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-#    prefix:   /connect
+#HWIOAuthBundle routes
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login
+
+facebook_login:
+    pattern: /login/facebook
 
 google_login:
-    pattern: /login/check-google
+    pattern: /login/google
+
+yahoo_login:
+    pattern: /login/yahoo
     
 sportimimi_admin:
     resource: "@SportimimiAdminBundle/Resources/config/routing.yml"

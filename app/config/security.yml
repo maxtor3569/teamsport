@@ -26,8 +26,7 @@ security:
             fos_oauth: true
             stateless: true
             anonymous:  false
-            
-            
+
         oauth_token:
             pattern:    ^/oauth/v2/token
             security:   false
@@ -39,6 +38,15 @@ security:
                 provider:       fos_userbundle
                 login_path:     fos_user_registration_register
                 check_path:     fos_user_security_check
+            oauth:
+                resource_owners:
+                    facebook: facebook_login
+                    google: google_login
+                    yahoo: yahoo_login
+                login_path:        fos_user_registration_register
+                failure_path:      fos_user_registration_register
+                oauth_user_provider:
+                    service: sportimimi_oauth_provider
             logout:
                 path:           /logout
                 invalidate_session: false
@@ -47,8 +55,11 @@ security:
     access_control:
         - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/[^/]+/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
  
         # Secured part of the site

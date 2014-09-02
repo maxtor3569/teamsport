@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ExclusionPolicy("all") 
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -27,9 +27,9 @@ class User extends BaseUser
      */
     protected $id;
 
-    /** @ORM\OneToOne(targetEntity="Profile", mappedBy="user", cascade={"all"}) 
-	*   @Expose    
-    */
+    /** @ORM\OneToOne(targetEntity="Profile", mappedBy="user", cascade={"all"})
+     * @Expose
+     */
     private $profile;
 
     /**
@@ -45,28 +45,48 @@ class User extends BaseUser
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastActive;
-    
-     /**
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $newsletter;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     private $imei;
 
+    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+    protected $facebook_id;
+
+    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+    protected $facebook_access_token;
+
+    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    protected $google_id;
+
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    protected $google_access_token;
+
+    /** @ORM\Column(name="yahoo_id", type="string", length=255, nullable=true) */
+    protected $yahoo_id;
+
+    /** @ORM\Column(name="yahoo_access_token", type="string", length=255, nullable=true) */
+    protected $yahoo_access_token;
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         // your own logic
     }
@@ -88,13 +108,15 @@ class User extends BaseUser
     /**
      * Get profile
      *
-     * @return \Sportimimi\userBundle\Entity\Profile 
+     * @return \Sportimimi\userBundle\Entity\Profile
      */
-    public function getProfile() {
+    public function getProfile()
+    {
         return $this->profile;
     }
-    
-    public function setLastActive($dateActive) {
+
+    public function setLastActive($dateActive)
+    {
         $this->lastActive = $dateActive;
     }
 
@@ -116,13 +138,15 @@ class User extends BaseUser
     {
         return $this->newsletter;
     }
-    
-    public function getImei() {
-	    return $this->imei;
+
+    public function getImei()
+    {
+        return $this->imei;
     }
 
-	public function setImei($imei) {
-	     $this->imei = $imei;
+    public function setImei($imei)
+    {
+        $this->imei = $imei;
     }
 
 }

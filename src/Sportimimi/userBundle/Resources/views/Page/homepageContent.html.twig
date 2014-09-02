@@ -109,7 +109,9 @@
                         <div id="gSignInWrapper" style="padding-bottom: 5px">
                             <div id="customBtnFacebook" class="customGPlusSignIn">
                                 <span class="icon"></span>
-                                <span class="buttonText">{{ 'Đăng ký với Facebook'|trans }}</span>
+                                <a href="{{ path('facebook_login') }}">
+                                    <span class="buttonText">{{ 'Đăng ký với Facebook'|trans }}</span>
+                                </a>
                             </div>
                         </div>
 
@@ -123,7 +125,9 @@
                         <div id="gSignInWrapper">
                             <div id="customBtnYahoo" class="customGPlusSignIn">
                                 <span class="icon"></span>
-                                <span class="buttonText">{{ 'Đăng ký với Yahoo!'|trans }}</span>
+                                <a href="{{ path('yahoo_login') }}">
+                                    <span class="buttonText">{{ 'Đăng ký với Yahoo!'|trans }}</span>
+                                </a>
                             </div>
                         </div>
                     </div>
