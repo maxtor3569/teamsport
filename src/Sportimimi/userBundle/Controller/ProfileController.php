@@ -5,6 +5,7 @@
 namespace Sportimimi\userBundle\Controller;
 
 use FOS\RestBundle\Util\Codes;
+use Sportimimi\AdminBundle\Form\ProfileAdminType;
 use Sportimimi\userBundle\Entity\UserRating;
 use Sportimimi\userBundle\Form\UserCommentType;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -320,20 +321,29 @@ class ProfileController extends Controller
         ));
     }
 
+    public function createProfileAction(Request $request)
+    {
+        $profile = new Profile();
+        $profile->setEmail($this->getUser()->getEmail());
+        $form = $this->createForm(new ProfileAdminType(), $profile);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->getUser()->setProfile($profile);
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirect($this->generateUrl('AddProfileStep2'));
+        }
+
+        return $this->render('@Sportimimiuser/Profile/completeProfile.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
     public function addStep2Action()
     {
-
-        /* //User logged on
-          $user = $this->get('security.context')->getToken()->getUser();
-          if($user!='anon.' )// Check user is not anonyme
-          $user = $user->getProfile(); */
-
-        //take user just have been created
-        $repository2 = $this->getDoctrine()
-            ->getRepository('SportimimiuserBundle:User');
-        $user = $repository2->findOneById($_SESSION['id']);
-        if ($user != 'anon.') // Check user is not anonyme
-            $user = $user->getProfile();
+        $user = $this->getUser()->getProfile();
 
         $em = $this->container->get('doctrine')->getManager();
         $repository = $this->getDoctrine()

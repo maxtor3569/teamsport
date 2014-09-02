@@ -559,9 +559,11 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                 <!-- // Main Sidebar Menu END -->
 
                                                 <!-- // Main Sidebar Right -->
+                                                {% block right_menu %}
                                                 <div id="menu-right">
-    {{ render(controller('SportimimiuserBundle:Page:baseRight')) }}
-                                                    </div>
+                                                    {{ render(controller('SportimimiuserBundle:Page:baseRight')) }}
+                                                </div>
+                                                {% endblock %}
                                                     <!-- // Main Sidebar Right END -->
 {% endif %}
 {% set url = "" %}
@@ -630,6 +632,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                     </li>
                                                                 </ul>
                                                                 <div class="user-action pull-left menu-right-hidden-xs menu-left-hidden-xs border-left">
+                                                                    {% if user is defined %}
                                                                     <div class="dropdown username pull-left">
                                                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                                             <span class="media margin-none">
@@ -677,7 +680,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                                     <li><a href="{{ app.request.baseUrl }}/logout">{{ 'Thoát'|trans }}</a>
                                                                                     </li>
                                                                                 </ul>
-                                                                            </div>
+                                                                    </div>
+                                                                    {% endif %}
                                                                         </div>
                                                                         <!--<div class="input-group hidden-xs pull-left">
                                                                             <span class="input-group-addon"><i class="icon-search"></i>

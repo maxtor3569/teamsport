@@ -77,8 +77,10 @@ class User extends BaseUser
      * @param \Sportimimi\userBundle\Entity\Profile $profile
      * @return User
      */
-    public function setProfile(\Sportimimi\userBundle\Entity\Profile $profile = null) {
+    public function setProfile(Profile $profile = null)
+    {
         $this->profile = $profile;
+        $profile->setUser($this);
 
         return $this;
     }

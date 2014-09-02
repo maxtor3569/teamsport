@@ -280,3 +280,7 @@ OAuth:
 Store_iemi:
     path: /storeIemi
     defaults: {_controller: SportimimiuserBundle:Profile:setImei}
+
+create_profile:
+    path: /profile/create
+    defaults: { _controller: SportimimiuserBundle:Profile:createProfile }
