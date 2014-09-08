@@ -54,9 +54,13 @@ class ProfilesRestController extends Controller
 	public function getProfileFriendsAction($slug){
 		$profile = $this->getDoctrine()
 		->getRepository('SportimimiuserBundle:Profile')->findOneById($slug);
-
-
-		return $profile->getFriends();
+		
+		foreach($profile->getFriends() as $friend)
+		{
+			$friendsIds = $friend->getId();
+		}
+		
+		return $friendsIds;
 	}
 
 	public function postRegisterAction()
