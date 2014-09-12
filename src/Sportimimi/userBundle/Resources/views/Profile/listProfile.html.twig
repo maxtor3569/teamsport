@@ -71,7 +71,11 @@
                                    class="strong">{{ prof.nom }} {{ prof.prenom }}</a>
 
                                 <div>
+<<<<<<< HEAD
                                     {% for sport in prof.sports %}
+=======
+                                    {% for sport in prof.sports|slice(0,5) %}
+>>>>>>> 4d258a9bc7c7106ac131cf19e0efcf793d90c529
                                         <div>{{ sport.nameVn }}</div>
                                     {% endfor %}
                                 </div>

@@ -2,29 +2,31 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="en" datatype="plaintext" original="file.ext">
     <body>
-	    <trans-unit id="9053831a834684855e6b70739439a675" resname="Trang Chủ">
-        <source>Trang Chủ</source>
-        <target>Home</target>
-      </trans-unit>
+        <trans-unit id="9053831a834684855e6b70739439a675" resname="Trang Chủ">
+            <source>Trang Chủ</source>
+            <target>Home</target>
+        </trans-unit>
 	  
-	<trans-unit id="81042a03468229859e9386c778dac387" resname="Đăng nhập">
-        <source>Đăng nhập</source>
-        <target>Login</target>
-    </trans-unit> 
-	
-      <trans-unit id="9053831a834684855e6b70739439a672" resname="- Chọn thể thao -">
-        <source>- Chọn thể thao -</source>
-        <target>- Filter by sport -</target>
-      </trans-unit>
+        <trans-unit id="81042a03468229859e9386c778dac387" resname="Đăng nhập">
+            <source>Đăng nhập</source>
+            <target>Login</target>
+        </trans-unit>
+
+        <trans-unit id="9053831a834684855e6b70739439a672" resname="- Chọn thể thao -">
+            <source>- Chọn thể thao -</source>
+            <target>- Filter by sport -</target>
+        </trans-unit>
     
-      <trans-unit id="ee1611b61f5688e70c12b40684dbb395" resname="Berlin">
-        <source>Berlin</source>
-        <target>Berlin</target>
-      </trans-unit>
-      <trans-unit id="ab74d6620cac3fd16a2cdad3fe513a8a" resname="Chọn Giới Tính">
-        <source>Chọn Giới Tính</source>
-        <target>Filter by gender</target>
-      </trans-unit>
+        <trans-unit id="ee1611b61f5688e70c12b40684dbb395" resname="Berlin">
+            <source>Berlin</source>
+            <target>Berlin</target>
+        </trans-unit>
+
+        <trans-unit id="ab74d6620cac3fd16a2cdad3fe513a8a" resname="Chọn Giới Tính">
+            <source>Chọn Giới Tính</source>
+            <target>Filter by gender</target>
+        </trans-unit>
+
       <trans-unit id="a6690ac2a62484521f9e10973896272c" resname="Chọn Quốc">
         <source>Chọn Quốc</source>
         <target>Filter by nationality</target>
@@ -96,7 +98,7 @@
       </trans-unit>
       <trans-unit id="97f8f297e1b0d3d7e953558e7a2ab1e0" resname="Sân">
         <source>Sân</source>
-        <target>Sân</target>
+        <target>Playground</target>
       </trans-unit>
       <trans-unit id="4d69c1dc0ca2fbaa320dcbe1adfb2ace" resname="Sélectionnez un sexe">
         <source>Sélectionnez un sexe</source>
@@ -120,11 +122,11 @@
       </trans-unit>
       <trans-unit id="3672d9af955c0413caa4df0afc4a0c51" resname="Tên Sự Kiện">
         <source>Tên Sự Kiện</source>
-        <target>Tên Sự Kiện</target>
+        <target>Event name</target>
       </trans-unit>
       <trans-unit id="c5862f8d1611baab14ebc7b5cfad9970" resname="Tên Đội">
         <source>Tên Đội</source>
-        <target>Tên Đội</target>
+        <target>Team name</target>
       </trans-unit>
       <trans-unit id="1802f49157e5989f89900f9ddec4b34e" resname="Tốc Độ">
         <source>Tốc Độ</source>
@@ -310,17 +312,42 @@
 		<target>I'm currently playing</target>
     </trans-unit>
     
-    <trans-unit resname="Bình luận">
-        <source>Bình luận</source>
-		<target>Comments</target>
-    </trans-unit>
+        <trans-unit resname="Bình luận">
+            <source>Bình luận</source>
+            <target>Comments</target>
+        </trans-unit>
     
-    <trans-unit resname="Hãy viết bình luận của bạn">
-        <source>Hãy viết bình luận của bạn</source>
-		<target>Comments</target>
-    </trans-unit>
-     
-   
+        <trans-unit resname="Hãy viết bình luận của bạn">
+            <source>Hãy viết bình luận của bạn</source>
+            <target>Comments</target>
+        </trans-unit>
+
+        <trans-unit resname="Chiến thắng">
+            <source>Chiến thắng</source>
+            <target>Win</target>
+        </trans-unit>
+
+        <trans-unit resname="Mời mọi người vào đội của tôi">
+            <source>Mời mọi người vào đội của tôi</source>
+            <target>Invite a new player in my team</target>
+        </trans-unit>
+
+        <trans-unit resname="Quên mật khẩu?">
+            <source>Quên mật khẩu?</source>
+            <target>Forget password?</target>
+        </trans-unit>
+
+        <trans-unit resname="Chưa có tài khoản? Xin vui lòng đăng ký">
+            <source>Chưa có tài khoản? Xin vui lòng đăng ký</source>
+            <target>Not have account yet? Register here</target>
+        </trans-unit>
+
+        <trans-unit resname="Trang chủ">
+            <source>Trang chủ</source>
+            <target>Home</target>
+        </trans-unit>
+
+
     </body>
   </file>
 </xliff>

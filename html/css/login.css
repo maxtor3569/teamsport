@@ -1,0 +1,31 @@
+#content {
+    background-image: url('../images/slider/football.jpg');
+    height: 500Px;
+
+}
+
+#outter-wrapper {
+    padding-top: 100px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#inner-wrapper {
+
+    background: rgba(255, 255, 255, 0.7);
+    padding: 30px 40px;
+    filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#E6FFFFFF', endColorstr='#E6FFFFFF');
+    z-index: 999999999;
+    -webkit-box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    overflow: hidden;
+    zoom: 1;
+}

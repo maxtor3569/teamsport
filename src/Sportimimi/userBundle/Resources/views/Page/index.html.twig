@@ -5,7 +5,7 @@
 
 {% block stylesheets_include %}
 
-
+    <link rel="stylesheet" href="{{ asset('flexSlider/flexslider.css') }}"/>
 
 {% endblock %}
 
@@ -14,33 +14,41 @@
     <script src="https://maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.5/gmaps.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.jeditable/1.7.3/jquery.jeditable.js"></script>
-    
+
     {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <script src="{{ asset('assets/components/common/forms/validator/assets/lib/jquery-validation/dist/jquery.validate.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
         <script src="{{ asset('js/form-validator-fast-register.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
-        
+
     {% else %}
-
-
-    
-    <script>
+        <script src="{{ asset('flexSlider/jquery.flexslider-min.js') }}"></script>
+        <script type="text/javascript" charset="utf-8">
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    controlNav: false,
+                    animationLoop: false,
+                    slideshow: true
+                });
+            });
+        </script>
+        <script>
         //DELETE Comment
-	function deleteComment(id) {
+        function deleteComment(id) {
             var commentIdPass = id;
 
             $.ajax({
-                type: "POST",		
+                type: "POST",
                 data :{ id_comment : commentIdPass },
                 dataType: 'text',
                 url: "{{ path('DeleteComment') }}",
                 cache: false,
                 success: function(data){
-                        jQuery('#comment'+id).remove();
+                    jQuery('#comment' + id).remove();
 
                 }
-            });   
-	
-	}
+            });
+
+        }
         function comment(id)
         {
             var contentPosted = $('#message' + id).val();
@@ -66,11 +74,11 @@
         var newPlace = 0;
         function viewMore()
         {
-            
+
             $.ajax({
                 type: "POST",
                 data: {
-                    start: startVar,
+                    start: startVar
                 },
                 dataType: 'html',
                 //url: "ajax/loadNews.php",
@@ -84,17 +92,17 @@
 
                 },
                 progress: function(e) {
-                        if(e.lengthComputable) {
-                            var pct = (e.loaded / e.total) * 100;
+                    if (e.lengthComputable) {
+                        var pct = (e.loaded / e.total) * 100;
 
-                            $('#prog')
+                        $('#prog')
                                 .progressbar('option', 'value', pct)
                                 .children('.ui-progressbar-value')
                                 .html(pct.toPrecision(3) + '%')
                                 .css('display', 'block');
-                        } else {
-                            console.warn('Content Length not reported!');
-                        }
+                    } else {
+                        console.warn('Content Length not reported!');
+                    }
                 }
             });
 
@@ -125,13 +133,12 @@
             var doSports = jQuery('#doSportsInput').val(); // get the type of the post
             var file_name = jQuery('#file-input').val();
             var sport = jQuery('#sportPlay').val();
-			if (doSports == "" || statusContent == "")
-			{
-				jQuery('#errors').html('Địa điểm và môn thể thao chơi là bắt buộc');
-				return false;
-				
-			}
-            	
+            if (doSports == "" || statusContent == "") {
+                jQuery('#errors').html('Địa điểm và môn thể thao chơi là bắt buộc');
+                return false;
+
+            }
+
             $.ajax({
                 type: "POST",
                 data: {status: statusContent, doingSportPost: doSports, sportPlay: sport, file: file_name,newPlace : newPlace},
@@ -139,7 +146,7 @@
                 url: "{{ path('AddStatus') }}",
                 cache: false,
                 success: function(data) {
-                	newPlace = 0;
+                    newPlace = 0;
                     jQuery('.timeline-cover').after(data);
                 }
             });
@@ -151,35 +158,34 @@
             //$('#place-suggestion-map').show();
             //initializePlaceSuggest();
 
-        	if(jQuery('#doSportsInput').val() == 0)
-        	{
-	            // set news ->Doing sports
-	            jQuery('#doSportsInput').val(1);
-	            jQuery('#li-sport').attr('class', 'active');
-	            jQuery('#li-nosport').attr('class', '');
-	            jQuery('#noplay').hide();
-	            jQuery('#play').show();
+            if (jQuery('#doSportsInput').val() == 0) {
+                // set news ->Doing sports
+                jQuery('#doSportsInput').val(1);
+                jQuery('#li-sport').attr('class', 'active');
+                jQuery('#li-nosport').attr('class', '');
+                jQuery('#noplay').hide();
+                jQuery('#play').show();
             }
             else
             {
-              	// set news ->Doing sports
-	            jQuery('#doSportsInput').val(0);
-	            jQuery('#li-sport').attr('class', '');
-	            jQuery('#li-nosport').attr('class', 'active');
-	            jQuery('#noplay').show();
-	            jQuery('#play').hide();        
-            
+                // set news ->Doing sports
+                jQuery('#doSportsInput').val(0);
+                jQuery('#li-sport').attr('class', '');
+                jQuery('#li-nosport').attr('class', 'active');
+                jQuery('#noplay').show();
+                jQuery('#play').hide();
+
             }
         }
-        
+
         //SCROLL BOTTOM
         //comment delete
-            $(document).on('click', '.deleteCommentAction', function(){ 
-                var id = jQuery(this).attr('data-reactid');
-                deleteComment(id); 
-                
-                return false; 
-            });
+        $(document).on('click', '.deleteCommentAction', function () {
+            var id = jQuery(this).attr('data-reactid');
+            deleteComment(id);
+
+            return false;
+        });
 
         $(document).ready(function() {
             $("#sportPlay").select2({
@@ -206,61 +212,61 @@
                 }
 
             });
-              //tag select2
-			
-			  $("#place_played").select2({
-			      tags: [],
-			      maximumSelectionSize: 1,
-                  minimumInputLength: 5,
-			      ajax: {
-                      data: function (term, page) { // page is the one-based page number tracked by Select2
-                          //updatePlaceSuggestion(term);
-                          return {
-                              q: term, //search term
-                              page: page
-                          };
-                      },
-			          dataType: "json",
-			          maximumSelectionSize: 1,
-			          url: "{{ path('PlaceListJson') }}",
-			          results: function (data) {
-			              return {
-			                  results: data
-			              };
-			          }
-			      },
-			      formatResult: function (term) {
-			          return "<div class='select2-user-result'>" + term.placeName + " <i>" + term.address + "</i></div>";
-			      },
-			      formatSelection: function (data) {
-			          return data.placeName;
-			      },
-			      id: function (data) {
-			          return data.address;
-			      },
-			      createSearchChoice: function (term, data) {
-			      	
-			          if ($(data).filter(function () {
-			          	
-			              return this.placeName.localeCompare(term) === 0;
-			          }).length === 0) {
-                          console.log(term);
-			              return {
-			                  placeName: term,
-			                  address: term,
-			                  custom: true
-			              };
-			          }
-			
-			      }
-			  }).on("change", function (evt) {
-			      if (evt.added) {
-			          if (evt.added.custom) {
-			              newPlace = 1;
-			          }
-			      }
-			  });
- 			var load = false; // aucun chargement de commentaire n'est en cours
+            //tag select2
+
+            $("#place_played").select2({
+                tags: [],
+                maximumSelectionSize: 1,
+                minimumInputLength: 5,
+                ajax: {
+                    data: function (term, page) { // page is the one-based page number tracked by Select2
+                        //updatePlaceSuggestion(term);
+                        return {
+                            q: term, //search term
+                            page: page
+                        };
+                    },
+                    dataType: "json",
+                    maximumSelectionSize: 1,
+                    url: "{{ path('PlaceListJson') }}",
+                    results: function (data) {
+                        return {
+                            results: data
+                        };
+                    }
+                },
+                formatResult: function (term) {
+                    return "<div class='select2-user-result'>" + term.placeName + " <i>" + term.address + "</i></div>";
+                },
+                formatSelection: function (data) {
+                    return data.placeName;
+                },
+                id: function (data) {
+                    return data.address;
+                },
+                createSearchChoice: function (term, data) {
+
+                    if ($(data).filter(function () {
+
+                        return this.placeName.localeCompare(term) === 0;
+                    }).length === 0) {
+                        console.log(term);
+                        return {
+                            placeName: term,
+                            address: term,
+                            custom: true
+                        };
+                    }
+
+                }
+            }).on("change", function (evt) {
+                if (evt.added) {
+                    if (evt.added.custom) {
+                        newPlace = 1;
+                    }
+                }
+            });
+            var load = false; // aucun chargement de commentaire n'est en cours
 
             $(window).scroll(function()
             {
@@ -275,137 +281,150 @@
             });
         });
 
-         //PARTICIPATE
-	function participate(idPass)
-	{
-		$('#participant'+idPass).append('{% if user.prenom is defined %}{{ user.prenom }} {{ user.nom }} {% endif %}');
-		$.ajax({
-			type: "POST",		
-			data :{ id: idPass },
-			dataType: 'text',
-			url: "{{ path('Participate') }}",
-			cache: false,
-			success: function(data){
-				window.location.reload();
-			}
-		});    
-	}
-	// NO PARTICIPATE
-	function noparticipate(idPass)
-	{
-		$.ajax({
-			type: "POST",			
-			data :{ id: idPass },
-			dataType: 'text',
-			url: "{{ path('RemoveParticipate') }}",
-			cache: false,
-			success: function(data){
-				window.location.reload();
-			}
-		});    
-	}
-	
+        //PARTICIPATE
+        function participate(idPass) {
+            $('#participant' + idPass).append('{% if user.prenom is defined %}{{ user.prenom }} {{ user.nom }} {% endif %}');
+            $.ajax({
+                type: "POST",
+                data: { id: idPass },
+                dataType: 'text',
+                url: "{{ path('Participate') }}",
+                cache: false,
+                success: function (data) {
+                    window.location.reload();
+                }
+            });
+        }
+        // NO PARTICIPATE
+        function noparticipate(idPass) {
+            $.ajax({
+                type: "POST",
+                data: { id: idPass },
+                dataType: 'text',
+                url: "{{ path('RemoveParticipate') }}",
+                cache: false,
+                success: function (data) {
+                    window.location.reload();
+                }
+            });
+        }
+
         if (typeof $.fn.bdatepicker == 'undefined')
-	$.fn.bdatepicker = $.fn.datepicker.noConflict();
+            $.fn.bdatepicker = $.fn.datepicker.noConflict();
         $(function()
         {
-           // today button
-           $('#timePlay').bdatepicker({
-               format: "dd MM yyyy",
-               startDate: "2013-02-14",
-               todayBtn: true
-           });
+            // today button
+            $('#timePlay').bdatepicker({
+                format: "dd MM yyyy",
+                startDate: "2013-02-14",
+                todayBtn: true
+            });
 
         });
-     function deleteNews(idPass)
-     {
-     
-     	$.ajax({
-			type: "POST",
-			dataType: 'text',
-			url: Routing.generate('DeleteNews', { id: idPass }),			
-			cache: false,
-			success: function(data){
-				jQuery('#news'+idPass).remove();
-			}
-		});    
+        function deleteNews(idPass) {
 
-     }     
-    </script>
+            $.ajax({
+                type: "POST",
+                dataType: 'text',
+                url: Routing.generate('DeleteNews', { id: idPass }),
+                cache: false,
+                success: function (data) {
+                    jQuery('#news' + idPass).remove();
+                }
+            });
+
+        }
+        </script>
     {% endif %}
 {% endblock %}
 
 
 {% block body %}
     {% set max = 0 %}
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}	
-            <div class="row">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="row">
 
-                <div class="col-lg-9 col-md-8">
-                    <div class="timeline-cover">
-                        <div class="cover">
-                            <div class="top">
-                                <input id="doSportsInput" type="hidden" value = 0 />
-                            </div>
-                            <ul class="list-unstyled">
-                                <li id="li-nosport" class="active" onclick="DoSport();" style="cursor:pointer;color: white;font-weight: bold;"><i class="fa fa-fw fa-clock-o"></i> <span>{{ 'Tìm Người Chơi'|trans }}</span>
-                                </li>
-                                <li id="li-sport" class="" onclick="DoSport();" style="cursor:pointer;color: white;font-weight: bold;"><i class="fa fa-fw icon-location-2"></i> <span>{{ 'Tôi Đang Chơi'|trans }}</span>
-                                </li>
-                                <li><a href="{{ path('DetailProfile') }}"><i class="fa fa-fw fa-user"></i> <span>{{ 'Hồ Sơ Của Tôi'|trans }}</span></a>
-                                </li>
-                                <li><a href="{{ path('ListTeam') }}"><i class="fa fa-fw icon-group"></i><span> {{'Tìm Đội'|trans }} </span><!--<small>(19)</small>--></a>
-                                </li>
-                                <li><a href="{{ path('Message') }}"><i class="fa fa-fw icon-envelope-fill-1"></i> <span>{{'Tin nhắn'|trans }}</span> <!--<small>(2 new)</small>--></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="noplay" class="widget">
-                            <div class="widget-body padding-none margin-none">
-                                <div class="innerAll">
-                                    <div class="input-group">
-                                        <textarea name="statusText" id="statusText" type="text" class="form-control rounded-none border-none" placeholder="Bạn tìm người chơi ha?"></textarea>
-                                        <div class="input-group-btn btn-group dropup">
-                                            <button class="btn btn-info rounded-none" tabindex="-1" onclick="StatusPost();">Share</button>
-                                        </div>  
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div id="play" class="widget" style="display:none">
-                            <div class="widget-body padding-none margin-none">
-                                <div class="innerAll">
-                                    <div class="input-group">
-                                        Bạn đang chơi thể thao gì? 
-                                        <input type="hidden" id="sportPlay" style="width: 30%;" value="" /> ở đâu ?
-                                        <input type="hidden" id="place_played" style="width: 30%;" value="" />
-                                        <div class="input-group-btn btn-group dropup">
-                                            <button class="btn btn-info rounded-none" tabindex="-1" onclick="StatusPostSports();">Share</button>
-                                        </div>  
-                                    </div>
-									<div id="errors" style="color:red"></div>
-                                </div>
-                            </div>
-                        </div>       
+        <div class="col-lg-9 col-md-8">
+            <div class="timeline-cover">
+                <div class="cover">
+                    <div class="top">
+                        <input id="doSportsInput" type="hidden" value=0/>
                     </div>
-
-        {{ render(controller('SportimimiuserBundle:Page:loadMore', {'max': 20 })) }}
-   
+                    <ul class="list-unstyled">
+                        <li id="li-nosport" class="active" onclick="DoSport();"
+                            style="cursor:pointer;color: white;font-weight: bold;"><i class="fa fa-fw fa-clock-o"></i>
+                            <span>{{ 'Tìm Người Chơi'|trans }}</span>
+                        </li>
+                        <li id="li-sport" class="" onclick="DoSport();"
+                            style="cursor:pointer;color: white;font-weight: bold;"><i
+                                    class="fa fa-fw icon-location-2"></i> <span>{{ 'Tôi Đang Chơi'|trans }}</span>
+                        </li>
+                        <li><a href="{{ path('DetailProfile') }}"><i class="fa fa-fw fa-user"></i>
+                                <span>{{ 'Hồ Sơ Của Tôi'|trans }}</span></a>
+                        </li>
+                        <li><a href="{{ path('ListTeam') }}"><i
+                                        class="fa fa-fw icon-group"></i><span> {{ 'Tìm Đội'|trans }} </span><!--<small>(19)</small>-->
+                            </a>
+                        </li>
+                        <li><a href="{{ path('Message') }}"><i class="fa fa-fw icon-envelope-fill-1"></i>
+                                <span>{{ 'Tin nhắn'|trans }}</span> <!--<small>(2 new)</small>--></a>
+                        </li>
+                    </ul>
                 </div>
-                {% include 'SportimimiuserBundle:Page:sidebar_right.html.twig' %}
-            {% endif %}
+                <div id="noplay" class="widget">
+                    <div class="widget-body padding-none margin-none">
+                        <div class="innerAll">
+                            <div class="input-group">
+                                <textarea name="statusText" id="statusText" type="text"
+                                          class="form-control rounded-none border-none"
+                                          placeholder="Bạn tìm người chơi ha?"></textarea>
+
+                                <div class="input-group-btn btn-group dropup">
+                                    <button class="btn btn-info rounded-none" tabindex="-1" onclick="StatusPost();">
+                                        Share
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="play" class="widget" style="display:none">
+                    <div class="widget-body padding-none margin-none">
+                        <div class="innerAll">
+                            <div class="input-group">
+                                Bạn đang chơi thể thao gì?
+                                <input type="hidden" id="sportPlay" style="width: 30%;" value=""/> ở đâu ?
+                                <input type="hidden" id="place_played" style="width: 30%;" value=""/>
+
+                                <div class="input-group-btn btn-group dropup">
+                                    <button class="btn btn-info rounded-none" tabindex="-1"
+                                            onclick="StatusPostSports();">Share
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="errors" style="color:red"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{ render(controller('SportimimiuserBundle:Page:loadMore', {'max': 20 })) }}
+
+        </div>
+        {% include 'SportimimiuserBundle:Page:sidebar_right.html.twig' %}
+    {% endif %}
 
 
-    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}	
+    {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         {% include 'SportimimiuserBundle:Page:homepageContent.html.twig' %}
     {% else %}
 
 
     {% endif %}
 
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}	
-    	</div>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        </div>
     {% endif %}
 {% endblock %}
 
