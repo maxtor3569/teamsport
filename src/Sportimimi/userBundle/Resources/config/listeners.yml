@@ -1,0 +1,6 @@
+services:
+    ganancias.empleado.profile.incomplete:
+        class: Sportimimi\userBundle\Listener\ProfileIncompleteListener
+        arguments: [@security.context, @router]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: checkUserProfile }

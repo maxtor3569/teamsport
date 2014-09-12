@@ -1,13 +1,16 @@
-{# src/Sportimimi/userBundle/Resources/views/Page/detailProfile.html.twig #}
 {% extends 'SportimimiuserBundle::layout.html.twig' %}
+
 {% block stylesheets_include %}
+    <link type="text/css" href="{{ asset('bundles/sportimimiuser/css/bootstrap-rating.css') }}" />
 {% endblock %}
+
 {% block javascripts %}
 <script src="{{ asset('assets/components/common/forms/elements/jasny-fileupload/assets/js/bootstrap-fileupload.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
+<script src="{{ asset('bundles/sportimimiuser/js/bootstrap-rating.js') }}" type="text/javascript"></script>
 <script>
    function addSport()
    {
-   
+
        var sport = jQuery('#addSportsList').val();
        $.ajax({
            type: "POST",
@@ -16,12 +19,29 @@
            url: "{{ path('AddSportProfile') }}",
            cache: false,
            success: function(data) {
-   
+
                window.location.reload();
            }
        });
-   
    }
+
+   function sendComment()
+   {
+       var form = $('form#comment');
+       var data = {
+           'user_comment': {
+               'content': form.find('.content').val(),
+               'rate': {
+                   rate: form.find('.rating').val()
+               }
+           }
+       }
+       console.log(data);
+       $.post(Routing.generate('AddUserComment'), data, function(response){
+           window.location = window.location;
+       }, 'json');
+   }
+
    function invitePlayer()
    {
        var time = jQuery('#timePlay').val();
@@ -34,14 +54,14 @@
        url: "{{ path('InviteToPlay') }}",
            cache: false,
            success: function(data) {
-   
+
                alert('Thông báo đã gửi. Cảm ơn bạn');
                window.setTimeout(window.location.reload(), 2000);
            }
        });
    }
    $(document).ready(function() {
-   
+
        // tagging support
        $("#addSportsList").select2({
            ajax: {
@@ -57,10 +77,15 @@
            formatSelection: function(data) {
                return data.nameVn;
            }
-   
+
        });
-   
-   
+
+       $('#comment').submit(function(){
+           sendComment();
+           return false;
+       })
+
+
    });
    if (typeof $.fn.bdatepicker == 'undefined')
        $.fn.bdatepicker = $.fn.datepicker.noConflict();
@@ -72,7 +97,7 @@
            startDate: "2013-02-14",
            todayBtn: true
        });
-   
+
    });
   </script>
 {% endblock %}
@@ -114,7 +139,7 @@
                         <input class="btn fileupload-exists" value="xác nhận" type='submit'>
                      </div>
                      </form>
-                     {% endif %}  
+                     {% endif %}
                   </div>
                   <div class="media-body">
                      <h4><a href="">{{ profile.nom }} {{ profile.prenom }}</a>  <a href="{{ path('Message') }}" class="text-muted"><i class="fa fa-envelope"></i></a>
@@ -130,20 +155,20 @@
                   <div id="sports">
                   	<div>
                      {% for sport in profile.sports %}
-                     
+
 	                     <span class="innerR innerB">
-	                     <i class="box-generic innerAll {{ sport.classIcons }} fa fa-2x" 
+	                     <i class="box-generic innerAll {{ sport.classIcons }} fa fa-2x"
 	                        data-placement="bottom" data-selected="false"></i>
 	                        
 	                     </span>
-                    
-                   
+
+
                      {% endfor %}
                       </div>
                       <div>
                      {% for sport in profile.sports %}
-                      	{% if app.session.locale == 'vn' %} {{ sport.nameVn }}{% else %}{{ sport.nom }} {% endif %}
-                      {% endfor %}	
+                      	{% if app.request.locale == 'vn' %} {{ sport.nameVn }}{% else %}{{ sport.nom }} {% endif %}
+                      {% endfor %}
                       </div>
                      {% if user.id == profile.id %}
                      <div>
@@ -167,18 +192,18 @@
                   </div>
                </div>
                </div>
-               
+
             </div>
-            
+
             <div class="">
                <ul class="navigation">
                	  <li class="active">
-                     <a class=""><i class="fa fa-fw icon-road-sign"></i>
+                     <a class="" href='{{ path('ListComments')}}'><i class="fa fa-fw icon-road-sign"></i>
                      <span>{{ 'Comments'|trans }}</span>
                      </a>
                   </li>
                   <li>
-                     <a class="" href="/"><i class="fa fa-fw icon-road-sign"></i>
+                     <a class="" href="{{ path('Games')}}"><i class="fa fa-fw icon-road-sign"></i>
                      <span>{{ 'Games'|trans }}</span>
                      </a>
                   </li>
@@ -189,13 +214,37 @@
                </ul>
                <div class="clearfix"></div>
             </div>
-            
          </div>
       </div>
+       <div class="widget">
+           <div class="row border-top">
+               <div class="col-md-12">
+                   <form id="comment">
+                       <textarea rows="3" class="content form-control"></textarea>
+                       <input type="hidden" class="rating" />
+                       <button type="submit">Send Comment</button>
+                   </form>
+                   <ul>
+                       {% for comment in profile.userComments %}
+                        <li>
+                            <blockquote>
+                                <p>{{ comment.content }}</p>
+                                <footer>{{ comment.postedBy }}</footer>
+                                {% if comment.rate is not null %}
+                                    {% set rate = comment.rate.rate %}
+                                    <input type="hidden" class="rating" readonly="readonly" value="{{ rate - 1 }}"/>
+                                {% endif %}
+                            </blockquote>
+                        </li>
+                       {% endfor %}
+                   </ul>
+               </div>
+           </div>
+       </div>
 	      <div class="widget" id="contentBottom">
          <div class="innerAll">
             <div class="row border-top">
-               
+
                <div class="col-sm-6">
                   <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
                   <div class="widget bg-gray">
@@ -215,7 +264,7 @@
                         <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
                         </a>
                         {% endfor %}
-                        {% endif %}	
+                        {% endif %}
                      </div>
                   </div>
                </div>
