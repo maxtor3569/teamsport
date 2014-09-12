@@ -5,6 +5,7 @@
 namespace Sportimimi\userBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -19,98 +20,24 @@ use Sportimimi\userBundle\Entity\Profile;
 use Sportimimi\userBundle\Entity\Notification;
 use FOS\UserBundle\Mailer\Mailer;
 use FOS\UserBundle\Util\TokenGenerator;
-use FacebookSDK\Facebook;
+use FOS\FacebookBundle\Facebook;
 // Add Forms
 use Sportimimi\userBundle\Form\ProfileForm;
 
-class PageController extends Controller {
+class PageController extends Controller
+{
 
-    public function indexAction() {
-
+    public function indexAction()
+    {
         // We retrieve the Session object
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        $facebook = $this->get('facebook');
+        //$facebook = $this->get('facebook');
         $offset = 5;
-
 
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
-            $user = $user->getProfile();
-
-        // RENDER THE PAGE FOR ANONYME USER 
-        if ($user == 'anon.')
-        {
-            // FAST REGISTER
-            $profile = new Profile();
-            $user = new User();
-            $form = $this->container->get('form.factory')->create(new ProfileForm(), $profile);
-            $request = $this->container->get('request');
-            if ($request->getMethod() == 'POST') {
-                $form->handleRequest($request);
-                if ($form->isValid()) {
-                    $email = $form["email"]->getData();
-                    $pass = $form["password"]->getData();
-                    $user->setEmail($email);
-                    $user->setUsername($email);
-                    $user->setPlainPassword($pass);
-                    //disable account
-                    $user->setEnabled(true);
-                    // set Confirmation token
-                    $tokenGenerator = new TokenGenerator;
-                    $user->setConfirmationToken($tokenGenerator->generateToken());
-                    // send Confirmation mail
-                    $mailer = new Mailer($this->get('mailer'), $this->get('router'), $this->get('templating'), array('confirmation.template' => 'SportimimiuserBundle:Page:email.txt.twig',
-                            'from_email' => array('confirmation' => 'info@teamsport.vn'))
-                    );
-
-                    $mailer->sendConfirmationEmailMessage($user);
-
-                    $user->setProfile($profile);
-                    $profile->setUser($user);
-                    $em = $this->container->get('doctrine')->getManager();
-                    //Notificate him
-                    $notification = new Notification();
-
-                    $notification->setMessage('Welcome to TeamSport!');
-
-                    $profile->addNotifications($notification);
-                    $notification->setProfile($profile);
-                    $em->persist($notification);
-                    $em->persist($profile);
-                    $em->persist($user);
-                    $em->flush();
-
-                    //Auto-login
-                    //$this->_authenticateAccount($user);
-                    //$id=$profile->getId();
-                    //return $this->redirect($this->generateUrl('PhotoProfile', array('id'=>$id), 301));
-
-
-                    $_SESSION['id'] = $user->getId();
-
-                    return $this->redirect($this->generateUrl('AddProfileStep2'), 301);
-                }
-
-            }
-
-            $query = $em->createQuery('SELECT p FROM SportimimiuserBundle:Profile p');
-            $query->setMaxResults(5);
-            $players = $query->getResult();
-
-
-            //shuffle($players);
-
-            //return the page
-            return $this->render('SportimimiuserBundle:Page:index.html.twig', array(
-                'user' => $user,
-                'facebook' => $facebook,
-                'form' => $form->createView(),
-                'players' => $players
-            ));
-
-        }
+        $user = $user->getProfile();
 
         $query = $em->createQuery(
             'SELECT p FROM SportimimiuserBundle:Profile p');
@@ -130,17 +57,12 @@ class PageController extends Controller {
         $profileMatch = $query->getResult();
         shuffle($profileMatch);
 
-        if ($user != 'anon.') {
+        $query = $em->createQuery(
+            'SELECT p FROM SportimimiuserBundle:Category p ORDER BY p.order ASC');
+        $query->setMaxResults(5);
+        $randomSport = $query->getResult();
 
-            $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:Category p ORDER BY p.order ASC');
-            $query->setMaxResults(5);
-            $randomSport = $query->getResult();
-
-            shuffle($randomSport);
-        } else {
-            $randomSport = null;
-        }
+        shuffle($randomSport);
 
         // Load news
         $query = $em->createQuery(
@@ -159,7 +81,7 @@ class PageController extends Controller {
             'recentProfile' => $recentProfile,
             'recentTeam' => $recentTeam,
             'profileMatch' => $profileMatch,
-            'facebook' => $facebook,
+            //'facebook' => $facebook,
             'randomSport' => $randomSport,
             'news' => $news,
             'allSports' => $allSports,
@@ -167,18 +89,20 @@ class PageController extends Controller {
         ));
     }
 
-    public function aboutAction() {
+    public function aboutAction()
+    {
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
         return $this->render('SportimimiuserBundle:Page:about.html.twig', array('user' => $user));
     }
 
-    public function contactAction() {
+    public function contactAction()
+    {
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $enquiry = new Enquiry();
@@ -197,14 +121,15 @@ class PageController extends Controller {
         }
 
         return $this->render('SportimimiuserBundle:Page:contact.html.twig', array(
-                    'form' => $form->createView(),
-                    'user' => $user
+            'form' => $form->createView(),
+            'user' => $user
         ));
     }
 
-    public function feedbackAction() {
+    public function feedbackAction()
+    {
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $em = $this->getDoctrine()->getManager();
@@ -212,7 +137,7 @@ class PageController extends Controller {
           'SELECT p FROM SportimimiuserBundle:User p WHERE p.lastLogin > :date'
           )->setParameter('date', '24/12/1990'); */
         $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:Profile p');
+            'SELECT p FROM SportimimiuserBundle:Profile p');
 
         $recentProfile = $query->getResult();
         $request = $this->container->get('request');
@@ -221,49 +146,52 @@ class PageController extends Controller {
             $email = $_POST['email'];
 
             $message = \Swift_Message::newInstance()
-                    ->setSubject('Hello Email')
-                    ->setFrom('infos@teamsport.vn')
-                    ->setTo('maxtor3569@gmail.com')
-                    ->setBody(
-                    /* $this->renderView(
-                      'HelloBundle:Hello:email.txt.twig',
-                      array('name' => $name)
-                      ) */ 'Feedback from: ' . $email . '<br>Feedback:' . $feedback
-                    )
-            ;
+                ->setSubject('Hello Email')
+                ->setFrom('infos@teamsport.vn')
+                ->setTo('maxtor3569@gmail.com')
+                ->setBody(
+                /* $this->renderView(
+                  'HelloBundle:Hello:email.txt.twig',
+                  array('name' => $name)
+                  ) */
+                    'Feedback from: ' . $email . '<br>Feedback:' . $feedback
+                );
             $this->get('mailer')->send($message);
 
             return $this->render('SportimimiuserBundle:Page:index.html.twig', array(
-                        'user' => $user,
-                        'recentProfile' => $recentProfile
+                'user' => $user,
+                'recentProfile' => $recentProfile
             ));
         }
     }
 
-    public function registrationCompleteAction() {
+    public function registrationCompleteAction()
+    {
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         return $this->render('SportimimiuserBundle:Page:registrationComplete.html.twig', array(
-                    'user' => $user
+            'user' => $user
         ));
     }
 
-    public function LoginBisAction() {
+    public function LoginBisAction()
+    {
         $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:login_content.html.twig', array(
-                    'last_username' => null,
-                    'error' => null,
-                    'csrf_token' => $csrfToken
+            'last_username' => null,
+            'error' => null,
+            'csrf_token' => $csrfToken
         ));
     }
 
-    public function loadMoreAction() {
+    public function loadMoreAction()
+    {
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $session = $this->getRequest()->getSession();
@@ -276,7 +204,7 @@ class PageController extends Controller {
         $offset = 5;
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $em = $this->getDoctrine()->getManager();
@@ -284,7 +212,7 @@ class PageController extends Controller {
 
         // Load news
         $query = $em->createQuery(
-                'SELECT p FROM SportimimiuserBundle:News p ORDER by p.dateCreated DESC');
+            'SELECT p FROM SportimimiuserBundle:News p ORDER by p.dateCreated DESC');
         $query->setFirstResult($start);
         $query->setMaxResults($offset);
         $news = $query->getResult();
@@ -293,10 +221,11 @@ class PageController extends Controller {
         );
     }
 
-    public function baseRightAction($profileOnlinePass = null) {
+    public function baseRightAction($profileOnlinePass = null)
+    {
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $em = $this->container->get('doctrine')->getManager();
@@ -311,56 +240,60 @@ class PageController extends Controller {
         $profileOnlinePass = $query->getResult();
 
         return $this->render('SportimimiuserBundle:Page:basepart_right.html.twig', array(
-                    'profileOnline' => $profileOnlinePass,
-                    'user' => $user
+            'profileOnline' => $profileOnlinePass,
+            'user' => $user
         ));
     }
 
-    public function baseMessageAction() {
+    public function baseMessageAction()
+    {
         $request = $this->container->get('request');
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
         $id_profile = $user->getId();
         $conversation = null;
         if (isset($_POST['id_profile_select']))
             $id_profile_select = $_POST['id_profile_select'];
         $em = $this->container->get('doctrine')->getManager();
-        if ($request->isXmlHttpRequest() && isset($id_profile_select)) {   $sql = 'SELECT p FROM SportimimiuserBundle:Message p WHERE (p.profile_send = ' . $id_profile . ' AND p.profile_recieve = ' . $id_profile_select . ') OR (p.profile_send = ' . $id_profile_select . ' AND p.profile_recieve = ' . $id_profile . ' )';
-                $query = $em->createQuery($sql);
-                $conversation = $query->getSingleResult();
+        if ($request->isXmlHttpRequest() && isset($id_profile_select)) {
+            $sql = 'SELECT p FROM SportimimiuserBundle:Message p WHERE (p.profile_send = ' . $id_profile . ' AND p.profile_recieve = ' . $id_profile_select . ') OR (p.profile_send = ' . $id_profile_select . ' AND p.profile_recieve = ' . $id_profile . ' )';
+            $query = $em->createQuery($sql);
+            $conversation = $query->getSingleResult();
 
         }
-            // $conversations = $em->getRepository('SportimimiuserBundle:Message')->findAll();
+        // $conversations = $em->getRepository('SportimimiuserBundle:Message')->findAll();
 
         return $this->render('SportimimiuserBundle:Page:chat_message.html.twig', array(
-                    'conversation' => $conversation,
-                    'user' => $user
+            'conversation' => $conversation,
+            'user' => $user
         ));
     }
+
     // page princing : display all profile price
     public function pricingIndexAction()
     {
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         return $this->render('SportimimiuserBundle:Page:pro_account.html.twig', array(
-                    'user' => $user
+            'user' => $user
         ));
     }
+
     // Privacy policy
     public function privacyAction()
     {
         //Pass user to the page
         $user = $this->get('security.context')->getToken()->getUser();
-        if ($user != 'anon.')// Check user is not anonyme
+        if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         return $this->render('SportimimiuserBundle:Page:privacy_policy.html.twig', array(
-                    'user' => $user
+            'user' => $user
         ));
     }
 

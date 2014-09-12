@@ -29,3 +29,134 @@
     overflow: hidden;
     zoom: 1;
 }
+
+
+.sl-auth-form.sl-login-form, .sl-auth-content.sl-login-form, .sl-auth-form.sl-join-now, .sl-auth-content.sl-join-now, .sl-auth-form.sl-form-register, .sl-auth-content.sl-form-register, .sl-auth-form.sl-forgot-password-form, .sl-auth-content.sl-forgot-password-form, .sl-auth-form.sl-reset-password-form, .sl-auth-content.sl-reset-password-form, .sl-auth-form.sl-freeform, .sl-auth-content.sl-freeform {
+    margin: 60px auto 30px;
+    width: 350px;
+}
+
+.sl-auth-form, .sl-auth-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 3px;
+    color: #000000;
+    margin-top: 100px;
+    padding: 0;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+}
+.sl-auth-form, .sl-auth-content {
+    color: #000000;
+}
+.btn-close-container a.btn-close {
+    background-image: url("/images/001d6ed9.close.png");
+    background-repeat: no-repeat;
+    display: block;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 13px;
+    width: 20px;
+}
+.sl-auth-form .form-content, .sl-auth-content .form-content, .sl-auth-form .form-footer, .sl-auth-content .form-footer {
+    padding: 10px 25px;
+}
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+}
+
+.sl-auth-form .form-group, .sl-auth-content .form-group {
+    margin-bottom: 12px;
+}
+
+.col-sm-6 {
+    width: 50%;
+}
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+    float: left;
+}
+.sl-auth-form .form-group, .sl-auth-content .form-group {
+    margin-bottom: 12px;
+}
+.sl-auth-form .form-group, .sl-auth-content .form-group {
+    margin-bottom: 12px;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    color: #4A4C4F;
+}
+.sl-auth-form input, .sl-auth-content input {
+    height: 44px;
+}
+.sl-auth-form input, .sl-auth-content input, .sl-auth-form select, .sl-auth-content select {
+    font-size: 15px;
+}
+.sl-auth-form input, .sl-auth-content input {
+    height: auto;
+    padding: 12px;
+}
+.form-control {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #B5BDC4;
+    display: block;
+    font-size: 12.5px;
+    height: 31px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    vertical-align: middle;
+    width: 100%;
+}
+.sl-login-form button[type="submit"] {
+    background: none repeat scroll 0 0 #3063CF;
+}
+.sl-auth-form .btn-success, .sl-auth-content .btn-success {
+    height: 44px;
+}
+.sl-auth-form .btn-success, .sl-auth-content .btn-success {
+    border: 0 none;
+    border-radius: 3px;
+}
+.sl-auth-form .btn-success, .sl-auth-content .btn-success {
+    background: none repeat scroll 0 0 #67CC66;
+    border: 0 none;
+    border-radius: 3px;
+}
+.sl-auth-form .btn-lg, .sl-auth-content .btn-lg {
+    border-radius: 3px;
+    padding: 10px;
+}
+.sl-auth-form button, .sl-auth-content button {
+    width: 100%;
+}
+.btn-lg {
+    border-radius: 7px;
+    font-size: 16px;
+    line-height: 1.33;
+    padding: 10px 16px;
+}
+.btn-success {
+    background-color: #5CB85C;
+    border-color: #5CB85C;
+    color: #FFFFFF;
+}
+.btn {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}

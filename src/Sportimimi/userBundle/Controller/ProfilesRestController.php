@@ -9,6 +9,7 @@ use Sportimimi\userBundle\Entity\Profile;
 use Sportimimi\userBundle\Entity\User;
 use Sportimimi\userBundle\Entity\Country;
 use Sportimimi\userBundle\Entity\Notification;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProfilesRestController extends Controller
 {
@@ -54,9 +55,13 @@ class ProfilesRestController extends Controller
 	public function getProfileFriendsAction($slug){
 		$profile = $this->getDoctrine()
 		->getRepository('SportimimiuserBundle:Profile')->findOneById($slug);
-
-
-		return $profile->getFriends();
+		$friendsIds = Array();
+		foreach($profile->getFriends() as $friend)
+		{
+			array_push($friendsIds,$friend->getId());
+		}
+		return new JsonResponse(array('friends' => $friendsIds));
+		
 	}
 
 	public function postRegisterAction()

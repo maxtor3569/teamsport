@@ -636,12 +636,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/escapestudios/EscapeWSSEAuthenticationBundle.git",
-                "reference": "9481a9ea4688fa2d9f102515b749e1a5ec2faba4"
+                "reference": "c2d56effd53cae5ebd685f6d50a81c024bc089af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/escapestudios/EscapeWSSEAuthenticationBundle/zipball/9481a9ea4688fa2d9f102515b749e1a5ec2faba4",
-                "reference": "9481a9ea4688fa2d9f102515b749e1a5ec2faba4",
+                "url": "https://api.github.com/repos/escapestudios/EscapeWSSEAuthenticationBundle/zipball/c2d56effd53cae5ebd685f6d50a81c024bc089af",
+                "reference": "c2d56effd53cae5ebd685f6d50a81c024bc089af",
                 "shasum": ""
             },
             "require": {
@@ -675,7 +675,7 @@
                 },
                 {
                     "name": "Community contributors",
-                    "homepage": "https://github.com/escapestudios/EscapeWSSEAuthenticationBundle/graphs/contributors"
+                    "homepage": "https://github.com/frieser/FrieserWSSEAuthenticationBundle/graphs/contributors"
                 }
             ],
             "description": "Symfony2 bundle to implement WSSE authentication",
@@ -685,7 +685,7 @@
                 "bundle",
                 "wsse"
             ],
-            "time": "2014-06-10 09:13:35"
+            "time": "2014-07-16 12:24:32"
         },
         {
             "name": "facebook/php-sdk",
@@ -977,17 +977,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "e3a28ebf74724a51a31d6142b002c0c9652f71a4"
+                "reference": "f35a33889b8295cd024a12b053ba0884f685e920"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/e3a28ebf74724a51a31d6142b002c0c9652f71a4",
-                "reference": "e3a28ebf74724a51a31d6142b002c0c9652f71a4",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/f35a33889b8295cd024a12b053ba0884f685e920",
+                "reference": "f35a33889b8295cd024a12b053ba0884f685e920",
                 "shasum": ""
             },
             "require": {
-                "doctrine/inflector": "1.0.*",
-                "php": ">=5.3.2",
+                "doctrine/inflector": "~1.0",
+                "php": ">=5.3.9",
                 "psr/log": "~1.0",
                 "symfony/framework-bundle": "~2.2",
                 "willdurand/jsonp-callback-validator": "~1.0",
@@ -998,7 +998,7 @@
                 "jms/serializer-bundle": "<0.11"
             },
             "require-dev": {
-                "jms/serializer-bundle": "0.12.*",
+                "jms/serializer-bundle": "~0.12",
                 "sensio/framework-extra-bundle": "~2.2",
                 "symfony/form": "~2.2",
                 "symfony/security": "~2.2",
@@ -1007,7 +1007,7 @@
                 "symfony/yaml": "~2.2"
             },
             "suggest": {
-                "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires 0.12.*",
+                "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires ~0.12",
                 "sensio/framework-extra-bundle": "Add support for route annotations and the view response listener",
                 "symfony/serializer": "Add support for basic serialization capabilities and xml decoding, requires ~2.2",
                 "symfony/validator": "Add support for validation capabilities in the ParamFetcher, requires ~2.2"
@@ -1015,7 +1015,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
@@ -1038,8 +1038,7 @@
                 },
                 {
                     "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com",
-                    "homepage": "http://everzet.com"
+                    "email": "ever.zet@gmail.com"
                 }
             ],
             "description": "This Bundle provides various tools to rapidly develop RESTful API's with Symfony2",
@@ -1047,7 +1046,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2014-07-11 21:09:03"
+            "time": "2014-08-22 07:37:22"
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -1690,12 +1689,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSPaymentPaypalBundle.git",
-                "reference": "5c58d9957814d83712b1e07a0acbf97c4f7d1f5b"
+                "reference": "ed66e955d661693ef1d99f7cf63b496a2c4dbf4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSPaymentPaypalBundle/zipball/5c58d9957814d83712b1e07a0acbf97c4f7d1f5b",
-                "reference": "5c58d9957814d83712b1e07a0acbf97c4f7d1f5b",
+                "url": "https://api.github.com/repos/schmittjoh/JMSPaymentPaypalBundle/zipball/ed66e955d661693ef1d99f7cf63b496a2c4dbf4b",
+                "reference": "ed66e955d661693ef1d99f7cf63b496a2c4dbf4b",
                 "shasum": ""
             },
             "require": {
@@ -1719,9 +1718,7 @@
             "authors": [
                 {
                     "name": "Johannes M. Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Payment Bundle providing access to the PayPal API",
@@ -1730,7 +1727,7 @@
                 "payment",
                 "paypal"
             ],
-            "time": "2013-08-14 16:58:12"
+            "time": "2014-07-23 10:36:21"
         },
         {
             "name": "jms/security-extra-bundle",
@@ -1739,12 +1736,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSecurityExtraBundle.git",
-                "reference": "2d84e414d7abfa6cf7d0372d21507b8062947d2a"
+                "reference": "59b777ebaa37803a75803982ddab18c08a47e48f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSecurityExtraBundle/zipball/2d84e414d7abfa6cf7d0372d21507b8062947d2a",
-                "reference": "2d84e414d7abfa6cf7d0372d21507b8062947d2a",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSecurityExtraBundle/zipball/59b777ebaa37803a75803982ddab18c08a47e48f",
+                "reference": "59b777ebaa37803a75803982ddab18c08a47e48f",
                 "shasum": ""
             },
             "require": {
@@ -1787,9 +1784,7 @@
             "authors": [
                 {
                     "name": "Johannes M. Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Enhances the Symfony2 Security Component by adding several new features",
@@ -1801,7 +1796,7 @@
                 "secure",
                 "security"
             ],
-            "time": "2014-03-25 09:11:01"
+            "time": "2014-08-20 16:22:51"
         },
         {
             "name": "jms/serializer",
@@ -1880,12 +1875,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSSerializerBundle.git",
-                "reference": "55bb8fc449c626ab8d47d58fa13fd37f84376dfc"
+                "reference": "3a980e5409aa3d143534e68a72895e7e33b64c75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/55bb8fc449c626ab8d47d58fa13fd37f84376dfc",
-                "reference": "55bb8fc449c626ab8d47d58fa13fd37f84376dfc",
+                "url": "https://api.github.com/repos/schmittjoh/JMSSerializerBundle/zipball/3a980e5409aa3d143534e68a72895e7e33b64c75",
+                "reference": "3a980e5409aa3d143534e68a72895e7e33b64c75",
                 "shasum": ""
             },
             "require": {
@@ -1927,9 +1922,7 @@
             "authors": [
                 {
                     "name": "Johannes M. Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Allows you to easily serialize, and deserialize data of any complexity",
@@ -1941,7 +1934,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2014-07-08 16:41:25"
+            "time": "2014-08-07 13:20:59"
         },
         {
             "name": "jms/translation-bundle",
@@ -2090,16 +2083,16 @@
         },
         {
             "name": "kriswallsmith/buzz",
-            "version": "v0.10",
+            "version": "v0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/Buzz.git",
-                "reference": "759432d66387e3433d3b06cb6f773b97225b9b17"
+                "reference": "9d56d36a58c47e2f612f4b856ff9baa0e3375ff6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/759432d66387e3433d3b06cb6f773b97225b9b17",
-                "reference": "759432d66387e3433d3b06cb6f773b97225b9b17",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/9d56d36a58c47e2f612f4b856ff9baa0e3375ff6",
+                "reference": "9d56d36a58c47e2f612f4b856ff9baa0e3375ff6",
                 "shasum": ""
             },
             "require": {
@@ -2134,7 +2127,7 @@
                 "curl",
                 "http client"
             ],
-            "time": "2013-05-19 03:41:15"
+            "time": "2014-07-29 23:52:21"
         },
         {
             "name": "liip/imagine-bundle",
@@ -2442,12 +2435,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
-                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4"
+                "reference": "8d1edf83c476ea9d6ffa7c8c43c3557ed557d47b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/628faf157ff90761993b9767ca1a5642dc15c1c4",
-                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4",
+                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/8d1edf83c476ea9d6ffa7c8c43c3557ed557d47b",
+                "reference": "8d1edf83c476ea9d6ffa7c8c43c3557ed557d47b",
                 "shasum": ""
             },
             "require": {
@@ -2495,7 +2488,7 @@
                 "upload",
                 "uploader"
             ],
-            "time": "2014-05-15 14:34:33"
+            "time": "2014-07-16 12:23:21"
         },
         {
             "name": "richsage/rms-push-notifications-bundle",
@@ -2504,12 +2497,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/richsage/RMSPushNotificationsBundle.git",
-                "reference": "4368ae8c7937382e8b2e542bf7d0dbdd981c0166"
+                "reference": "3f3d905a0304b1e1ebf61c15e082575e7c110f7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/richsage/RMSPushNotificationsBundle/zipball/4368ae8c7937382e8b2e542bf7d0dbdd981c0166",
-                "reference": "4368ae8c7937382e8b2e542bf7d0dbdd981c0166",
+                "url": "https://api.github.com/repos/richsage/RMSPushNotificationsBundle/zipball/3f3d905a0304b1e1ebf61c15e082575e7c110f7e",
+                "reference": "3f3d905a0304b1e1ebf61c15e082575e7c110f7e",
                 "shasum": ""
             },
             "require": {
@@ -2543,10 +2536,12 @@
                 "c2dm",
                 "gcm",
                 "ios",
+                "mpns",
                 "notification",
-                "push"
+                "push",
+                "windowsphone"
             ],
-            "time": "2014-05-28 14:50:40"
+            "time": "2014-08-18 10:16:30"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2873,20 +2868,22 @@
         },
         {
             "name": "symfony/icu",
-            "version": "v1.0.1",
+            "version": "v1.2.2",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975"
+                "reference": "d4d85d6055b87f394d941b45ddd3a9173e1e3d2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/fdba214b1e087c149843bde976263c53ac10c975",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/d4d85d6055b87f394d941b45ddd3a9173e1e3d2a",
+                "reference": "d4d85d6055b87f394d941b45ddd3a9173e1e3d2a",
                 "shasum": ""
             },
             "require": {
+                "ext-intl": "*",
+                "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -2916,7 +2913,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-10-04 09:12:07"
+            "time": "2014-07-25 09:58:17"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -3394,8 +3391,12 @@
             "time": "2013-02-22 08:46:21"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
     "minimum-stability": "alpha",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
@@ -3413,8 +3414,11 @@
         "richsage/rms-push-notifications-bundle": 20,
         "friendsofsymfony/oauth-server-bundle": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }

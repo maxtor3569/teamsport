@@ -78,9 +78,9 @@ fos_user:
     user_class: Sportimimi\userBundle\Entity\User
     service:
         mailer: fos_user.mailer.twig_swift
-    registration:
-        form:
-            type: sportimimi_user_registration
+#    registration:
+#        form:
+#            type: sportimimi_user_registration
         # Permet la validation automatique du compte par envoi d'un email
     resetting:
         form:
@@ -98,12 +98,13 @@ jms_i18n_routing:
     default_locale: vi
     locales: [vi, en]
     strategy: prefix_except_default
-fos_facebook:
-    alias:  facebook
-    app_id: %api_facebook_id%
-    secret: %api_facebook_secret%
-    cookie: true
-    permissions: [email, user_birthday, user_location]
+
+#fos_facebook:
+#    alias:  facebook
+#    app_id: %api_facebook_id%
+#    secret: %api_facebook_secret%
+#    cookie: true
+#    permissions: [email, user_birthday, user_location]
 liip_imagine:
     driver:               gd
     web_root:             %kernel.root_dir%/../html
@@ -210,4 +211,30 @@ fos_oauth_server:
     auth_code_class:     Sportimimi\userBundle\Entity\AuthCode   
     service:
         user_provider: fos_user.user_manager
-        
+
+hwi_oauth:
+    connect:
+        account_connector: sportimimi_oauth_provider
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            # these properties will be used/redefined later in the custom FOSUBUserProvider service.
+            facebook: facebook_id
+            google: google_id
+            yahoo: yahoo_id
+    resource_owners:
+        google:
+            type:                google
+            client_id:           %api_google_id%
+            client_secret:       %api_google_secret%
+            scope:               "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
+        facebook:
+            type:                facebook
+            client_id:           "%api_facebook_id%"
+            client_secret:       "%api_facebook_secret%"
+            scope:         "email"
+        yahoo:
+            type:                yahoo
+            client_id:           %api_yahoo_key%
+            client_secret:       %api_yahoo_secret%
