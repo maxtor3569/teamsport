@@ -23,7 +23,7 @@ class AppKernel extends Kernel {
             new JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle(),
             new Sportimimi\userBundle\SportimimiuserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\FacebookBundle\FOSFacebookBundle(),
+            //new FOS\FacebookBundle\FOSFacebookBundle(),
             new FOS\RestBundle\FOSRestBundle(), // for rest
             new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
             //ie8n
@@ -37,7 +37,8 @@ class AppKernel extends Kernel {
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new RMS\PushNotificationsBundle\RMSPushNotificationsBundle(),
             new FOS\OAuthServerBundle\FOSOAuthServerBundle(), // for auth mobile other device
-            new Sportimimi\AdminBundle\SportimimiAdminBundle()
+            new Sportimimi\AdminBundle\SportimimiAdminBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

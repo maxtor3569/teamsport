@@ -70,6 +70,13 @@ ListTeam:
 DeleteTeam:
     path:     /deleteTeam
     defaults: { _controller: SportimimiuserBundle:Team:deleteTeam }	
+ListComments:
+    path:     /listCommentUser
+    defaults: { _controller: SportimimiuserBundle:Profile:listComments }
+
+Games:
+    path:     /showGameUser
+    defaults: { _controller: SportimimiuserBundle:Profile:listGames }
 ChallengeTeam:
     path:     /challengeTeam
     defaults: { _controller: SportimimiuserBundle:Team:challengeTeam }
@@ -145,6 +152,8 @@ FacebookLogin:
 AddSportProfile:
     pattern: /addSport
     defaults: { _controller: SportimimiuserBundle:Profile:addSport }
+
+    
 AddStatus:
     pattern: /addStatus
     defaults: { _controller: SportimimiuserBundle:News:addStatus }
@@ -190,6 +199,13 @@ RemoveParticipate:
 NotificationViewAll:
     pattern: /notifications
     defaults: { _controller: SportimimiuserBundle:Notification:viewAll}
+
+AddUserComment:
+    pattern: /addUserComment
+    defaults: { _controller: SportimimiuserBundle:Profile:addUserComment}
+    options:
+      expose: true
+
 AddComment:
     pattern: /addComment
     defaults: { _controller: SportimimiuserBundle:Comment:add}
@@ -264,3 +280,7 @@ OAuth:
 Store_iemi:
     path: /storeIemi
     defaults: {_controller: SportimimiuserBundle:Profile:setImei}
+
+create_profile:
+    path: /profile/create
+    defaults: { _controller: SportimimiuserBundle:Profile:createProfile }

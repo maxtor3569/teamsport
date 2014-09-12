@@ -35,7 +35,8 @@
         "stof/doctrine-extensions-bundle": "dev-master",
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "richsage/rms-push-notifications-bundle": "dev-master",
-        "friendsofsymfony/oauth-server-bundle": "dev-master"
+        "friendsofsymfony/oauth-server-bundle": "dev-master",
+        "hwi/oauth-bundle": "0.4.*@dev"
 
     },
     "scripts": {

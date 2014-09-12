@@ -90,56 +90,50 @@
         </div>
         <div id="sign-up" class="medium-7 large-5 columns right">
             <div class="large-12 columns text-center" style="font-size:16pt;padding:15px">{{ 'ĐĂNG KÝ'|trans }}</div>
-            <form id="registerForm" method="post" action="{{ path('AddProfile') }}">
-                <div class="medium-5 medium-only-text-left large-12 columns">
-                    <input class="radius fieldRegister" type="text" name="profile[prenom]"
-                           placeholder="{{ 'Nhập tên của bạn'|trans }}" style="margin-bottom: 10px"/>
-                    <input class="radius fieldRegister" type="text" name="profile[nom]"
-                           placeholder="{{ 'Nhập họ của bạn'|trans }}" style="margin-bottom: 10px"/>
-                    <input class="radius fieldRegister" type="email" name="profile[email]"
-                           placeholder="{{ 'Nhập emaiḷ của bạn'|trans }}" style="margin-bottom: 10px"/>
-                    <input class="radius fieldRegister" type="text" name="profile[phone]"
-                           placeholder="{{ 'Nhập số điện thoại của bạn'|trans }}" style="margin-bottom: 10px"/>
-                    <input class="radius fieldRegister" type="password" name="profile[password]"
-                           placeholder="{{ 'Nhập mật khẩu mới'|trans }}" style="margin-bottom: 10px"/>
-                </div>
-                <div class="medium-7 large-12 columns">
-                    <p style="font-size:8pt">
-                        {{ 'Bằng cách đăng ký trên Teamsport, bạn đồng ý với Điều khoản Dịch vụ, Chính sách bảo mật và Chính sách cookie Teamsport.'|trans }}
-                    </p>
+
+                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+                    {{ form_widget(form) }}
+                    <div class="medium-7 large-12 columns">
+                        <p style="font-size:8pt">
+                            {{ 'Bằng cách đăng ký trên Teamsport, bạn đồng ý với Điều khoản Dịch vụ, Chính sách bảo mật và Chính sách cookie Teamsport.'|trans }}
+                        </p>
+                    </div>
+                    <div class="medium-7 large-12 columns text-center">
+                        <button type="submit" id="registerButton" class="button radius"><i class="fi-arrow-right"
+                                                                                 style="height:10px"></i> {{ 'Đăng ký'|trans }}
+                        </button><br/>
+
+                        <div style="padding-bottom: 10px;padding-top:10px">or</div>
 
 
-                </div>
-                <div class="medium-7 large-12 columns text-center">
-                    <a href="#" id="registerButton" class="button radius"><i class="fi-arrow-right"
-                                                                             style="height:10px"></i> {{ 'Đăng ký'|trans }}
-                    </a><br/>
+                        <div id="gSignInWrapper" style="padding-bottom: 5px">
+                            <div id="customBtnFacebook" class="customGPlusSignIn">
+                                <span class="icon"></span>
+                                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook'}) }}">
+                                    <span class="buttonText">{{ 'Đăng ký với Facebook'|trans }}</span>
+                                </a>
+                            </div>
+                        </div>
 
-                    <div style="padding-bottom: 10px;padding-top:10px">or</div>
+                        <div id="gSignInWrapper" style="padding-bottom: 5px">
+                            <div id="customBtn" class="customGPlusSignIn">
+                                <span class="icon"></span>
+                                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google'}) }}">
+                                    <span class="buttonText">{{ 'Đăng ký với Google +'|trans }}</span>
+                                </a>
+                            </div>
+                        </div>
 
-
-                    <div id="gSignInWrapper" style="padding-bottom: 5px">
-                        <div id="customBtnFacebook" class="customGPlusSignIn">
-                            <span class="icon"></span>
-                            <span class="buttonText">{{ 'Đăng ký với Facebook'|trans }}</span>
+                        <div id="gSignInWrapper">
+                            <div id="customBtnYahoo" class="customGPlusSignIn">
+                                <span class="icon"></span>
+                                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'yahoo'}) }}">
+                                    <span class="buttonText">{{ 'Đăng ký với Yahoo!'|trans }}</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-
-                    <div id="gSignInWrapper" style="padding-bottom: 5px">
-                        <div id="customBtn" class="customGPlusSignIn">
-                            <span class="icon"></span>
-                            <span class="buttonText">{{ 'Đăng ký với Google +'|trans }}</span>
-                        </div>
-                    </div>
-
-                    <div id="gSignInWrapper">
-                        <div id="customBtnYahoo" class="customGPlusSignIn">
-                            <span class="icon"></span>
-                            <span class="buttonText">{{ 'Đăng ký với Yahoo!'|trans }}</span>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                </form>
         </div>
     </div>
 </div>
@@ -242,31 +236,31 @@
         <hr style="width:60%;clear:none"/>
         <hr style="width:60%;clear:none"/>
         <div id="sliderPlayers" class="content">
-            {% for player in players %}
-                {% if player.document is defined %}
-                    {% for img in player.document %}
-                        {% if img.type == 'image' %}
-                            {% set url = img.id ~ "." ~ img.url %}
-                        {% endif %}
-                    {% else %}
-                        {% set url = 'img_profile_default.jpg' %}
-                    {% endfor %}
-                {% endif %}
+            {#{% for player in players %}#}
+                {#{% if player.document is defined %}#}
+                    {#{% for img in player.document %}#}
+                        {#{% if img.type == 'image' %}#}
+                            {#{% set url = img.id ~ "." ~ img.url %}#}
+                        {#{% endif %}#}
+                    {#{% else %}#}
+                        {#{% set url = 'img_profile_default.jpg' %}#}
+                    {#{% endfor %}#}
+                {#{% endif %}#}
 
-                <div>
+                {#<div>#}
 
-                    <div class="small-6 medium-6 large-6 columns" style="padding:0"><img
-                                src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
-                                class="img-circle"/><b>{{ player.prenom }} {{ player.nom }}</b></div>
-                    <div class="small-6 medium-6 large-6 columns">Rating: <img
-                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
-                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
-                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
-                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img
-                                src="{{ asset('images/icons/stars.png') }}" alt="stars"/></div>
-                    <div>comment</div>
-                </div>
-            {% endfor %}
+                    {#<div class="small-6 medium-6 large-6 columns" style="padding:0"><img#}
+                                {#src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"#}
+                                {#class="img-circle"/><b>{{ player.prenom }} {{ player.nom }}</b></div>#}
+                    {#<div class="small-6 medium-6 large-6 columns">Rating: <img#}
+                                {#src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img#}
+                                {#src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img#}
+                                {#src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img#}
+                                {#src="{{ asset('images/icons/stars.png') }}" alt="stars"/><img#}
+                                {#src="{{ asset('images/icons/stars.png') }}" alt="stars"/></div>#}
+                    {#<div>comment</div>#}
+                {#</div>#}
+            {#{% endfor %}#}
         </div>
     </div>
 
@@ -274,10 +268,10 @@
 </div>
 {% block javascripts %}
     <script>
-        jQuery('#registerButton').click(function () {
-
-            jQuery('#registerForm').submit();
-        });
+//        jQuery('#registerButton').click(function () {
+//
+//            jQuery('#registerForm').submit();
+//        });
 
     </script>
     <script type="text/javascript">
@@ -367,23 +361,23 @@
                 pagination: false
             });
         });
-        (function () {
-            var po = document.createElement('script');
-            po.type = 'text/javascript';
-            po.async = true;
-            po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(po, s);
-        })();
-
-        function render() {
-            gapi.signin.render('customBtn', {
-                //'callback': 'signinCallback',
-                'clientid': '841077041629.apps.googleusercontent.com',
-                'cookiepolicy': 'single_host_origin',
-                'requestvisibleactions': 'http://schema.org/AddAction',
-                'scope': 'https://www.googleapis.com/auth/plus.login'
-            });
-        }
+//        (function () {
+//            var po = document.createElement('script');
+//            po.type = 'text/javascript';
+//            po.async = true;
+//            po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+//            var s = document.getElementsByTagName('script')[0];
+//            s.parentNode.insertBefore(po, s);
+//        })();
+//
+//        function render() {
+//            gapi.signin.render('customBtn', {
+//                //'callback': 'signinCallback',
+//                'clientid': '841077041629.apps.googleusercontent.com',
+//                'cookiepolicy': 'single_host_origin',
+//                'requestvisibleactions': 'http://schema.org/AddAction',
+//                'scope': 'https://www.googleapis.com/auth/plus.login'
+//            });
+//        }
     </script>
 {% endblock %}
