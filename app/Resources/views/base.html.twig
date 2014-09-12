@@ -372,7 +372,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                 <div id="menu">
                     <div class="row">
 
-                        <nav class="top-bar show-for-small" data-topbar style="color:black;">
+                        <nav class="top-bar show-for-small" data-topbar role="navigation" style="color:black;">
                             <ul class="title-area">
                                 <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
                                 <li class="name">
@@ -414,7 +414,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
                                     </section>
                                 </nav>
-                                <nav class="top-bar docs-bar hide-for-small">
+                                <nav class="top-bar docs-bar hide-for-small" style="height:70px">
                                     <ul class="title-area">
                                         <li class="name">
                                             <a href="{{ url('homepage') }}">
@@ -456,7 +456,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                                                                 src="{{ asset('images/icons/en.jpg') }}"></a>
                                                     </li>
                                                     <li>
-                                                        <button class="button radius"  data-toggle="modal" data-target="#login"  style="padding:10px;padding-left:20px;padding-right:20px">
+                                                        <button class="button radius"  data-toggle="modal" data-target="#login" onclick="document.location.href='{{ path('fos_user_security_login') }}'" style="padding:10px;padding-left:20px;padding-right:20px">
                                                            {{ 'Đăng nhập'|trans }}
                                                             </button>
 
@@ -781,7 +781,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                             <script src="{{ asset('js/foundation/foundation.topbar.js') }}"></script>
 
                                                                             <script>
-//                $(document).foundation();
+                $(document).foundation();
                                                                                 </script>
                                                                         </body>
                                                                     </html>
