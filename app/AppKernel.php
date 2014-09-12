@@ -23,7 +23,7 @@ class AppKernel extends Kernel {
             new JMS\Payment\PaypalBundle\JMSPaymentPaypalBundle(),
             new Sportimimi\userBundle\SportimimiuserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\FacebookBundle\FOSFacebookBundle(),
+            //new FOS\FacebookBundle\FOSFacebookBundle(),
             new FOS\RestBundle\FOSRestBundle(), // for rest
             new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
             //ie8n

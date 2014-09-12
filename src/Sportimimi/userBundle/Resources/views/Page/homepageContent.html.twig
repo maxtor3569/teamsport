@@ -109,7 +109,7 @@
                         <div id="gSignInWrapper" style="padding-bottom: 5px">
                             <div id="customBtnFacebook" class="customGPlusSignIn">
                                 <span class="icon"></span>
-                                <a href="{{ path('facebook_login') }}">
+                                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook'}) }}">
                                     <span class="buttonText">{{ 'Đăng ký với Facebook'|trans }}</span>
                                 </a>
                             </div>
@@ -118,14 +118,16 @@
                         <div id="gSignInWrapper" style="padding-bottom: 5px">
                             <div id="customBtn" class="customGPlusSignIn">
                                 <span class="icon"></span>
-                                <span class="buttonText">{{ 'Đăng ký với Google +'|trans }}</span>
+                                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google'}) }}">
+                                    <span class="buttonText">{{ 'Đăng ký với Google +'|trans }}</span>
+                                </a>
                             </div>
                         </div>
 
                         <div id="gSignInWrapper">
                             <div id="customBtnYahoo" class="customGPlusSignIn">
                                 <span class="icon"></span>
-                                <a href="{{ path('yahoo_login') }}">
+                                <a href="{{ path('hwi_oauth_service_redirect', {'service': 'yahoo'}) }}">
                                     <span class="buttonText">{{ 'Đăng ký với Yahoo!'|trans }}</span>
                                 </a>
                             </div>
@@ -359,23 +361,23 @@
                 pagination: false
             });
         });
-        (function () {
-            var po = document.createElement('script');
-            po.type = 'text/javascript';
-            po.async = true;
-            po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(po, s);
-        })();
-
-        function render() {
-            gapi.signin.render('customBtn', {
-                //'callback': 'signinCallback',
-                'clientid': '841077041629.apps.googleusercontent.com',
-                'cookiepolicy': 'single_host_origin',
-                'requestvisibleactions': 'http://schema.org/AddAction',
-                'scope': 'https://www.googleapis.com/auth/plus.login'
-            });
-        }
+//        (function () {
+//            var po = document.createElement('script');
+//            po.type = 'text/javascript';
+//            po.async = true;
+//            po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+//            var s = document.getElementsByTagName('script')[0];
+//            s.parentNode.insertBefore(po, s);
+//        })();
+//
+//        function render() {
+//            gapi.signin.render('customBtn', {
+//                //'callback': 'signinCallback',
+//                'clientid': '841077041629.apps.googleusercontent.com',
+//                'cookiepolicy': 'single_host_origin',
+//                'requestvisibleactions': 'http://schema.org/AddAction',
+//                'scope': 'https://www.googleapis.com/auth/plus.login'
+//            });
+//        }
     </script>
 {% endblock %}

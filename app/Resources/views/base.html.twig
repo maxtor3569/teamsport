@@ -40,9 +40,7 @@
         <link rel="stylesheet" href="{{ asset('css/homepage.css') }}"/>
  <script>
             function popup() {
-                alert('entro');
-                el = document.getElementById("modal-login");
-                el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+                $("#modal-login").modal('toggle');
             }
         </script>
 <style>
@@ -689,55 +687,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                             <input type="text" class="form-control" placeholder="Search a friend" />
                                                                         </div>-->
                                                                     </div>
-    {% endif %}                                                     
-                                                                    <div class="container login" style="display:none" id="modal-login">
-                                                                                                                       
-                                                                        <form class="sl-login-form sl-auth-form" role="form" method="post" action="/login_check">
-                                                                            <div class="btn-close-container">
-                                                                                <a class="btn-close" href="/"></a>
-                                                                            </div>
-                                                                            <div class="form-content">
-                                                                                <h2>
-                                                                                    <div class="landing-page-back-arrow">
-                                                                                        <a href="/"></a>
-                                                                                    </div>
-                                                                                    Login
-                                                                                </h2>
-                                                                                <div class="form-group"></div>
-                                                                                <div class="row social-login">
-                                                                                    <div class="col-xs-6 col-sm-6 col">
-                                                                                        <a class="btn btn-facebook-login" href="http://www.teamsport.tv/social/connect?provider=facebook&path=%2Flogin"> Facebook </a>
-                                                                                    </div>
-                                                                                    <div class="col-xs-6 col-sm-6 col">
-                                                                                        <a class="btn btn-twitter-login" href="http://www.teamsport.tv/social/connect?provider=twitter&0=%2Flogin"> Twitter </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="or-separator">
-                                                                                    <div class="border"></div>
-                                                                                    <div class="or">
-                                                                                        <div class="text"> or </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group"> </div>
-                                                                                <div class="form-group">
-                                                                                    <input class="form-control" type="text" placeholder="Username or email" value="" name="_username">
-                                                                                </div>   
-                                                                                <div class="form-group">
-                                                                                    <input class="form-control" type="password" placeholder="Password" name="_password">
-                                                                                </div>    
-                                                                                <div class="form-group">
-                                                                                    <button class="btn btn-success btn-lg" type="submit"> Login </button>
-                                                                                    <div> 
-                                                                                        <div class="form-group forgot-password-link">
-                                                                                            <a href="/forgotten-password">Forgot password</a>
-                                                                                        </div>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                    </div>
+    {% endif %}
 
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and currentPath != '/map/fields' and currentPath != '/map/nguoi-dang-choi' %}
                                                                     <div class="innerAll">
@@ -765,6 +715,26 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                             <div class="right"></div>
                                                                         </div>
                                                                     </div>
+
+                                        <div id="modal-login" class="modal fade">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        <h4 class="modal-title">Modal title</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>One fine body&hellip;</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+                                            </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+
+
                                                                     <!-- Global -->
                                                                     <script data-id="App.Config">
                 var App = {};
@@ -782,6 +752,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                 var themerPrimaryColor = primaryColor;
                                                                         </script>
                                                                         <script src="{{ asset('assets/components/modules/admin/maps/google/assets/custom/maps-google.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
+                                                                        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                                                         <script src="{{ asset('assets/components/library/bootstrap/js/bootstrap.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
                                                                         <script src="{{ asset('assets/components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>

@@ -30,7 +30,7 @@ security:
         oauth_token:
             pattern:    ^/oauth/v2/token
             security:   false
-        
+
         # defaut login area for standard users
         main:
             pattern:      ^/
@@ -40,11 +40,11 @@ security:
                 check_path:     fos_user_security_check
             oauth:
                 resource_owners:
-                    facebook: facebook_login
-                    google: google_login
-                    yahoo: yahoo_login
-                login_path:        fos_user_registration_register
-                failure_path:      fos_user_registration_register
+                    facebook: "/login/check-facebook"
+                    google: "/login/check-google"
+                    yahoo: "/login/check-yahoo"
+                login_path:     fos_user_registration_register
+#                failure_path: hwi_oauth_connect
                 oauth_user_provider:
                     service: sportimimi_oauth_provider
             logout:
@@ -61,7 +61,7 @@ security:
         - { path: ^/en/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
- 
+
         # Secured part of the site
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
@@ -71,4 +71,3 @@ security:
         - { path: ^/, role: ROLE_USER }
         - { path: ^/secured/.*, role: [IS_AUTHENTICATED_FULLY] } # This is the route secured with fos_facebook
         - { path: ^/oauth/v2/auth_login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        

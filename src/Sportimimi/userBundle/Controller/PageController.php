@@ -32,7 +32,7 @@ class PageController extends Controller
         // We retrieve the Session object
         $session = $this->getRequest()->getSession();
         $em = $this->getDoctrine()->getManager();
-        $facebook = $this->get('facebook');
+        //$facebook = $this->get('facebook');
         $offset = 5;
 
         //Pass user to the page
@@ -81,7 +81,7 @@ class PageController extends Controller
             'recentProfile' => $recentProfile,
             'recentTeam' => $recentTeam,
             'profileMatch' => $profileMatch,
-            'facebook' => $facebook,
+            //'facebook' => $facebook,
             'randomSport' => $randomSport,
             'news' => $news,
             'allSports' => $allSports,

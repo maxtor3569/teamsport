@@ -6,9 +6,9 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: sportimimi_user_registration }
-    facebook:
-        class: Sportimimi\userBundle\Service\Facebook
-        arguments: [{ appId: %api_facebook_id%, secret: %api_facebook_secret% }]
+#    facebook:
+#        class: Sportimimi\userBundle\Service\Facebook
+#        arguments: [{ appId: %api_facebook_id%, secret: %api_facebook_secret% }]
     #Wsse implementation..
     #wsse.security.authentication.provider:
         #class:  Sportimimi\userBundle\Security\Authentication\Provider\WsseProvider

@@ -12,14 +12,14 @@ hwi_oauth_redirect:
     prefix:   /login
 
 facebook_login:
-    pattern: /login/facebook
+    pattern: /login/check-facebook
 
 google_login:
-    pattern: /login/google
+    pattern: /login/check-google
 
 yahoo_login:
-    pattern: /login/yahoo
-    
+    pattern: /login/check-yahoo
+
 sportimimi_admin:
     resource: "@SportimimiAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
@@ -61,7 +61,7 @@ fos_oauth_server_token:
 
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
-    
+
 rest:
   type : rest 
   resource : "routing_rest.yml"

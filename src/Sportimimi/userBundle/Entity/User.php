@@ -149,4 +149,117 @@ class User extends BaseUser
         $this->imei = $imei;
     }
 
+    /**
+     * @param mixed $facebook_access_token
+     *
+     * @return $this
+     */
+    public function setFacebookAccessToken($facebook_access_token)
+    {
+        $this->facebook_access_token = $facebook_access_token;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebook_access_token;
+    }
+
+    /**
+     * @param mixed $facebook_id
+     *
+     * @return $this
+     */
+    public function setFacebookId($facebook_id)
+    {
+        $this->facebook_id = $facebook_id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookId()
+    {
+        return $this->facebook_id;
+    }
+
+    /**
+     * @param mixed $google_access_token
+     *
+     * @return $this
+     */
+    public function setGoogleAccessToken($google_access_token)
+    {
+        $this->google_access_token = $google_access_token;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoogleAccessToken()
+    {
+        return $this->google_access_token;
+    }
+
+    /**
+     * @param mixed $google_id
+     *
+     * @return $this
+     */
+    public function setGoogleId($google_id)
+    {
+        $this->google_id = $google_id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoogleId()
+    {
+        return $this->google_id;
+    }
+
+    /**
+     * @param mixed $yahoo_access_token
+     *
+     * @return $this
+     */
+    public function setYahooAccessToken($yahoo_access_token)
+    {
+        $this->yahoo_access_token = $yahoo_access_token;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYahooAccessToken()
+    {
+        return $this->yahoo_access_token;
+    }
+
+    /**
+     * @param mixed $yahoo_id
+     *
+     * @return $this
+     */
+    public function setYahooId($yahoo_id)
+    {
+        $this->yahoo_id = $yahoo_id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYahooId()
+    {
+        return $this->yahoo_id;
+    }
 }

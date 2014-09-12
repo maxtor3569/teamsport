@@ -42,7 +42,6 @@ class FOSUBUserProvider extends BaseClass
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        var_dump($response); exit;
         $username = $response->getUsername();
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
         //when the user is registrating
@@ -51,16 +50,21 @@ class FOSUBUserProvider extends BaseClass
             $setter = 'set'.ucfirst($service);
             $setter_id = $setter.'Id';
             $setter_token = $setter.'AccessToken';
-            // create new user here
-            $user = $this->userManager->createUser();
+            // we check if there is an user with this email / username
+            $user = $this->userManager->findUserBy(array('username' => $response->getEmail()));
+            if (null === $user) {
+                $user = $this->userManager->createUser();
+                $user
+                    ->setUsername($response->getEmail())
+                    ->setEmail($response->getEmail())
+                    ->setPlainPassword($response->getEmail())
+                    //->setProfilePictureUrl($response->getProfilePicture())
+                    ->setEnabled(true)
+                ;
+            }
             $user->$setter_id($username);
             $user->$setter_token($response->getAccessToken());
-            //I have set all requested data with the user's username
-            //modify here with relevant data
-            $user->setUsername($username);
-            $user->setEmail($username);
-            $user->setPassword($username);
-            $user->setEnabled(true);
+
             $this->userManager->updateUser($user);
             return $user;
         }
