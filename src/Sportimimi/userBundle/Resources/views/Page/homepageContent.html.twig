@@ -20,11 +20,15 @@
 
         }
 
-        #customBtn:hover, #customBtnYahoo:hover, #customBtnFacebook:hover {
-            background: #e74b37;
+        #customBtn:hover {
+        	background: #e74b37;
             cursor: hand;
         }
-
+        
+        #customBtnYahoo:hover {}
+        
+        #customBtnFacebook:hover {}
+        
         span.label {
             font-weight: bold;
         }
@@ -47,6 +51,9 @@
             font-weight: bold;
             /* Use the Roboto font that is loaded in the <head>
             font-family: 'Roboto',arial,sans-serif; */
+        }
+        #fos_user_registration_form label {
+        	/* display:none; */
         }
     </style>
 {% endblock %}
