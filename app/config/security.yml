@@ -61,7 +61,23 @@ security:
         - { path: ^/en/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
+        - { path: ^/dang-nhap, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/dang-nhap, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login-check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^en/login-check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/ve-chung-toi, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/ve-chung-toi, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/map/nguoi-dang-choi, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/map/nguoi-dang-choi, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/map/fields, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/map/fields, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/markers-field, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/markers-field, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/markers, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/markers, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usersOnline, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/en/usersOnline, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        
         # Secured part of the site
         # This config requires being logged for the whole site and having the admin role for the admin part.
         # Change these rules to adapt them to your needs
