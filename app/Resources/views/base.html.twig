@@ -459,7 +459,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                         <button class="button radius"  data-toggle="modal" data-target="#login" onclick="document.location.href='{{ path('fos_user_security_login') }}'" style="padding:10px;padding-left:20px;padding-right:20px">
                                                            {{ 'Đăng nhập'|trans }}
                                                             </button>
-
+														<a style="display:none" data-reveal-id="myModal">{{ 'Đăng nhập'|trans }}</a>
+														
                                                         </li>
                                                     </ul>
 
@@ -708,7 +709,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                             <div class="right"></div>
                                                                         </div>
                                                                     </div>
-
+																	<div id="myModal" class="reveal-modal" data-reveal>
+																	  <h2>Awesome. I have it.</h2>
+																	  <p class="lead">Your couch.  It is mine.</p>
+																	  <p>I'm a cool paragraph that lives inside of an even cooler modal. Wins!</p>
+																	  <a class="close-reveal-modal">&#215;</a>
+																	</div>
 
 
                                                                     <!-- Global -->
@@ -779,6 +785,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                             <!-- End Script de fin -->
                                                                             <script src="{{ asset('js/foundation/foundation.js') }}"></script>
                                                                             <script src="{{ asset('js/foundation/foundation.topbar.js') }}"></script>
+                                                                            <script src="{{ asset('js/foundation/foundation.reveal.js') }}"></script>
+                                                                            
 
                                                                             <script>
                 $(document).foundation();
