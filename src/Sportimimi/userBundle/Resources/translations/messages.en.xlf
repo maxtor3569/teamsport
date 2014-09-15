@@ -347,6 +347,52 @@
             <target>Home</target>
         </trans-unit>
 
+		<trans-unit resname="Hoặc">
+            <source>Hoặc</source>
+            <target>Or</target>
+        </trans-unit>
+        
+        <trans-unit resname="Hoàn thành hồ sơ cá nhân của bạn">
+            <source>Hoàn thành hồ sơ cá nhân của bạn</source>
+            <target>Complete your profile</target>
+        </trans-unit>
+        
+        <trans-unit resname="Xác nhận">
+            <source>Hoàn thành hồ sơ cá nhân của bạn - </source>
+            <target>Complete your profile - </target>
+        </trans-unit>
+        
+        <trans-unit resname="Xác nhận">
+            <source>Xác nhận</source>
+            <target>Valid</target>
+        </trans-unit>
+        
+        <trans-unit resname="Tại sao chọn Teamsport?">
+            <source>Tại sao chọn Teamsport?</source>
+            <target>Why choose Teamsport?</target>
+        </trans-unit>
+        
+        <trans-unit resname="Người chơi gần đây">
+            <source>Người chơi gần đây</source>
+            <target>Recent players</target>
+        </trans-unit>
+        
+        <trans-unit resname="Miễn phí">
+            <source>Miễn phí</source>
+            <target>Free</target>
+        </trans-unit>
+        
+        <trans-unit resname="Chơi với người nước ngoài">
+            <source>Chơi với người nước ngoài</source>
+            <target>Meet and play with vietnamese</target>
+        </trans-unit>
+        
+         <trans-unit resname="Dễ sử dụng">
+            <source>Dễ sử dụng</source>
+            <target>Easy to use</target>
+        </trans-unit>
+        
+        
 
     </body>
   </file>
