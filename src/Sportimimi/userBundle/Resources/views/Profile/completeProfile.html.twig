@@ -3,16 +3,16 @@
 {% block stylesheets_include %}{% endblock %}
 {% block javascripts_top %}{% endblock %}
 
-{% block title %}{{ 'Create Profile - '|trans }}{% endblock %}
+{% block title %}{{ 'Hoàn thành hồ sơ cá nhân của bạn - '|trans }}{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-md-12">
-            <h2>Create profile</h2>
+            <h2>{{ 'Hoàn thành hồ sơ cá nhân của bạn'|trans }}</h2>
             <form class="form-horizontal" action="{{ path('create_profile') }}" method="post">
                 {{ form_rest(form) }}
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">Create Profile</button>
+                        <button type="submit" class="btn btn-primary">{{ 'Xác nhận'|trans }} </button>
                     </div>
                 </div>
             </form>
