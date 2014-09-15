@@ -41,7 +41,7 @@
                             {% set url = 'img_profile_default.jpg' %}
                         {% endfor %}
                         <a href="{{ path('DetailProfile',{'id': prof.id}) }}">
-                            <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_25') }}"
+                            <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}"
                                  class="pull-left media-object"/>
                         </a>
 
