@@ -177,7 +177,7 @@ class Profile
     private $dateNaissance;
 
     /**
-     * @ORM\Column(type="string",length=1)
+     * @ORM\Column(type="string",length=1, nullable=true)
      * @Assert\NotBlank()
      * @Assert\Choice(choices = {"M", "F"})
      */
@@ -245,10 +245,11 @@ class Profile
 
     public function __construct()
     {
-        $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
+        $this->myFriends = new ArrayCollection();
         $this->userComments = new ArrayCollection();
         $this->userRates = new ArrayCollection();
+        $this->completion = false;
     }
 
     public function getNom()
@@ -614,5 +615,24 @@ class Profile
     public function getUserRates()
     {
         return $this->userRates;
+    }
+
+    /**
+     * @param mixed $completion
+     *
+     * @return $this
+     */
+    public function setCompletion($completion)
+    {
+        $this->completion = $completion;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompletion()
+    {
+        return $this->completion;
     }
 }

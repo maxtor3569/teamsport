@@ -12,12 +12,13 @@ parameters:
     locale: vi
     secret: a4b83ee5213a38272ef4645561aba4d18ce8eebb
     database_path: null
-    api_facebook_id:      1414230258790226
-    api_facebook_secret:  538117b0bf7ebef94ace1a137d348555
-    api_facebook_name:    http://apps.facebook.com/teamsportvn/
-    api_facebook_server:  http://teamsport.vn/
-    api_google_secret: AIzaSyC4vEFy518e1IE_lKSvSxRxtKzdXGi_H_o
+    api_facebook_id:      613474805438062
+    api_facebook_secret:  9d5bdb469eb0fb26060173bdd57a8712
+#    api_facebook_name:    http://apps.facebook.com/teamsportvn/
+    api_facebook_server:  teamsport.vn
+    api_google_id: 633348232812-nqing8gv08kk9ojakeug5sc0imk7vk6e.apps.googleusercontent.com
+    api_google_secret: OzAhRrlp51hDwVX3Wnb36AS7
     api_yahoo_key: dj0yJmk9WWtYNFk2NnNqRW13JmQ9WVdrOWR6VnlaMWRPTXpZbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD04Nw--
     api_yahoo_secret: 787a7eca4e5c95fb87c3de575b60404e69f09a52
     api_yahho_application_url: https://teamsport.vn
-    api_yahho_server_callback: teamsport.vn 
+    api_yahho_server_callback: teamsport.vn

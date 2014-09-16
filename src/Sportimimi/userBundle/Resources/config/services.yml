@@ -1,11 +1,11 @@
 parameters:
 
 services:
-    sportimimi_user.registration.form.type:
-        class: sportimimi\userBundle\Form\Type\RegistrationFormType
-        arguments: [%fos_user.model.user.class%]
-        tags:
-            - { name: form.type, alias: sportimimi_user_registration }
+#    sportimimi_user.registration.form.type:
+#        class: sportimimi\userBundle\Form\Type\RegistrationFormType
+#        arguments: [%fos_user.model.user.class%]
+#        tags:
+#            - { name: form.type, alias: sportimimi_user_registration }
 #    facebook:
 #        class: Sportimimi\userBundle\Service\Facebook
 #        arguments: [{ appId: %api_facebook_id%, secret: %api_facebook_secret% }]
@@ -33,3 +33,8 @@ services:
     sportimimi_oauth_provider:
         class: Sportimimi\userBundle\Security\Core\User\FOSUBUserProvider
         arguments: [@fos_user.user_manager,{facebook: facebook_id, google: google_id, yahoo: yahoo_id}]
+
+    sportimimi_user.registration.form.type:
+        class: Sportimimi\userBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: sportimimi_user_registration }

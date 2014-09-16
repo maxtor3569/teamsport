@@ -189,7 +189,6 @@
 
         $(document).ready(function() {
             $("#sportPlay").select2({
-                minimumInputLength: 3,
                 ajax: {
                     data: function (term, page) { // page is the one-based page number tracked by Select2
                         return {
@@ -217,7 +216,6 @@
             $("#place_played").select2({
                 tags: [],
                 maximumSelectionSize: 1,
-                minimumInputLength: 5,
                 ajax: {
                     data: function (term, page) { // page is the one-based page number tracked by Select2
                         //updatePlaceSuggestion(term);

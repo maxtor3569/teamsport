@@ -31,9 +31,11 @@ class ProfileIncompleteListener
         $route = $event->getRequest()->get('_route');
         /** @var User $user */
 
+        $request = $event->getRequest();
+
         if (!empty($route) and $route != 'create_profile' and $this->security->getToken()) {
             $user = $this->security->getToken()->getUser();
-            if($user instanceof User and !$user->getProfile()) {
+            if($user instanceof User and (!$user->getProfile() or !$user->getProfile()->getCompletion()) ) {
                 // we redirect to the set profile page
                 $event->setResponse(new RedirectResponse($this->router->generate('create_profile')));
             }
