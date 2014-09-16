@@ -30,10 +30,10 @@ DeleteProfile:
     defaults: { _controller: SportimimiuserBundle:Profile:delete }
 DetailProfile:
     path:     /ho-so-cua-toi/{id}
-    defaults: { _controller: SportimimiuserBundle:Profile:detail }
-DetailProfile:
-    path:     /ho-so-cua-toi
-    defaults: { _controller: SportimimiuserBundle:Profile:detail }
+    defaults: { _controller: SportimimiuserBundle:Profile:detail, id: null }
+#DetailProfile:
+#    path:     /ho-so-cua-toi
+#    defaults: { _controller: SportimimiuserBundle:Profile:detail }
 PhotoProfile:
     path:     /photoProfile
     defaults: { _controller: SportimimiuserBundle:Profile:upload }
@@ -201,7 +201,7 @@ NotificationViewAll:
     defaults: { _controller: SportimimiuserBundle:Notification:viewAll}
 
 AddUserComment:
-    pattern: /addUserComment
+    pattern: /addUserComment/{id}
     defaults: { _controller: SportimimiuserBundle:Profile:addUserComment}
     options:
       expose: true
