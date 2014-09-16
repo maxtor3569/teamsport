@@ -12,9 +12,9 @@ class ProfileRegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('phone')
+            ->add('nom','text',array('attr' => array('placeholder' => 'Nhập họ của bạn')))
+            ->add('prenom','text',array('attr' => array('placeholder' => 'Nhập tên của bạn')))
+            ->add('phone','text',array('attr' => array('placeholder' => 'Nhập điện thoại của bạn')))
         ;
 
     }

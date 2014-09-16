@@ -100,7 +100,12 @@
             <div class="large-12 columns text-center" style="font-size:16pt;padding:15px">{{ 'ĐĂNG KÝ'|trans }}</div>
 
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-                    {{ form_widget(form) }}
+                     {{ form_widget(form.email) }}
+                     {{ form_widget(form.plainPassword) }}
+                     {{ form_widget(form.profile.nom) }}
+                     {{ form_widget(form.profile.prenom) }}
+                     {{ form_widget(form.profile.phone) }}
+                     {{ form_widget(form) }}
                     <div class="medium-7 large-12 columns">
                         <p style="font-size:8pt">
                             {{ 'Bằng cách đăng ký trên Teamsport, bạn đồng ý với Điều khoản Dịch vụ, Chính sách bảo mật và Chính sách cookie Teamsport.'|trans }}
