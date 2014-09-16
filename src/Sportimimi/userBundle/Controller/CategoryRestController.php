@@ -10,24 +10,10 @@ use Sportimimi\userBundle\Entity\Category;
 
 class CategoryRestController extends Controller
 {
-<<<<<<< HEAD
- 
   public function getCategoryAction(){
 	$sports = $this->getDoctrine()
 			->getRepository('SportimimiuserBundle:Category')->findAll();
     
     return $sports;
   }
-    
-=======
-
-    public function getCategoryAction()
-    {
-        $sports = $this->getDoctrine()
-            ->getRepository('SportimimiuserBundle:Category')->findAll();
-
-        return $sports;
-    }
-
->>>>>>> 4d258a9bc7c7106ac131cf19e0efcf793d90c529
 }

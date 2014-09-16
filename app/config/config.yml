@@ -78,10 +78,9 @@ fos_user:
     user_class: Sportimimi\userBundle\Entity\User
     service:
         mailer: fos_user.mailer.twig_swift
-#    registration:
-#        form:
-#            type: sportimimi_user_registration
-        # Permet la validation automatique du compte par envoi d'un email
+    registration:
+        form:
+            type: sportimimi_user_registration
     resetting:
         form:
             type: sportimimi_user_resetting

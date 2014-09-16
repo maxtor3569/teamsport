@@ -99,6 +99,9 @@ class ProfileAdminType extends AbstractType
               'placeholder' => 'Mô tả bản thân',
               'style' => 'width:400px'
               )))
+            ->add('completion', 'hidden', array(
+                'empty_data' => true
+            ))
             /* ->add('levels', 'choice', array('choices' => array('Sơ cấp'=>'Sơ cấp','Trung bình'=>'Trung bình','Cao cấp'=>'Cao cấp','Chuyên nghiệp'=>'Chuyên nghiệp'),
               'label' =>'Giới tính',
               'attr' => array(

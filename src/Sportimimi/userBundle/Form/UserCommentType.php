@@ -2,8 +2,11 @@
 
 namespace Sportimimi\userBundle\Form;
 
+use Sportimimi\userBundle\Entity\UserComment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserCommentType extends AbstractType
@@ -12,6 +15,9 @@ class UserCommentType extends AbstractType
     {
         $builder
             ->add('content')
+            ->add('rate', new UserRatingType(), array(
+                'required' => false
+            ))
         ;
     }
 

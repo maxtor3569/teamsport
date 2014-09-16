@@ -323,14 +323,10 @@ class ProfileController extends Controller
 
     public function createProfileAction(Request $request)
     {
-        $profile = new Profile();
-        $profile->setEmail($this->getUser()->getEmail());
-        $form = $this->createForm(new ProfileAdminType(), $profile);
+        $form = $this->createForm(new ProfileAdminType(), $this->getUser()->getProfile());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getUser()->setProfile($profile);
-
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirect($this->generateUrl('AddProfileStep2'));

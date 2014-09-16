@@ -44,6 +44,12 @@ class UserComment
      */
     protected $postedBy;
 
+    /**
+     * @var UserRating
+     * @ORM\ManyToOne(targetEntity="UserRating", cascade={"persist", "remove"})
+     */
+    protected $rate;
+
 
     /**
      * Get id
@@ -86,6 +92,7 @@ class UserComment
     public function setPostedBy($postedBy)
     {
         $this->postedBy = $postedBy;
+        if ($this->getRate()) $this->getRate()->setRatedBy($postedBy);
         return $this;
     }
 
@@ -105,6 +112,7 @@ class UserComment
     public function setProfile($profile)
     {
         $this->profile = $profile;
+        if ($this->getRate()) $this->getRate()->setProfile($profile);
         return $this;
     }
 
@@ -116,5 +124,22 @@ class UserComment
         return $this->profile;
     }
 
+    /**
+     * @param UserRating $rate
+     *
+     * @return $this
+     */
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+        return $this;
+    }
 
+    /**
+     * @return UserRating
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
 }
