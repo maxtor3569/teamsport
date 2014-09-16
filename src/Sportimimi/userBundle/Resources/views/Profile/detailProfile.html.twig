@@ -36,8 +36,7 @@
                }
            }
        }
-       console.log(data);
-       $.post(Routing.generate('AddUserComment'), data, function(response){
+       $.post(Routing.generate('AddUserComment', {'id': {{ app.request.get('id')}} }), data, function(response){
            window.location = window.location;
        }, 'json');
    }

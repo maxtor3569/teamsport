@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\UserBundle\Mailer\Mailer;
 use FOS\UserBundle\Util\TokenGenerator;
-use FacebookSDK\Facebook;
 use \DateTime;
 use Doctrine\ORM\Query\ResultSetMapping;
 // Import new namespaces
@@ -71,8 +70,9 @@ class ProfileController extends Controller
         $comment->setRate(new UserRating());
         $comment->getRate()->setRate($_POST['user_comment']['rate']['rate']);
 
-        $comment->setPostedBy($this->getUser()->getProfile());
-        $comment->setProfile($user->getProfile());
+        $postedProfile = $this->getDoctrine()->getRepository('SportimimiuserBundle:Profile')->find($request->get('id'));
+        $comment->setPostedBy($user->getProfile());
+        $comment->setProfile($postedProfile);
 
         $_em = $this->getDoctrine()->getManager();
         $_em->persist($comment);
@@ -323,10 +323,14 @@ class ProfileController extends Controller
 
     public function createProfileAction(Request $request)
     {
-        $form = $this->createForm(new ProfileAdminType(), $this->getUser()->getProfile());
+        $profile = ($this->getUser()->getProfile()) ?: new Profile();
+        if (!$profile->getEmail()) $profile->setEmail($this->getUser()->getEmail());
+        $form = $this->createForm(new ProfileAdminType(), $profile);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $this->getUser()->setProfile($profile);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirect($this->generateUrl('AddProfileStep2'));
@@ -416,8 +420,8 @@ class ProfileController extends Controller
         if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
         $em = $this->container->get('doctrine')->getManager();
-        if (isset($_GET['id']))
-            $id = $_GET['id'];
+//        if (isset($_GET['id']))
+//            $id = $_GET['id'];
         if (isset($id)) {
             // Detail d'un sportif existant : on recherche ses données
             $profile = $em->find('SportimimiuserBundle:Profile', $id);
