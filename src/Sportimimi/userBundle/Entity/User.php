@@ -90,6 +90,19 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+    
+	/**
+     * Set Email
+     *
+     * @param \Sportimimi\userBundle\Entity\User 
+     * @return User
+     */
+	public function setEmail($email)
+	{
+	    $email = is_null($email) ? '' : $email;
+	    parent::setEmail($email);
+	    $this->setUsername($email);
+	}
 
     /**
      * Set profile
