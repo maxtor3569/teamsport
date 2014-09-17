@@ -646,8 +646,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                                                                                              alt="user"
                                                                                              class="img-circle"/>
                                                                                     </span>
-                                                                                    <span class="media-body">{{ user.prenom }} {{ user.nom }}
-                                                                                        <span class="caret"></span>
+                                                                                    <span class="media-body">
+                                                                                    <a href="{{ path('DetailProfile') }}">{{ user.prenom }} {{ user.nom }}
+                                                                                    </a>
+                                                                                        
                                                                                     </span>
                                                                                 </span>
                                                                             </a>
