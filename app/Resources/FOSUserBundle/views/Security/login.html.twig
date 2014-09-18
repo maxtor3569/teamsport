@@ -1,7 +1,15 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% block stylesheets_include %}
     <link rel="stylesheet" href="{{ asset('css/login.css') }}"/>
-
+	<style>
+		.reveal-modal-inner {
+	    margin: 0 auto;
+	    position: relative;
+	    max-width: '50px;
+	    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.4);
+	    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+	}
+	</style>
 {% endblock %}
 {% block fos_user_content %}
 

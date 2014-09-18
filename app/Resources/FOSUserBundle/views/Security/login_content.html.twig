@@ -1,6 +1,5 @@
+<div id="inner-wrapper">
 <form action="{{ path("fos_user_security_check") }}" method="post">
-
-    <div id="inner-wrapper">
         <div style="">
             <input id="username" name="_username" class="form-control text-center bg-gray" type="text"
                    placeholder="{{ 'Nhập email của bạn'|trans }}" style=""
@@ -9,52 +8,54 @@
                    placeholder="{{ 'Nhập mật khẩu của bạn'|trans }}" style="margin-top:10px"
                     />
         </div>
-        <div class="small-8 medium-6 large-6 small-centered medium-centered large-centered columns">
+        <div class="small-12 medium-12 large-12 small-centered medium-centered large-centered columns text-center">
 
             <input type="submit" id="_submit" name="_submit" class="button radius text-center"
-                   value="Đăng nhập"/>
+                   value="Đăng nhập" style="margin-bottom:0;"/>
             <i class="fa fa-fw fa-unlock-alt"></i>
+            
+           <div style="padding:10px">OR</div>
+           <div class="social-media" style="margin: auto">
+			    <div id="gSignInWrapper" style="padding-bottom: 5px">
+			        <div id="customBtnFacebook" class="customGPlusSignIn">
+			            <span class="icon"></span>
+			            <a style="color:white" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook'}) }}">
+			                <span class="buttonText">{{ 'Đăng nhập với Facebook'|trans }}</span>
+			            </a>
+			        </div>
+			    </div>
+			
+			    <div id="gSignInWrapper" style="padding-bottom: 5px">
+			        <div id="customBtn" class="customGPlusSignIn">
+			            <span class="icon"></span>
+			            <a style="color:white" href="{{ path('hwi_oauth_service_redirect', {'service': 'google'}) }}">
+			                <span class="buttonText">{{ 'Đăng nhập với Google +'|trans }}</span>
+			            </a>
+			        </div>
+			    </div>
+			
+			    <div id="gSignInWrapper">
+			        <div id="customBtnYahoo" class="customGPlusSignIn">
+			            <span class="icon"></span>
+			            <a style="color:white" href="{{ path('hwi_oauth_service_redirect', {'service': 'yahoo'}) }}">
+			                <span class="buttonText">{{ 'Đăng nhập với Yahoo!'|trans }}</span>
+			            </a>
+			        </div>
+			    </div>
+			</div>
         </div>
 
-        <div class="small-12 medium-6 large-6 columns">
+        <div class="small-12 medium-12 large-12 columns text-centered">
             <a href="{{ path('fos_user_resetting_request') }}"
                class="btn margin-none">{{ 'Quên mật khẩu?'|trans }}</a>
         </div>
 
-        <div class="small-12 medium-6 large-6 columns">
+        <div class="small-12 medium-12 large-12 columns text-centered">
             <a href="{{ path('AddProfile') }}" class="btn margin-none">
                 {{ 'Chưa có tài khoản? Xin vui lòng đăng ký'|trans }}
             </a>
         </div>
-
-    </div>
 </form>
 
-<div class="social-media" style="margin: auto">
-    <div id="gSignInWrapper" style="padding-bottom: 5px">
-        <div id="customBtnFacebook" class="customGPlusSignIn">
-            <span class="icon"></span>
-            <a style="color:white" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook'}) }}">
-                <span class="buttonText">{{ 'Đăng nhập với Facebook'|trans }}</span>
-            </a>
-        </div>
     </div>
 
-    <div id="gSignInWrapper" style="padding-bottom: 5px">
-        <div id="customBtn" class="customGPlusSignIn">
-            <span class="icon"></span>
-            <a style="color:white" href="{{ path('hwi_oauth_service_redirect', {'service': 'google'}) }}">
-                <span class="buttonText">{{ 'Đăng nhập với Google +'|trans }}</span>
-            </a>
-        </div>
-    </div>
-
-    <div id="gSignInWrapper">
-        <div id="customBtnYahoo" class="customGPlusSignIn">
-            <span class="icon"></span>
-            <a style="color:white" href="{{ path('hwi_oauth_service_redirect', {'service': 'yahoo'}) }}">
-                <span class="buttonText">{{ 'Đăng nhập với Yahoo!'|trans }}</span>
-            </a>
-        </div>
-    </div>
-</div>
