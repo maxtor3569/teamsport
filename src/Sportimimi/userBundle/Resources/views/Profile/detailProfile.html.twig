@@ -32,7 +32,7 @@
            'user_comment': {
                'content': form.find('.content').val(),
                'rate': {
-                   rate: form.find('.rating').val()
+                   rate: parseInt(form.find('.rating').val()) + 1
                }
            }
        }
