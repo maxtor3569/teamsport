@@ -217,26 +217,42 @@
       </div>
        <div class="widget">
            <div class="row border-top">
+               {% for comment in profile.userComments %}
+	               {% if comment.postedBy.document is defined %}
+	                    {% for img in profile.document %}
+	                    {% if img.type == 'image' %}
+	                    {% set url = img.id ~ "." ~ img.url %}
+	                    {% endif %}
+	                    {% else %}
+	                    {% set url = 'img_profile_default.jpg' %}
+	                    {% endfor %}
+	                {% endif %}
+	                <table>
+		                <tr>
+			                <td>
+				                <a href="{{ path('DetailProfile', {'id': postedBy.id}) }}">
+				                	<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
+				                	{{ comment.postedBy }}
+				                </a>
+			                </td>
+			                <td>{{ comment.content }}</td>
+			                <td>
+		                        {% if comment.rate is not null %}
+		                            {% set rate = comment.rate.rate %}
+		                            <input type="hidden" class="rating" readonly="readonly" value="{{ rate - 1 }}"/>
+		                        {% endif %}
+			                </td>
+		                </tr>
+	                </table>                               
+               {% endfor %}
+               
+
                <div class="col-md-12">
                    <form id="comment">
                        <textarea rows="3" class="content form-control"></textarea>
                        <input type="hidden" class="rating" />
                        <button type="submit">Send Comment</button>
                    </form>
-                   <ul>
-                       {% for comment in profile.userComments %}
-                        <li>
-                            <blockquote>
-                                <p>{{ comment.content }}</p>
-                                <footer>{{ comment.postedBy }}</footer>
-                                {% if comment.rate is not null %}
-                                    {% set rate = comment.rate.rate %}
-                                    <input type="hidden" class="rating" readonly="readonly" value="{{ rate - 1 }}"/>
-                                {% endif %}
-                            </blockquote>
-                        </li>
-                       {% endfor %}
-                   </ul>
                </div>
            </div>
        </div>
