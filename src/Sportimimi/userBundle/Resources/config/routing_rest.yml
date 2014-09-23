@@ -16,6 +16,18 @@ ratings:
     parent:   users
     resource: Sportimimi\userBundle\Controller\Rest\UserRatingsController
     name_prefix: api_
+    
+profile:
+    type:     rest
+    parent:   users
+    resource: Sportimimi\userBundle\Controller\Rest\UserProfileController
+    name_prefix: api_
+
+friends:
+    type:     rest
+    parent:   users
+    resource: Sportimimi\userBundle\Controller\Rest\UserFriendsController
+    name_prefix: api_
 
 news:
     type: rest
