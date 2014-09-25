@@ -1,291 +1,329 @@
 {% extends 'SportimimiuserBundle::layout.html.twig' %}
 
 {% block stylesheets_include %}
-    <link type="text/css" href="{{ asset('bundles/sportimimiuser/css/bootstrap-rating.css') }}" />
+    <link type="text/css" href="{{ asset('bundles/sportimimiuser/css/bootstrap-rating.css') }}"/>
+    <style>
+        .navigation
+        {
+            list-style: none;
+            width: 100%;
+            margin: 0;
+            padding: 10px;
+        }
+        .navigation li
+        {
+            display: inline-block;
+        }
+
+    </style>
 {% endblock %}
 
 {% block javascripts %}
-<script src="{{ asset('assets/components/common/forms/elements/jasny-fileupload/assets/js/bootstrap-fileupload.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
-<script src="{{ asset('bundles/sportimimiuser/js/bootstrap-rating.js') }}" type="text/javascript"></script>
-<script>
-   function addSport()
-   {
+    <script src="{{ asset('assets/components/common/forms/elements/jasny-fileupload/assets/js/bootstrap-fileupload.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
+    <script src="{{ asset('bundles/sportimimiuser/js/bootstrap-rating.js') }}" type="text/javascript"></script>
+    <script>
+        function addSport() {
 
-       var sport = jQuery('#addSportsList').val();
-       $.ajax({
-           type: "POST",
-           data: {id: sport},
-           dataType: 'text',
-           url: "{{ path('AddSportProfile') }}",
-           cache: false,
-           success: function(data) {
+            var sport = jQuery('#addSportsList').val();
+            $.ajax({
+                type: "POST",
+                data: {id: sport},
+                dataType: 'text',
+                url: "{{ path('AddSportProfile') }}",
+                cache: false,
+                success: function (data) {
 
-               window.location.reload();
-           }
-       });
-   }
+                    window.location.reload();
+                }
+            });
+        }
 
-   function sendComment()
-   {
-       var form = $('form#comment');
-       var data = {
-           'user_comment': {
-               'content': form.find('.content').val(),
-               'rate': {
-                   rate: parseInt(form.find('.rating').val()) + 1
-               }
-           }
-       }
-       $.post(Routing.generate('AddUserComment', {'id': {{ app.request.get('id')}} }), data, function(response){
-           window.location = window.location;
-       }, 'json');
-   }
+        function sendComment() {
+            var form = $('form#comment');
+            var data = {
+                'user_comment': {
+                    'content': form.find('.content').val(),
+                    'rate': {
+                        rate: parseInt(form.find('.rating').val()) + 1
+                    }
+                }
+            }
+            $.post(Routing.generate('AddUserComment', {'id': {{ app.request.get('id')}} }), data, function (response) {
+                window.location = window.location;
+            }, 'json');
+        }
 
-   function invitePlayer()
-   {
-       var time = jQuery('#timePlay').val();
-       var where = jQuery('#placePlayInvit').val();
-   var id = "{{ profile.id }}";
-       $.ajax({
-           type: "POST",
-           data: {idProfileInvite: id, timePlay: time, placePlay: where},
-           dataType: 'text',
-       url: "{{ path('InviteToPlay') }}",
-           cache: false,
-           success: function(data) {
+        function invitePlayer() {
+            var time = jQuery('#timePlay').val();
+            var where = jQuery('#placePlayInvit').val();
+            var id = "{{ profile.id }}";
+            $.ajax({
+                type: "POST",
+                data: {idProfileInvite: id, timePlay: time, placePlay: where},
+                dataType: 'text',
+                url: "{{ path('InviteToPlay') }}",
+                cache: false,
+                success: function (data) {
 
-               alert('Thông báo đã gửi. Cảm ơn bạn');
-               window.setTimeout(window.location.reload(), 2000);
-           }
-       });
-   }
-   $(document).ready(function() {
+                    alert('Thông báo đã gửi. Cảm ơn bạn');
+                    window.setTimeout(window.location.reload(), 2000);
+                }
+            });
+        }
+        $(document).ready(function () {
 
-       // tagging support
-       $("#addSportsList").select2({
-           ajax: {
-               dataType: "json",
-               url: "{{ path('SportsListJson') }}",
-               results: function(data) {
-                   return {results: data, text: 'client'};
-               }
-           },
-           formatResult: function(data) {
-               return "<div class='select2-user-result'>" + data.nameVn + "</div>";
-           },
-           formatSelection: function(data) {
-               return data.nameVn;
-           }
+            // tagging support
+            $("#addSportsList").select2({
+                ajax: {
+                    dataType: "json",
+                    url: "{{ path('SportsListJson') }}",
+                    results: function (data) {
+                        return {results: data, text: 'client'};
+                    }
+                },
+                formatResult: function (data) {
+                    return "<div class='select2-user-result'>" + data.nameVn + "</div>";
+                },
+                formatSelection: function (data) {
+                    return data.nameVn;
+                }
 
-       });
+            });
 
-       $('#comment').submit(function(){
-           sendComment();
-           return false;
-       })
+            $('#comment').submit(function () {
+                sendComment();
+                return false;
+            })
 
 
-   });
-   if (typeof $.fn.bdatepicker == 'undefined')
-       $.fn.bdatepicker = $.fn.datepicker.noConflict();
-   $(function()
-   {
-       // today button
-       $('#timePlay').bdatepicker({
-           format: "dd MM yyyy",
-           startDate: "2013-02-14",
-           todayBtn: true
-       });
+        });
+        if (typeof $.fn.bdatepicker == 'undefined')
+            $.fn.bdatepicker = $.fn.datepicker.noConflict();
+        $(function () {
+            // today button
+            $('#timePlay').bdatepicker({
+                format: "dd MM yyyy",
+                startDate: "2013-02-14",
+                todayBtn: true
+            });
 
-   });
-  </script>
+        });
+    </script>
 {% endblock %}
 {% block title %}Thông tin{% endblock %}
 {% block body %}
-{% set url = "" %}
-{% set inTeam = 0 %}
-{% include 'SportimimiuserBundle:Page:inviteToPlayPopUp.html.twig' %}
-{% include 'SportimimiuserBundle:Page:changeImageProfile.html.twig' %}
-<div class="row">
-   <div class="col-lg-12 col-md-8">
-      <div class="timeline-cover">
-         <div class="widget border-bottom">
-            <div class="widget-body border-bottom">
-               <div class="media">
-                  <div class="pull-left innerAll">
-                     {% if profile.document is defined %}
-                     {% for img in profile.document %}
-                     {% if img.type == 'image' %}
-                     {% set url = img.id ~ "." ~ img.url %}
-                     {% endif %}
-                     {% else %}
-                     {% set url = 'img_profile_default.jpg' %}
-                     {% endfor %}
-                     {% endif %}
-                     <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}" class="img-circle" >
-                     {% if user.id == profile.id %}
-                     <br /> <br />
-                     <!-- change image button -->
-                     <form action='{{ path('ImageProfile') }}' method='post' enctype='multipart/form-data'>
-                     <div class="fileupload fileupload-new margin-none" data-provides="fileupload">
-                        <span class="btn btn-default btn-file">
-                        <span class="fileupload-new">Thay đổi hình ảnh hồ sơ</span>
-                        <span class="fileupload-exists">Thay đổi</span>
-                        <input id="imageProfile" name="file" type="file" class="margin-none" />
-                        </span>
-                        <span class="fileupload-preview"></span>
-                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">x</a>
-                        <input class="btn fileupload-exists" value="xác nhận" type='submit'>
-                     </div>
-                     </form>
-                     {% endif %}
-                  </div>
-                  <div class="media-body">
-                     <h4><a href="">{{ profile.nom }} {{ profile.prenom }}</a>  <a href="{{ path('Message') }}" class="text-muted"><i class="fa fa-envelope"></i></a>
-                     </h4>
-                     <div class="clearfix"></div>
-                     <p>{{ profile.description }}</p>
-                     <a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm">
-                     <i class="icon-turn-right"></i> Mời chơi cùng
-                     </a>
-                  </div>
-                  <div class="col-sm-6">
-                  <h5 class="innerT">Thể Thao</h5>
-                  <div id="sports">
-                  	<div>
-                     {% for sport in profile.sports %}
+    {% set url = "" %}
+    {% set inTeam = 0 %}
+    {% include 'SportimimiuserBundle:Page:inviteToPlayPopUp.html.twig' %}
+    {% include 'SportimimiuserBundle:Page:changeImageProfile.html.twig' %}
+    <div style="padding:10px">
+    <div class="row" style="background:white;margin-bottom:15px">
+        <div class="col-lg-12 col-md-12 col-sm-12">
 
-	                     <span class="innerR innerB">
-	                     <i class="box-generic innerAll {{ sport.classIcons }} fa fa-2x"
-	                        data-placement="bottom" data-selected="false"></i>
-	                        
-	                     </span>
+            <div class="media">
+                <div class="pull-left innerAll">
+                    {% if profile.document is defined %}
+                        {% for img in profile.document %}
+                            {% if img.type == 'image' %}
+                                {% set url = img.id ~ "." ~ img.url %}
+                            {% endif %}
+                        {% else %}
+                            {% set url = 'img_profile_default.jpg' %}
+                        {% endfor %}
+                    {% endif %}
+                    <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}"
+                         class="img-circle">
+                    {% if user.id == profile.id %}
+                        <br/> <br/>
+                        <!-- change image button -->
+                        <form action='{{ path('ImageProfile') }}' method='post'
+                              enctype='multipart/form-data'>
+                            <div class="fileupload fileupload-new margin-none" data-provides="fileupload">
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileupload-new">Thay đổi hình ảnh hồ sơ</span>
+                                                <span class="fileupload-exists">Thay đổi</span>
+                                                <input id="imageProfile" name="file" type="file" class="margin-none"/>
+                                            </span>
+                                <span class="fileupload-preview"></span>
+                                <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">x</a>
+                                <input class="btn fileupload-exists" value="xác nhận" type='submit'>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="media-body">
+                    <h4><a href="">{{ profile.nom }} {{ profile.prenom }}</a> <a
+                                href="{{ path('Message') }}" class="text-muted"><i
+                                    class="fa fa-envelope"></i></a>
+                    </h4>
+
+                    <div class="clearfix"></div>
+                    <p>{{ profile.description }}</p>
+                    <a href="#modal-3" data-toggle="modal" class="btn btn-info btn-sm">
+                        <i class="icon-turn-right"></i> Mời chơi cùng
+                    </a>
+                </div>
+                <div class="col-sm-6">
+                    <h5 class="innerT">Thể Thao</h5>
+
+                    <div id="sports">
+                        <div>
+                            {% for sport in profile.sports %}
+
+                                <span class="innerR innerB">
+                                                <i class="box-generic innerAll {{ sport.classIcons }} fa fa-2x"
+                                                   data-placement="bottom" data-selected="false"></i>
+
+                                            </span>
 
 
-                     {% endfor %}
-                      </div>
-                      <div>
-                     {% for sport in profile.sports %}
-                      	{% if app.request.locale == 'vn' %} {{ sport.nameVn }}{% else %}{{ sport.nom }} {% endif %}
-                      {% endfor %}
-                      </div>
-                     {% if user.id == profile.id %}
-                     <div>
-                        <div id="addSports" style="display:none">
-                           <table>
-                              <tr>
-                                 <td>
-                                    <input type="hidden" class="form-control" id="addSportsList" style="width:150px" name="add_sport" />
-                                 </td>
-                                 <td>
-                                    <button class="btn btn-circle btn-success" onclick="addSport();"><i class="fa icon-add-symbol"></i></button>
-                                 </td>
-                              </tr>
-                           </table>
+                            {% endfor %}
                         </div>
-                        <button class="btn btn-success" onclick="jQuery('#addSports').toggle();
-                           jQuery(this).toggle()"><i class="icon-add-symbol"></i> Thêm thể thao</button>
-                        <button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> {{ 'Xóa thể thao'|trans }}</button>
-                     </div>
-                     {% endif %}
-                  </div>
-               </div>
-               </div>
-
+                        <div>
+                            {% for sport in profile.sports %}
+                                {% if app.request.locale == 'vn' %} {{ sport.nameVn }}{% else %}{{ sport.nom }} {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% if user.id == profile.id %}
+                            <div>
+                                <div id="addSports" style="display:none">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="hidden" class="form-control" id="addSportsList"
+                                                       style="width:150px" name="add_sport"/>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-circle btn-success"
+                                                        onclick="addSport();"><i
+                                                            class="fa icon-add-symbol"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <button class="btn btn-success" onclick="jQuery('#addSports').toggle();
+                           jQuery(this).toggle()"><i class="icon-add-symbol"></i> Thêm thể thao
+                                </button>
+                                <button class="btn btn-danger" onclick=""><i
+                                            class="fa fa-trash-o"></i> {{ 'Xóa thể thao'|trans }}</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div id="contentBlock" class="col-lg-6 col-md-6 col-sm-6" style="background:white">
             <div class="">
-               <ul class="navigation">
-               	  <li class="active">
-                     <a class="" href='{{ path('ListComments')}}'><i class="fa fa-fw icon-road-sign"></i>
-                     <span>{{ 'Comments'|trans }}</span>
-                     </a>
-                  </li>
-                  <li>
-                     <a class="" href="{{ path('Games')}}"><i class="fa fa-fw icon-road-sign"></i>
-                     <span>{{ 'Games'|trans }}</span>
-                     </a>
-                  </li>
-                  <li><a href=""><i class="fa fa-fw icon-group"></i><span> {{ 'Bạn'|trans }}</span></a>
-                  </li>
-                  <!--<li><a href="{{ path('Message') }}"><i class="fa fa-fw fa-envelope"></i><span> Messages</span></a>
-                  </li>-->
-               </ul>
-               <div class="clearfix"></div>
+                <ul class="navigation">
+                    <li class="active">
+                        <a class="" href='{{ path('ListComments') }}'>
+                            <span>{{ 'Comments'|trans }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" href="{{ path('Games') }}">
+                            <span>{{ 'Games'|trans }}</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
             </div>
-         </div>
-      </div>
-       <div class="widget">
-           <div class="row border-top">
-               {% for comment in profile.userComments %}
-	               {% if comment.postedBy.document is defined %}
-	                    {% for img in profile.document %}
-	                    {% if img.type == 'image' %}
-	                    {% set url = img.id ~ "." ~ img.url %}
-	                    {% endif %}
-	                    {% else %}
-	                    {% set url = 'img_profile_default.jpg' %}
-	                    {% endfor %}
-	                {% endif %}
-	                <table>
-		                <tr>
-			                <td>
-				                <a href="{{ path('DetailProfile', {'id': postedBy.id}) }}">
-				                	<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
-				                	{{ comment.postedBy }}
-				                </a>
-			                </td>
-			                <td>{{ comment.content }}</td>
-			                <td>
-		                        {% if comment.rate is not null %}
-		                            {% set rate = comment.rate.rate %}
-		                            <input type="hidden" class="rating" readonly="readonly" value="{{ rate - 1 }}"/>
-		                        {% endif %}
-			                </td>
-		                </tr>
-	                </table>                               
-               {% endfor %}
-               
 
-               <div class="col-md-12">
-                   <form id="comment">
-                       <textarea rows="3" class="content form-control"></textarea>
-                       <input type="hidden" class="rating" />
-                       <button type="submit">Send Comment</button>
-                   </form>
-               </div>
-           </div>
-       </div>
-	      <div class="widget" id="contentBottom">
-         <div class="innerAll">
             <div class="row border-top">
 
-               <div class="col-sm-6">
-                  <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
-                  <div class="widget bg-gray">
-                     <div class="innerAll">
-                        {% if profile.friends is defined %}
-                        {% for friend in profile.friends %}
-                        {% if friend.document is defined %}
-                        {% for img in friend.document %}
-                        {% if img.type == 'image' %}
-                        {% set url = img.id ~ "." ~ img.url %}
-                        {% endif %}
+                {% for comment in profile.userComments %}
+                    {% if comment.postedBy.document is defined %}
+                        {% for img in comment.postedBy.document %}
+                            {% if img.type == 'image' %}
+                                {% set url = img.id ~ "." ~ img.url %}
+                            {% endif %}
                         {% else %}
-                        {% set url = 'img_profile_default.jpg' %}
+                            {% set url = 'img_profile_default.jpg' %}
                         {% endfor %}
-                        {% endif %}
-                        <a href="{{ path('DetailProfile', {'id': friend.id}) }}">
-                        <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
-                        </a>
-                        {% endfor %}
-                        {% endif %}
-                     </div>
-                  </div>
-               </div>
+                    {% endif %}
+                    <div class="row" style="padding-bottom:15px">
+                        <div class="col-md-2 col-sm-2 col-lg-2" style="padding-top:20px">
+                            <a href="{{ path('DetailProfile', {'id': postedBy.id}) }}">
+                                <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" />
+                            </a>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-lg-4" style="padding-top:20px">
+                            <div>{{ comment.postedBy }}</div>
+                            {% if comment.rate is not null %}
+                                {% set rate = comment.rate.rate %}
+                                <input type="hidden" class="rating" readonly="readonly" value="{{ rate - 1 }}"/>
+                            {% endif %}
+                            <div>{{ comment.content }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+				{% if user.id != profile.id %}
+	                <div class="col-md-12" style="border-top:1px solid grey">
+	                    <form id="comment">
+	                        <h3>Leave comment</h3><input type="hidden" class="rating"/>
+	                        <textarea rows="3" class="content form-control"></textarea>
+	                        <button class="btn btn-success" type="submit" style="color:white;margin-top:15px;margin-bottom:15px">Send Comment</button>
+	                    </form>
+	                </div>
+				{% endif %}
             </div>
-         </div>
-      </div>
-   </div>
-</div>
+
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6" style="background:white">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- block profile -->
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:728px;height:90px"
+			     data-ad-client="ca-pub-1353008921275686"
+			     data-ad-slot="9644931106"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+    </div>
+
+    <div class="row" style="padding-top:15px;">
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div id="friendsBlock" class="row" style="background:white">
+
+                <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
+
+                <div>
+                    {% if profile.friends is defined %}
+                        {% for friend in profile.friends %}
+                            <div class="col-lg-3">
+                                {% if friend.document is defined %}
+                                    {% for img in friend.document %}
+                                        {% if img.type == 'image' %}
+                                            {% set url = img.id ~ "." ~ img.url %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% set url = 'img_profile_default.jpg' %}
+                                    {% endfor %}
+                                {% endif %}
+                                <a href="{{ path('DetailProfile', {'id': friend.id}) }}">
+                                    <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}"
+                                         alt="" class="innerR innerB half"/>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
 {% endblock %}

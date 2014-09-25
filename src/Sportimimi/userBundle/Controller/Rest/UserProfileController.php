@@ -20,11 +20,12 @@ class UserProfileController extends Controller
     public function getProfileAction($id)
     {
         $user = $this->findUserOr404($id);
-
+		
+		$profile = array('profile' => $user->getProfile());
+		$profile['user_id'] = $user->getId();
+		
         return View::create()
-            ->setData(array(
-                'profile' => $user->getProfile()
-            ));
+            ->setData($profile);
     }
 
   
