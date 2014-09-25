@@ -11,6 +11,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistrationFormType extends AbstractType
 {
+    private $csrf_enabled;
+
+    public function __construct($csrf = true)
+    {
+        $this->csrf_enabled = $csrf;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -31,7 +38,8 @@ class RegistrationFormType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Sportimimi\userBundle\Entity\User'
+            'data_class' => 'Sportimimi\userBundle\Entity\User',
+            'csrf_protection' => $this->csrf_enabled
         ));
     }
 
