@@ -16,6 +16,10 @@ use JMS\Serializer\Annotation\VirtualProperty;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  * @ExclusionPolicy("all")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email", column=@ORM\Column(type="string", name="email", length=255, unique=false, nullable=true)),
+ *      @ORM\AttributeOverride(name="emailCanonical", column=@ORM\Column(type="string", name="email_canonical", length=255, unique=false, nullable=true))
+ * })
  */
 class User extends BaseUser
 {
@@ -99,9 +103,9 @@ class User extends BaseUser
      */
 	public function setEmail($email)
 	{
-	    $email = is_null($email) ? '' : $email;
-	    parent::setEmail($email);
-	    $this->setUsername($email);
+	    $this->email = $email;
+        if (null !== $email)
+	        $this->setUsername($email);
 
         return $this;
 	}
