@@ -358,9 +358,18 @@ class Profile
         return $this->email;
     }
 
+    /**
+     * @param $email
+     * @return $this
+     */
     public function setEmail($email)
     {
         $this->email = $email;
+        if ($this->getUser()) {
+            $this->getUser()->setEmail($email);
+        }
+
+        return $this;
     }
 
     public function getPassword()
@@ -514,6 +523,9 @@ class Profile
         return $this->levels;
     }
 
+    /**
+     * @return User
+     */
     public function getUser()
     {
         return $this->user;
