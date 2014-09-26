@@ -34,7 +34,7 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('owl.carousel/owl-carousel/owl.carousel.css') }}">
         <link rel="stylesheet" href="{{ asset('owl.carousel/owl-carousel/owl.theme.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/foundation/foundation.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/foundation/foundation.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/foundation-icons/foundation-icons.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/homepage.css') }}"/>
         <script>
@@ -594,7 +594,7 @@
             </div>
             <ul class="notifications pull-left hidden-xs">
                 <li class="dropdown notif">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" onmouseover="setNotifsViewed()"><i
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" onmouseover="setNotifsViewed()" onclick="jQuery('#notifications').toggle()"><i
                                 class="notif-block icon-earth"></i>
                         <!-- if there is a new notification -->
                         {% set new = 0 %}

@@ -217,7 +217,7 @@
 
     <div class="row">
 
-        <div id="contentBlock" class="col-lg-6 col-md-6 col-sm-6" style="background:white">
+        <div id="contentBlock" class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="background:white">
             <div class="">
                 <ul class="navigation">
                     <li class="active">
@@ -276,23 +276,25 @@
 
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-6" style="background:white">
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- block profile -->
-			<ins class="adsbygoogle"
-			     style="display:inline-block;width:728px;height:90px"
-			     data-ad-client="ca-pub-1353008921275686"
-			     data-ad-slot="9644931106"></ins>
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align:center">
+        	<div style="margin-left:15px;background:white">
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+				<!-- bloc2 -->
+				<ins class="adsbygoogle"
+				     style="display:inline-block;width:336px;height:280px"
+				     data-ad-client="ca-pub-1353008921275686"
+				     data-ad-slot="8028597109"></ins>
+				<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>   
+        	</div>     
+		</div>
 
     </div>
 
     <div class="row" style="padding-top:15px;">
 
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div id="friendsBlock" class="row" style="background:white">
 
                 <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
@@ -300,7 +302,7 @@
                 <div>
                     {% if profile.friends is defined %}
                         {% for friend in profile.friends %}
-                            <div class="col-lg-3">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                                 {% if friend.document is defined %}
                                     {% for img in friend.document %}
                                         {% if img.type == 'image' %}

@@ -73,7 +73,21 @@ class ProfileController extends Controller
         $postedProfile = $this->getDoctrine()->getRepository('SportimimiuserBundle:Profile')->find($request->get('id'));
         $comment->setPostedBy($user->getProfile());
         $comment->setProfile($postedProfile);
-
+		$email = $postedProfile->getUser()->getEmail();
+		
+		$message = \Swift_Message::newInstance()
+            ->setSubject('Teamsport: ' . $user->getProfile()->getPrenom() . ' ' . $user->getProfile()->getNom() . ' nhận xét về bạn')
+            ->setFrom(array('admin@teamsport.vn' => 'Teamsport.vn'))
+            ->setTo($email)
+            ->setContentType("text/html")
+            ->setBody(
+                $this->renderView(
+                    'SportimimiuserBundle:Mail:postComment.html.twig', array('user' => $postedProfile, 'user2' => $user->getProfile(),'comment' => $_POST['user_comment']['content'])
+                )
+            );
+            
+        $this->get('mailer')->send($message);
+        
         $_em = $this->getDoctrine()->getManager();
         $_em->persist($comment);
         $_em->flush();

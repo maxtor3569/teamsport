@@ -60,7 +60,7 @@
 <div data-equalizer>
 <!-- START SLIDER -->
 <div class="row">
-    <div class="hover-slider" data-equalizer-watch>
+    <div class="hover-slider">
 
         <div class="medium-4 large-5 columns left hide-for-small" style="padding-top:7%">
             <h2>
@@ -120,7 +120,7 @@
                 -->
             </div>
         </div>
-        <div id="sign-up" class="small-5 medium-7 large-5 columns right" data-equalizer>
+        <div id="sign-up" class="small-5 medium-7 large-5 columns right"  data-equalizer-watch>
             <div class="large-12 columns text-center hide-for-small" style="font-size:16pt;padding:15px">{{ 'ĐĂNG KÝ'|trans }}</div>
 
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
@@ -207,10 +207,10 @@
 <div id="sliderHome" class="owl-carousel">
 
     <div><img src="{{ asset('images/slider/football.jpg') }}" alt="football" style="" data-equalizer-watch /></div>
-    <div><img src="{{ asset('images/slider/basketball.jpg') }}" alt="basketball" style=""/></div>
-    <div><img src="{{ asset('images/slider/badminton.jpg') }}" alt="badminton" style=""/></div>
-    <div><img src="{{ asset('images/slider/tennis.jpg') }}" alt="tennis" style=""/></div>
-    <div><img src="{{ asset('images/slider/volley.jpg') }}" alt="volley" style=""/></div>
+    <div><img src="{{ asset('images/slider/basketball.jpg') }}" alt="basketball" style="" data-equalizer-watch /></div>
+    <div><img src="{{ asset('images/slider/badminton.jpg') }}" alt="badminton" style=""data-equalizer-watch /></div>
+    <div><img src="{{ asset('images/slider/tennis.jpg') }}" alt="tennis" style="" data-equalizer-watch /></div>
+    <div><img src="{{ asset('images/slider/volley.jpg') }}" alt="volley" style="" data-equalizer-watch /></div>
 </div>
 </div>
 <!-- END SLIDER -->
