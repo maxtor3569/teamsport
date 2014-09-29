@@ -53,24 +53,7 @@
             }, 'json');
         }
 
-        function invitePlayer() {
-            var time = jQuery('#timePlay').val();
-            var where = jQuery('#placePlayInvit').val();
-            var id = "{{ profile.id }}";
-            $.ajax({
-                type: "POST",
-                data: {idProfileInvite: id, timePlay: time, placePlay: where},
-                dataType: 'text',
-                url: "{{ path('InviteToPlay') }}",
-                cache: false,
-                success: function (data) {
-
-                    alert('Thông báo đã gửi. Cảm ơn bạn');
-                    window.setTimeout(window.location.reload(), 2000);
-                }
-            });
-        }
-        $(document).ready(function () {
+                $(document).ready(function () {
 
             // tagging support
             $("#addSportsList").select2({

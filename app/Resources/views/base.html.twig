@@ -25,13 +25,24 @@
 <![endif]-->
 
 {% block stylesheets %}
-
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.all.css" type="text/css"
               rel="stylesheet"/>
         <link rel="stylesheet" href="{{ asset('assets/css/admin/module.admin.stylesheet-complete.min.css') }}"/>
+        <style>
+         .vertical-line{
+			  width: 1px; /* Line width */
+			  background-color: black; /* Line color */
+			  height: 46%; /* Override in-line if you want specific height. */
+			  float: left; /* Causes the line to float to left of content. 
+			    You can instead use position:absolute or display:inline-block
+			    if this fits better with your design */
+			  margin-top:16px;
+			}
+		</style>
     {% else %}
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        
         <link rel="stylesheet" href="{{ asset('owl.carousel/owl-carousel/owl.carousel.css') }}">
         <link rel="stylesheet" href="{{ asset('owl.carousel/owl-carousel/owl.theme.css') }}">
         <link rel="stylesheet" href="{{ asset('css/foundation/foundation.min.css') }}"/>
@@ -212,6 +223,7 @@
                 padding:15px;
                 text-align:center;
             }
+           
         </style>
 
     {% endif %}
@@ -478,7 +490,7 @@
             </a>
         </div>
         <ul class="menu list-unstyled" id="navigation_current_page">
-            <li class="category" style="height:100px">
+            <li class="category" style="height:110px">
                 {% set url = '' %}
                 {% if user.document is defined %}
                     {% for img in user.document %}
@@ -489,22 +501,30 @@
                         {% set url = 'img_profile_default.jpg' %}
                     {% endfor %}
                 {% endif %}
-
-                <img style="float:left" src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="user" class="img-circle"/>
-                <a href="{{ path('DetailProfile') }}" style="color:white!important">
-                    {{ user.prenom }} {{ user.nom }}
-                </a>
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+		                <a href="{{ path('DetailProfile') }}">
+		                	<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="user" class="img-circle"/>
+		                </a>
+		            </div>
+		            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+		                <a href="{{ path('DetailProfile') }}" style="color:white!important;display:block;line-height:22px;margin-top:7px;font-size:13pt">
+		                    {{ user.prenom }} {{ user.nom }}
+		                </a>
+		                <a href="{{ path('DetailProfile') }}"><span style="color:#8b91a0;font-size:9pt">{{ 'Xem hồ sơ của tôi'|trans }}</span></a>
+		            </div>
+                </div>
             </li>
             <li class="hasSubmenu">
                 <a href="{{ path('ListProfile') }}" {% if currentPath =='/tim-nguoi-choi' %} class="active"
                    {% endif %}title="Xem đăng ký hồ sơ cá nhân trong teamsport.vn"><i
-                            class="icon-user-1"></i>{{ 'Tìm Người Chơi'|trans }}</a>
+                            class="fa fa-user"></i>{{ 'Tìm Người Chơi'|trans }}</a>
 
             </li>
             <li class="hasSubmenu">
 
                 <a href="#san-choi" data-toggle="collapse"><i
-                            class="icon-soccer-field"></i>{{ 'Tìm Sân Chơi'|trans }}</a>
+                            class="fa fa-search"></i>{{ 'Tìm Sân Chơi'|trans }}</a>
 
                 <ul id="san-choi" class="collapse">
                     <li><a href="{{ path('ListPlace') }}"><span>{{ 'Danh sách Sân Chơi'|trans }}</span></a>
@@ -518,45 +538,38 @@
             <li class="hasSubmenu">
                 <a href="{{ path('ListEvent') }}" {% if currentPath =='/tim-su-kien' %}class="active" {% endif %}
                    title="Tạo ra một sự kiện và mời bạn bè của bạn"><i
-                            class="icon-trophy"></i>{{ 'Tìm Sự Kiện'|trans }}</a>
+                            class="fa fa-trophy"></i>{{ 'Tìm Sự Kiện'|trans }}</a>
             </li>
 
             <li class="hasSubmenu">
 
                 <a href="{{ path('ListTeam') }}" {% if currentPath =='/tim-doi' %}class="active" {% endif %}
-                   title="Tìm một nhóm hoặc tạo của bạn"><i class="icon-group"></i>{{ 'Tìm Đội'|trans }}</a>
+                   title="Tìm một nhóm hoặc tạo của bạn"><i class="fa fa-users"></i>{{ 'Tìm Đội'|trans }}</a>
 
             </li>
             <li class="hasSubmenu">
                 <a href="#sidebar-fusion-media" data-toggle="collapse"><i
-                            class="icon-group"></i><span>{{ 'Quản lý đội của tôi'|trans }}</span></a>
+                            class="fa fa-users"></i><span>{{ 'Quản lý đội của tôi'|trans }}</span></a>
                 {% if user.teams is defined %}
 
                     <ul id="sidebar-fusion-media" class="collapse">
                         {% for team in user.teams %}
                             <li><a href="{{ path('ViewTeam', {'name':team.alias }) }}"><i
-                                            class="icon-group"></i><span>{{ team.name }}</span></a>
+                                            class="fa fa-users"></i><span>{{ team.name }}</span></a>
                             </li>
                         {% endfor %}
                     </ul>
 
                 {% endif %}
             </li>
-            <li class="hasSubmenu">
-
-                <a href="{{ path('DetailProfile') }}" {% if currentPath =='ho-so-cua-toi' %}class="active"
-                   data-toggle="collapse"{% endif %} ><i class="icon-user-1"></i>{{ 'Hồ Sơ Của Tôi'|trans }}</a>
-
-            </li>
             <li>
 
                 <a href="{{ path('Message') }}"><i
-                            class="icon-comment-typing"></i><span>{{ 'Tin nhắn'|trans }}</span></a>
+                            class="fa fa-comment"></i><span>{{ 'Tin nhắn'|trans }}</span></a>
             </li>
             <li>
 
-                <a href="{{ app.request.baseUrl }}/logout"><i
-                            class=""></i><span>{{ 'Đăng xuất'|trans }}</span></a>
+                <a href="{{ app.request.baseUrl }}/logout"><i class="fa fa-power-off"></i><span>{{ 'Đăng xuất'|trans }}</span></a>
             </li>
 
         </ul>
@@ -592,10 +605,11 @@
             <div class="user-action user-action-btn-navbar pull-left">
                 <a href="#menu" class="btn btn-sm btn-navbar btn-open-left"><i class="fa fa-bars fa-2x"></i></a>
             </div>
+            <div class="vertical-line"></div>
             <ul class="notifications pull-left hidden-xs">
                 <li class="dropdown notif">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" onmouseover="setNotifsViewed()" onclick="jQuery('#notifications').toggle()"><i
-                                class="notif-block icon-earth"></i>
+                                class="notif-block fa fa-bell"></i>
                         <!-- if there is a new notification -->
                         {% set new = 0 %}
                         {% if user.notifications is defined %}
@@ -637,33 +651,20 @@
                     </ul>
                 </li>
             </ul>
-            <div class="user-action pull-left menu-right-hidden-xs menu-left-hidden-xs border-left">
-                {% if user is defined %}
-                    <div class="dropdown username pull-left">
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('DetailProfile') }}">{{ 'Hồ Sơ Của Tôi'|trans }}</a>
-                            </li>
-                            <li><a href="{{ path('Message') }}">{{ 'Tin nhắn'|trans }}</a>
-                            </li>
-                            <li>
-                                {% if app.request.locale == 'en' %}
-                                    <a href="{{ path(app.request.get('_route'), {"_locale": "vi"}) }}"
-                                       style="text-decoration:none">
-                                        Vietnamese
-                                    </a>
-                                {% else %}
-                                    <a href="{{ path(app.request.get('_route'), {"_locale": "en"}) }}"
-                                       style="text-decoration:none">
-                                        English
-                                    </a>
+            <div class="user-action pull-left menu-right-hidden-xs menu-left-hidden-xs">
+                {% if app.request.locale == 'en' %}
+                        <a href="{{ path(app.request.get('_route'), {"_locale": "vi"}) }}"
+                           style="text-decoration:none">
+                            Vietnamese
+                        </a>
+                    {% else %}
+                        <a href="{{ path(app.request.get('_route'), {"_locale": "en"}) }}"
+                           style="text-decoration:none">
+                            English
+                        </a>
 
-                                {% endif %}
-                            </li>
-                            <li><a href="{{ app.request.baseUrl }}/logout">{{ 'Thoát'|trans }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                {% endif %}
+                 {% endif %}
+               
             </div>
             <!--<div class="input-group hidden-xs pull-left">
                 <span class="input-group-addon"><i class="icon-search"></i>
@@ -743,7 +744,7 @@
     <script src="{{ asset('assets/components/plugins/holder/holder.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}../"></script>
     <script src="{{ asset('assets/components/common/gallery/gridalicious/assets/lib/jquery.gridalicious.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
 
-    <script src="http://maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=initGoogleMaps"></script>
+    <!-- <script src="http://maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=initGoogleMaps"></script>-->
     <script src="{{ asset('assets/components/modules/admin/modals/assets/js/bootbox.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
     <script src="{{ asset('assets/components/core/js/sidebar.main.init.js?v=v1.0.1-rc2') }}../"></script>
     <script src="{{ asset('assets/components/core/js/sidebar.collapse.init.js?v=v1.0.1-rc2') }}../"></script>
