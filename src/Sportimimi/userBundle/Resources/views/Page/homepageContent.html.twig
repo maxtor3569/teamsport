@@ -121,8 +121,9 @@
             </div>
         </div>
         <div id="sign-up" class="small-5 medium-7 large-5 columns right"  data-equalizer-watch>
-            <div class="large-12 columns text-center hide-for-small" style="font-size:16pt;padding:15px">{{ 'ĐĂNG KÝ'|trans }}</div>
-
+        	<div class="row">
+            <div class="small-12 medium-12 large-12 columns text-center hide-for-small" style="font-size:16pt;padding:15px">{{ 'ĐĂNG KÝ'|trans }}</div></div>
+            	<div class="">
                 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
                 	<div class="hide-for-small">
 	                     {{ form_widget(form.email) }}
@@ -200,6 +201,7 @@
 
                     </div>
                 </form>
+                </div>
         </div>
     </div>
 </div>
