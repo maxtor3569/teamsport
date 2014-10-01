@@ -25,7 +25,7 @@ security:
             pattern: ^/api/.*
             fos_oauth: true
             stateless: true
-            anonymous:  false
+            anonymous:  true
 
         oauth_token:
             pattern:    ^/oauth/v2/token
@@ -59,6 +59,7 @@ security:
         - { path: ^/en/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/en/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/dang-nhap, role: IS_AUTHENTICATED_ANONYMOUSLY }

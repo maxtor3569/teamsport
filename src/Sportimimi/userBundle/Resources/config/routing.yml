@@ -284,3 +284,7 @@ Store_iemi:
 create_profile:
     path: /profile/create
     defaults: { _controller: SportimimiuserBundle:Profile:createProfile }
+
+user_api_registration:
+  path: /api/register
+  defaults: { _controller: SportimimiuserBundle:Rest/UserRegister:register }
