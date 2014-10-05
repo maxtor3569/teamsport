@@ -237,3 +237,5 @@ hwi_oauth:
             type:                yahoo
             client_id:           %api_yahoo_key%
             client_secret:       %api_yahoo_secret%
+
+nelmio_api_doc: ~

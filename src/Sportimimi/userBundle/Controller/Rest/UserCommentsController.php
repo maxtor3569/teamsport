@@ -13,10 +13,26 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations\Route;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class UserCommentsController extends Controller
 {
 
+    /**
+     * This methods will get all the comments for the user with id $id
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get user comments",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"}
+     *  },
+     *  statusCodes={
+     *    200="Returned when successful",
+     *    404= "Returned when the user is not found"
+     *   }
+     * )
+     */
     public function getCommentsAction($id)
     {
         $user = $this->findUserOr404($id);
@@ -28,6 +44,21 @@ class UserCommentsController extends Controller
     }
 
     /**
+     * Create / posts new comment to the user with id $id
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Create new comment to user",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"}
+     *  },
+     *  statusCodes={
+     *    201="Returned when comment was created succesfully",
+     *    401 = "When OAuth authorization fails",
+     *    404= "Returned when the user is not found"
+     *   }
+     * )
+     *
      * @Route(options={"expose"=true})
      * @param Request $request
      * @param $id
@@ -54,6 +85,29 @@ class UserCommentsController extends Controller
         return $this->onCreateCommentError($form, $id);
     }
 
+    /**
+     * Get an individual comment for a given user
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Create new comment to user",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"},
+     *      {"name"="commentId", "dataType"="integer", "required"=true, "description"="comment id", "requirement"="\d+"}
+     *  },
+     *  statusCodes={
+     *    200="Returned when comment was fetched correctly.",
+     *    401 = "When OAuth authorization fails",
+     *    404= {
+     *      "Returned when the user is not found",
+     *      "Returned when the comment was not found"
+     *      }
+     *   }
+     * )
+     * @param $id
+     * @param $commentId
+     * @return View
+     */
     public function getCommentAction($id, $commentId)
     {
         $user = $this->findUserOr404($id);
