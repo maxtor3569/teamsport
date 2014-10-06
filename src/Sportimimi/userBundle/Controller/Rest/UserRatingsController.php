@@ -14,9 +14,28 @@ use Sportimimi\userBundle\Form\UserRatingType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class UserRatingsController extends Controller
 {
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get all rates for a given user",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"},
+     *  },
+     *  statusCodes={
+     *    200="Returned when comment was fetched correctly.",
+     *    401 = "When OAuth authorization fails",
+     *    404= {
+     *      "Returned when the user is not found"
+     *      }
+     *   }
+     * )
+     * @param $id
+     * @return View
+     */
     public function getRatesAction($id)
     {
         $user = $this->findUserOr404($id);
@@ -27,6 +46,25 @@ class UserRatingsController extends Controller
             ));
     }
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Post / creates a new Rate for a given user",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"},
+     *  },
+     *  statusCodes={
+     *    201="Returned when comment was created correctly.",
+     *    401 = "When OAuth authorization fails",
+     *    404= {
+     *      "Returned when the user is not found"
+     *      }
+     *   }
+     * )
+     * @param Request $request
+     * @param $id
+     * @return View
+     */
     public function postRatesAction(Request $request, $id)
     {
         $user = $this->findUserOr404($id);
@@ -48,6 +86,28 @@ class UserRatingsController extends Controller
         return $this->onCreateRatingError($form, $id);
     }
 
+
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get a simple rate for a giver rate.",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"},
+     *      {"name"="rateId", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"},
+     *  },
+     *  statusCodes={
+     *    200="Returned when comment was fetched correctly.",
+     *    401 = "When OAuth authorization fails",
+     *    404 = {
+     *      "Returned when the user is not found",
+     *      "Returned when the rate is not found"
+     *      }
+     *   }
+     * )
+     * @param $id
+     * @param $rateId
+     * @return View
+     */
     public function getRateAction($id, $rateId)
     {
         $user = $this->findUserOr404($id);

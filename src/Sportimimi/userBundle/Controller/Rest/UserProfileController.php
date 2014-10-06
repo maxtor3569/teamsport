@@ -13,10 +13,29 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations\Route;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class UserProfileController extends Controller
 {
 
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get a user's profile.",
+     *  requirements={
+     *      {"name"="id", "dataType"="integer", "required"=true, "description"="user id", "requirement"="\d+"},
+     *  },
+     *  statusCodes={
+     *    200="Returned when profile was fetched correctly.",
+     *    401 = "When OAuth authorization fails",
+     *    404 = {
+     *      "Returned when the user is not found"
+     *      }
+     *   }
+     * )
+     * @param $id
+     * @return View
+     */
     public function getProfileAction($id)
     {
         $user = $this->findUserOr404($id);
