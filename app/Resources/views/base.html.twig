@@ -223,6 +223,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
         <![endif]-->
 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/profile_new.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/jquery.jscrollpane.css') }}" media="all"/>
+
     {% endblock %}
         <!-- Stylesheets END -->
     {% block stylesheets_include %}{% endblock %}
@@ -233,6 +236,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
         {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <script src="{{ asset('js/modernizr.js') }}"></script>
         <script src="{{ asset('js/fastclick.js') }}"></script>
+        
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script src="{{ asset('owl.carousel/owl-carousel/owl.carousel.js') }}"></script>
 
@@ -310,6 +314,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 
             
             </script>
+
+        <script src="{{ asset('js/jquery.mousewheel.js') }}"></script>
+        <script src="{{ asset('js/jquery.jscrollpane.min.js') }}"></script>
 
         {% endif %}
             <script>

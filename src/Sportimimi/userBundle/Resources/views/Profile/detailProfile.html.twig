@@ -2,15 +2,17 @@
 
 {% block stylesheets_include %}
     <link type="text/css" href="{{ asset('bundles/sportimimiuser/css/bootstrap-rating.css') }}" />
+    
 {% endblock %}
 
 {% block javascripts %}
 <script src="{{ asset('assets/components/common/forms/elements/jasny-fileupload/assets/js/bootstrap-fileupload.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
 <script src="{{ asset('bundles/sportimimiuser/js/bootstrap-rating.js') }}" type="text/javascript"></script>
+
 <script>
+
    function addSport()
    {
-
        var sport = jQuery('#addSportsList').val();
        $.ajax({
            type: "POST",
@@ -21,6 +23,47 @@
            success: function(data) {
 
                window.location.reload();
+           }
+       });
+   }
+
+   function addSports()
+   {
+    var sports = [];
+
+    for (var i = 0; i < $('.greenbox').length; i++){
+      sports.push($('.greenbox')[i].id);
+    }
+
+    var data = JSON.stringify(sports);
+
+    $.ajax({
+           type: "POST",
+           data: {id: data},
+           dataType: 'text',
+           url: "{{ path('AddSportProfile') }}",
+           cache: false,
+           success: function(data) {
+
+               window.location.reload();
+           }
+       });
+   }
+
+   function sendRate()
+   {
+    var rateVal = $('.final-rate').attr('id').slice(-1);
+    var pid = '{{profile.id}}';
+    var uid = '{{user.id}}';
+      
+    $.ajax({
+           type: "POST",
+           data: {rate: rateVal,uid: uid, pid: pid},
+           dataType: 'text',
+           url: "{{ path('rateUser') }}",
+           cache: false,
+           success: function(data) {
+             //window.location.reload();
            }
        });
    }
@@ -45,7 +88,7 @@
    {
        var time = jQuery('#timePlay').val();
        var where = jQuery('#placePlayInvit').val();
-   var id = "{{ profile.id }}";
+       var id = "{{ profile.id }}";
        $.ajax({
            type: "POST",
            data: {idProfileInvite: id, timePlay: time, placePlay: where},
@@ -59,10 +102,86 @@
            }
        });
    }
+
+   function showSports()
+   {
+
+    var sport = [];
+    {% for sport in profile.sports %}                    
+      sport.push("{{sport.id}}");                        
+    {% endfor %}
+    
+    $.ajax({
+      type: "POST",
+      dataType: 'json',
+      url: "{{ path('SportsListJson') }}",
+
+      success: function(data){
+        $.each(data, function(i, item) {
+          if (sport.indexOf(item.id.toString()) != -1 ){
+              var green = 'greenbox';
+            }
+            $('.sports-content').append('<div id='+ item.id +' onclick="chooseSport(this);"  class="box-generic item add-sport-item ' + green + '" style="float: left; width:100px; height: 100px;"><i  class="sport-ico '+ item.classIcons +' fa fa-2x" data-placement="bottom" data-selected="false"></i><br><p class="sport-label">'+item.nom+'</p></div>');
+          });
+
+
+        $('.sports-content').jScrollPane({showArrows: true,scrollbarWidth: 30});
+        $(".numSports").html($('.greenbox').length);
+      }
+      }); 
+      
+    } 
+
+    function chooseSport(element){
+
+        if ($('.greenbox').length < 5 && !($(element).hasClass('greenbox'))){
+
+            $(element).addClass('greenbox');
+          
+        }
+        else{
+            $(element).removeClass('greenbox');
+        }
+        $(".numSports").html($('.greenbox').length);
+    }
+
+    function onStar(element) {
+      var current = $(element).attr('id').slice(-1);
+      
+      for (var i = 1; i <= parseInt(current); i++) {
+        $('#star-'+ i + '').removeClass('fa-star-o');
+        $('#star-'+ i + '').addClass('fa-star');
+      };
+      $(this).click( function (){
+
+        for (var i = 1; i <= 5; i++) {
+          $('#star-'+ i + '').removeClass('final-rate')
+          $('#star-'+ i + '').css('color','');
+      };
+
+        for (var i = 1; i <= parseInt(current); i++) {
+          $('#star-'+ i + '').css('color','#FECB50');
+      };
+      $('#star-'+ current + '').addClass('final-rate')
+      });
+    }
+
+    function outStar(element) {
+      var current = $(element).attr('id').slice(-1);
+      
+      for (var i = 1; i <= 5; i++) {
+        $('#star-'+ i + '').removeClass('fa-star');
+        $('#star-'+ i + '').addClass('fa-star-o');
+      };
+      
+    }
+        
    $(document).ready(function() {
 
+        
+
        // tagging support
-       $("#addSportsList").select2({
+        $("#addSportsList").select2({
            ajax: {
                dataType: "json",
                url: "{{ path('SportsListJson') }}",
@@ -79,10 +198,12 @@
 
        });
 
+
        $('#comment').submit(function(){
            sendComment();
            return false;
-       })
+       });
+          console.log(1);
 
 
    });
@@ -98,21 +219,29 @@
        });
 
    });
+
+   $(".numSports").html($('.greenbox').length);
   </script>
 {% endblock %}
 {% block title %}Thông tin{% endblock %}
 {% block body %}
 {% set url = "" %}
 {% set inTeam = 0 %}
+{% include 'SportimimiuserBundle:Page:rateUserPopUp.html.twig' %}
 {% include 'SportimimiuserBundle:Page:inviteToPlayPopUp.html.twig' %}
+{% include 'SportimimiuserBundle:Page:addSportPopUp.html.twig' %}
 {% include 'SportimimiuserBundle:Page:changeImageProfile.html.twig' %}
 <div class="row">
    <div class="col-lg-12 col-md-8">
       <div class="timeline-cover">
          <div class="widget border-bottom">
-            <div class="widget-body border-bottom">
-               <div class="media">
-                  <div class="pull-left innerAll">
+            <div class="widget-body border-bottom profile-body">
+                <div class="media">
+
+
+                  <div class="col-lg-6">
+
+                    
                      {% if profile.document is defined %}
                      {% for img in profile.document %}
                      {% if img.type == 'image' %}
@@ -122,12 +251,15 @@
                      {% set url = 'img_profile_default.jpg' %}
                      {% endfor %}
                      {% endif %}
-                     <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}" class="img-circle" >
-                     {% if user.id == profile.id %}
-                     <br /> <br />
-                     <!-- change image button -->
-                     <form action='{{ path('ImageProfile') }}' method='post' enctype='multipart/form-data'>
-                     <div class="fileupload fileupload-new margin-none" data-provides="fileupload">
+
+                    <div class="profile-av"> 
+
+                      <img  src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}"   class="img-circle profile-img" >
+                      {% if user.id == profile.id %}
+                      <br /> <br />
+                      <!-- change image button -->
+                      <!-- <form action='{{ path('ImageProfile') }}' method='post' enctype='multipart/form-data'>
+                      <div class="fileupload fileupload-new margin-none" data-provides="fileupload">
                         <span class="btn btn-default btn-file">
                         <span class="fileupload-new">Thay đổi hình ảnh hồ sơ</span>
                         <span class="fileupload-exists">Thay đổi</span>
@@ -136,41 +268,88 @@
                         <span class="fileupload-preview"></span>
                         <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">x</a>
                         <input class="btn fileupload-exists" value="xác nhận" type='submit'>
-                     </div>
-                     </form>
-                     {% endif %}
-                  </div>
-                  <div class="media-body">
-                     <h4><a href="">{{ profile.nom }} {{ profile.prenom }}</a>  <a href="{{ path('Message') }}" class="text-muted"><i class="fa fa-envelope"></i></a>
-                     </h4>
+                      </div>
+                      </form> -->
+                    </div>
+                      {% endif %}
+
+                    
+
+                    <div class="profile-desc">
+                      {{user.id}}{{profile.id}}
+                     <span class="profile-name">{{ profile.prenom }} {{ profile.nom }} </span>  
+                     <a href="{{ path('Message') }}" class="text-muted"><i class="fa fa-envelope first-row"></i></a>
+
+                     <a href="#" class="text-muted"><i class="fa fa-edit first-row"></i></a>
+                     
                      <div class="clearfix"></div>
-                     <p>{{ profile.description }}</p>
+
+                     <i class="fa fa-map-marker second-row">   {{ profile.country }}</i>
+                     <i class="fa fa-phone second-row">   {{ profile.phone }}</i>
+                     
+                     <div class="clearfix" style="height: 10px;"></div>
+
+                     {% for rate in rateArr%}
+
+                        {% if rate == 2 %}
+                          <i class="fa fa-star userrate"></i>
+                        {% endif %}
+                        
+                        {% if rate == 1 %}
+                          <i class="fa fa-star-half-empty userrate"></i>
+                        {% endif %}
+                        
+                        {% if rate == 0 %}
+                          <i class="fa fa-star-o userrate"></i>
+                        {% endif %}
+
+                     {% endfor%}
+
+                     <a href="#modal-rate" data-toggle="modal"><i class="fa fa-star rate-user"></i><span class="rate-user">Rate User</span></a>
+
+                     <div class="clearfix"></div>
+
                      <a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm">
-                     <i class="icon-turn-right"></i> Mời chơi cùng
+                     <i class="glyphicon glyphicon-user"></i> Invite to play
                      </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="description">
+                      {{profile.description}}
+                    </div>
+                    
                   </div>
-                  <div class="col-sm-6">
-                  <h5 class="innerT">Thể Thao</h5>
-                  <div id="sports">
-                  	<div>
+
+                  <div class="col-lg-4">
+
+                    <div>
+                      
                      {% for sport in profile.sports %}
+                        <div  class="box-generic item" style="float: left; width: 100px; height: 100px;">
+                      
+                       <i class="sport-ico {{ sport.classIcons }} fa fa-2x"
+                          data-placement="bottom" data-selected="false"></i>
+                        <br>
 
-	                     <span class="innerR innerB">
-	                     <i class="box-generic innerAll {{ sport.classIcons }} fa fa-2x"
-	                        data-placement="bottom" data-selected="false"></i>
-	                        
-	                     </span>
-
+                        <p class="sport-label" >{% if app.request.locale == 'vn' %} {{ sport.nameVn }}{% else %}{{ sport.nom }} {% endif %}</p>
+                       
+                       </div>
 
                      {% endfor %}
                       </div>
-                      <div>
-                     {% for sport in profile.sports %}
-                      	{% if app.request.locale == 'vn' %} {{ sport.nameVn }}{% else %}{{ sport.nom }} {% endif %}
-                      {% endfor %}
-                      </div>
+                      
                      {% if user.id == profile.id %}
-                     <div>
+                     
+                  </div>
+                  <div class="col-lg-2">
+
+
+
+                  <!-- <h5 class="innerT">Thể Thao</h5> -->
+                  <div id="sports">
+                  	
+                     <div class="pull right">
                         <div id="addSports" style="display:none">
                            <table>
                               <tr>
@@ -183,9 +362,16 @@
                               </tr>
                            </table>
                         </div>
-                        <button class="btn btn-success" onclick="jQuery('#addSports').toggle();
-                           jQuery(this).toggle()"><i class="icon-add-symbol"></i> Thêm thể thao</button>
-                        <button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> {{ 'Xóa thể thao'|trans }}</button>
+                        <div>
+                          <a href="#modal-sports-list" data-toggle="modal" onclick="showSports();">
+                          <button class="btn btn-success add-button"><i class="icon-add-symbol"></i> Add More Sports</button></a>
+                          <!-- <button class="btn btn-success add-button" onclick="jQuery('#addSports').toggle();
+                           jQuery(this).toggle()"><i class="icon-add-symbol"></i> Add More Sports</button> -->
+                        </div>
+
+                        <div>
+                          <button class="btn btn-danger del-button" onclick=""><i class="fa fa-trash-o"></i> {{ 'Delete Sports'|trans }}</button>
+                        </div>
                      </div>
                      {% endif %}
                   </div>
@@ -230,7 +416,7 @@
 	                <table>
 		                <tr>
 			                <td>
-				                <a href="{{ path('DetailProfile', {'id': postedBy.id}) }}">
+				                {#<a href="{{ path('DetailProfile', {'id': postedBy.id}) }}">#}
 				                	<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
 				                	{{ comment.postedBy }}
 				                </a>
