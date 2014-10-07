@@ -68,6 +68,24 @@
        });
    }
 
+   function editProfile()
+   {
+    var location = $('#editAdress').val();
+    var phone    = $('#editPhone').val();
+    var desc     = $('#editDesc').val();
+      
+    $.ajax({
+           type: "POST",
+           data: {location: location, phone: phone, desc: desc},
+           dataType: 'text',
+           url: "{{ path('editProfile') }}",
+           cache: false,
+           success: function(data) {
+             //window.location.reload();
+           }
+       });
+   }
+
    function sendComment()
    {
        var form = $('form#comment');
@@ -227,6 +245,7 @@
 {% block body %}
 {% set url = "" %}
 {% set inTeam = 0 %}
+{% include 'SportimimiuserBundle:Page:editProfile.html.twig' %}
 {% include 'SportimimiuserBundle:Page:rateUserPopUp.html.twig' %}
 {% include 'SportimimiuserBundle:Page:inviteToPlayPopUp.html.twig' %}
 {% include 'SportimimiuserBundle:Page:addSportPopUp.html.twig' %}
@@ -276,11 +295,10 @@
                     
 
                     <div class="profile-desc">
-                      {{user.id}}{{profile.id}}
                      <span class="profile-name">{{ profile.prenom }} {{ profile.nom }} </span>  
                      <a href="{{ path('Message') }}" class="text-muted"><i class="fa fa-envelope first-row"></i></a>
 
-                     <a href="#" class="text-muted"><i class="fa fa-edit first-row"></i></a>
+                     <a href="#modal-edit-profile" data-toggle="modal" class="text-muted"><i class="fa fa-edit first-row"></i></a>
                      
                      <div class="clearfix"></div>
 

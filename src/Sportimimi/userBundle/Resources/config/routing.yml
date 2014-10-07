@@ -292,3 +292,7 @@ user_api_registration:
 rateUser:
   path: /rateUser
   defaults: { _controller: SportimimiuserBundle:Profile:rateUser }
+
+editProfile:
+  path: /editProfile
+  defaults: { _controller: SportimimiuserBundle:Profile:editProfile }

@@ -795,8 +795,6 @@ class ProfileController extends Controller
             $user = $user->getProfile();
 
         $em = $this->getDoctrine()->getManager();
-    
-        $user = $this->getDoctrine()->getRepository('SportimimiuserBundle:Profile');
 
         $userRate = new UserRating();
 
@@ -810,6 +808,13 @@ class ProfileController extends Controller
 
         $referer = $this->getRequest()->headers->get('referer');
         return new RedirectResponse($referer);
+    }
+
+    public function editProfileAction(){
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($user != 'anon.') // Check user is not anonyme
+            $user = $user->getProfile();
+    //TODO here...
     }
 
     public function setSearchPlayerAction($value = null)
