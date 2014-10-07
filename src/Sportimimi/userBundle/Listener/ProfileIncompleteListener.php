@@ -32,7 +32,7 @@ class ProfileIncompleteListener
         /** @var User $user */
 
         $request = $event->getRequest();
-
+		
         if (!empty($route) and $route != 'create_profile' and $this->security->getToken()) {
             $user = $this->security->getToken()->getUser();
             if($user instanceof User and (!$user->getProfile() or !$user->getProfile()->getCompletion()) ) {

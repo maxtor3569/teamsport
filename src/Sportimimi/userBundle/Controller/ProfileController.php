@@ -346,7 +346,8 @@ class ProfileController extends Controller
         if ($form->isValid()) {
             $this->getUser()->setProfile($profile);
             $this->getDoctrine()->getManager()->flush();
-
+			$this->getUser()->getProfile()->setCompletion(1);
+			$this->getDoctrine()->getManager()->flush();
             return $this->redirect($this->generateUrl('AddProfileStep2'));
         }
 
