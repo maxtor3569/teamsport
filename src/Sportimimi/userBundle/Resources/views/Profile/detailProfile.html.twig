@@ -295,8 +295,10 @@
                         <input class="btn fileupload-exists" value="xác nhận" type='submit'>
                       </div>
                       </form> -->
-                    </div>
+
                       {% endif %}
+                    </div>
+                      
 
                     
 
@@ -362,13 +364,13 @@
 
                      {% endfor %}
                       </div>
-                      
-                     {% if user.id == profile.id %}
+                  </div>    
                      
-                  </div>
+                     
+                  
                   <div class="col-lg-2">
 
-
+                    {% if user.id == profile.id %}
 
                   <!-- <h5 class="innerT">Thể Thao</h5> -->
                   <div id="sports">
@@ -397,8 +399,10 @@
                           <button class="btn btn-danger del-button" onclick=""><i class="fa fa-trash-o"></i> {{ 'Delete Sports'|trans }}</button>
                         </div>
                      </div>
-                     {% endif %}
+                     
                   </div>
+
+                  {% endif %}
                </div>
                </div>
 
