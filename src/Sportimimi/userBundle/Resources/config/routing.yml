@@ -296,3 +296,7 @@ rateUser:
 editProfile:
   path: /editProfile
   defaults: { _controller: SportimimiuserBundle:Profile:editProfile }
+
+showCountries:
+  path: /showCountries
+  defaults: { _controller: SportimimiuserBundle:Profile:showCountries }

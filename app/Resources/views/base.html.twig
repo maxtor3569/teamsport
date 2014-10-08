@@ -276,6 +276,10 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                 }
             }
 
+            function hideBox(element){
+                $(element).hide();
+            }
+
             function usersOnline() {
                 $.getJSON('{{ path('UsersOnline')}}', '', function(data, textStatus) {
 
@@ -285,6 +289,27 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                     }
                 });
                 $.post('{{ path('PullNotifications') }}', {}, callComplete, 'json');
+
+                $.ajax({
+                    type: "POST",
+                    data: {type: 1},
+                    dataType: 'json',
+                    url: '{{ path('PullNotifications') }}',
+                    success: function(data) {
+                            $.each(data, function(i, item) {
+                                var message = item.message.split('&lt;')[0];
+                                url = item.img;
+
+                                if (url == "."){
+                                    console.log(url);
+                                    url = "img_profile_default.jpg";
+                                }
+                                $('.notif-container').append("<div class='notif-box' onclick='hideBox(this);'><a href='/ho-so-cua-toi/"+item.senderId+"'><img class='img-circle notif-img' src='/media/cache/my_thumb_200/uploads/img/"+ url +"'></a><div class='notif-message'>" + message + "</div><div class='time-ago'><i class='glyphicon glyphicon-time'></i><span> "+ item.diff +"</span></div><div class='clearfix'></div></div>");
+                            });
+                        }
+
+
+                });
             }
             $(document).ready(function() {
                 //get user online
@@ -383,6 +408,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                             <ul class="title-area">
                                 <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
                                 <li class="name">
+
                                     <h1><a href="/">Teamsport</a></h1>
                                 </li>
                             </ul>
@@ -607,12 +633,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                         {% if user.notifications is defined %}
                             {% for notification in user.notifications|slice(0, 5) %}
                                                                             <li class="media">
-                                                                                <!--
-                                                                                <a class="pull-left" href="#">
+                                                                                
+                                                                                <!-- <a class="pull-left" href="#">
                                                                                     <img class="media-object thumb" src="../assets/images/people/100/15.jpg"
                                                                                          alt="50x50" width="50" />
-                                                                                </a>
-                                                                                -->
+                                                                                </a> -->
+                                                                                
 
                                                                                 <div class="media-body">
                                                                                     <span class="label label-default pull-right">{{ notification.Diff }}</span>
