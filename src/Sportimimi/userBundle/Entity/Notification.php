@@ -24,7 +24,6 @@ class Notification {
     /**
      * @ORM\ManyToOne(targetEntity="Profile", inversedBy="notifications")
      * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
-
      */
     private $profile;
 
@@ -103,6 +102,10 @@ class Notification {
         return $this->created;
     }
 
+    public function getInvitation(){
+        return $this->invitation;
+    }
+
     public function getDiff() {
         $dt = new DateTime();
         $diff12 = date_diff($dt, $this->created);
@@ -121,5 +124,18 @@ class Notification {
     }
     public function getViewed() {
         return $this->viewed;
+    }
+
+    public function getArray(){
+        return array(
+                "id"             => $this->id,
+                "profile"        => $this->profile,
+                "invitation"     => $this->invitation,
+                "invitationTeam" => $this->invitationTeam,
+                "invitationTeam" => $this->invitationTeam,
+                "message"        => $this->message,
+                "created"        => $this->created,
+                "viewed"         => $this->viewed,
+            );
     }
 }

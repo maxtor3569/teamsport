@@ -440,7 +440,6 @@ class ProfileController extends Controller
         if (isset($id)) {
             // Detail d'un sportif existant : on recherche ses données
             $profile = $em->find('SportimimiuserBundle:Profile', $id);
-
             if (!$profile) {
                 $message = 'Aucun profil trouvé';
             }
@@ -451,10 +450,40 @@ class ProfileController extends Controller
                 return $this->redirect('/');
         }
 
+        $userRate = $em->getRepository('SportimimiuserBundle:UserRating')->findByProfile(27);
+        $rate = 0;
+
+        foreach ($userRate as $oneRate) {
+            $rate += $oneRate->getRate();
+        }
+
+        $rate     = $rate / count($userRate);
+        $rateAnt  = intval($rate);
+
+        if ($rate == $rateAnt)
+            $rateMant = 0;
+        else
+            $rateMant = 1;
+        
+        $rateArr = array();
+        for ($i = 0; $i < 5; $i++){
+
+            if ($i < $rateAnt) {
+                $rateArr[$i] = 2;
+            }
+            elseif ($i == $rateAnt && $rateMant == 1 ) {
+                $rateArr[$i] = 1;
+            }
+            else {
+                $rateArr[$i] = 0;
+            }
+        }
+    
         return $this->container->get('templating')->renderResponse(
             'SportimimiuserBundle:Profile:detailProfile.html.twig', array(
             'profile' => $profile,
-            'user' => $user
+            'user' => $user,
+            'rateArr' => $rateArr
         ));
     }
 
@@ -738,23 +767,69 @@ class ProfileController extends Controller
         }
     }
 
-    public function addSportAction()
+    public function addSportAction(Request $request)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($user != 'anon.') // Check user is not anonyme
+            $user = $user->getProfile();
+
+        $sports = json_decode($_POST['id']);
+    
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($sports as $key => $value) {
+
+        $query = $em->createQuery(
+            'DELETE
+             FROM SportimimiuserBundle:ProfileSports p
+             WHERE p.profile_id = :pid'
+        )->setParameters(array('pid' => $user->getId()
+                                ))->getResult();
+        }
+
+        $repository = $this->getDoctrine()
+            ->getRepository('SportimimiuserBundle:Category');
+
+        foreach ($sports as $key => $value) {
+
+            $sport = $repository->findOneById($value);
+
+            $user->addSports($sport);
+            $em->persist($user);
+            $em->flush($user);            
+        }
+
+        $referer = $this->getRequest()->headers->get('referer');
+        return new RedirectResponse($referer);
+    }
+
+    public function rateUserAction(Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
         if ($user != 'anon.') // Check user is not anonyme
             $user = $user->getProfile();
 
         $em = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()
-            ->getRepository('SportimimiuserBundle:Category');
-        $sport = $repository->findOneById($_POST['id']);
 
-        $user->addSports($sport);
-        $em->persist($user);
-        $em->flush($user);
+        $userRate = new UserRating();
+
+        $userRate->setRate($_POST['rate']);
+        $userRate->setRatedBy($user->findOneById($_POST['uid']));
+        $userRate->setProfile($user->findOneById($_POST['pid']));
+
+        $em->persist($userRate);
+        $em->flush($userRate);
+
 
         $referer = $this->getRequest()->headers->get('referer');
         return new RedirectResponse($referer);
+    }
+
+    public function editProfileAction(){
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($user != 'anon.') // Check user is not anonyme
+            $user = $user->getProfile();
+    //TODO here...
     }
 
     public function setSearchPlayerAction($value = null)

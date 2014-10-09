@@ -73,4 +73,12 @@ class Country
     {
         return $this->getName();
     }
+
+    public function getArray()
+    {
+        return array(
+                "id" => $this->id,
+                "name" => $this->name,
+            );
+    }
 }
