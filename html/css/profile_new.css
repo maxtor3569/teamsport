@@ -126,8 +126,13 @@ div.invite-head i {
 	margin-bottom: 30px;
 }
 
-#placePlayInvit {
+#placePlayInvit, #editPhone {
 	width: 650px;
+}
+
+#editDesc {
+	width: 650px;
+	height: 110px;	
 }
 
 .date-ico {
@@ -229,4 +234,39 @@ input[type=radio]:checked + label:before {
 .rate-star{
 	font-size: 50px;
 	margin: 45px 0 40px 100px;
+}
+
+.notif-container{
+	width: 370px;
+	position: absolute;
+	z-index: 50;
+}
+
+.notif-box{
+	width: 370px;
+	min-height: 70px;
+	z-index: 51;
+	padding: 10px;
+	background-color: #1B1E24;
+	border-bottom: 1px solid #282c34;
+}
+
+.notif-message {
+	padding-left: 10px;
+	width: 300px;
+	display: block;
+	float: left;
+	color: #ffffff;
+	font-weight: bold;
+}
+
+.notif-img {
+	height: 50px;
+	width: 50px;
+	float: left;
+}
+
+.time-ago {
+	padding-left: 60px;
+	font-weight: bold;
 }
