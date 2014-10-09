@@ -304,10 +304,17 @@
                     
 
                     <div class="profile-desc">
-                     <span class="profile-name">{{ profile.prenom }} {{ profile.nom }} </span>  
-                     <a href="{{ path('Message') }}" class="text-muted"><i class="fa fa-envelope first-row"></i></a>
-
-                     <a href="#modal-edit-profile" data-toggle="modal" class="text-muted"><i class="fa fa-edit first-row"></i></a>
+                      <div class="row">
+                        <div class="col-lg-7">
+                          <span class="profile-name">{{ profile.prenom }} {{ profile.nom }} </span>
+                        </div>
+                        <div class="col-lg-5">
+                          <a href="{{ path('Message') }}" class="text-muted"><i class="fa fa-envelope first-row"></i></a>
+                          <a href="#modal-edit-profile" data-toggle="modal" class="text-muted"><i class="fa fa-edit first-row"></i></a>
+                        </div>
+                      </div>
+                       
+                     
                      
                      <div class="clearfix"></div>
 
@@ -336,7 +343,7 @@
 
                      <div class="clearfix"></div>
 
-                     <a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm">
+                     <a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm inviteToPlay">
                      <i class="glyphicon glyphicon-user"></i> Invite to play
                      </a>
                     </div>

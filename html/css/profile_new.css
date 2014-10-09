@@ -17,14 +17,14 @@
 
 .profile-name {
 	color: #999;
-	font-size: 22pt;
+	font-size: 18px;
 	font-weight: 600;
 }
 
 .first-row {
 	color: #999;
-	font-size: 18pt;
-	padding: 0 10px;
+	font-size: 16pt;
+	padding: 0 6px 0 10px;
 	border-left: 1px solid rgba(153, 153, 153, .5);
 }
 
@@ -36,6 +36,7 @@
 }
 
 .profile-desc {
+	max-width: 310px;
 	float: left;
 }
 
@@ -269,4 +270,12 @@ input[type=radio]:checked + label:before {
 .time-ago {
 	padding-left: 60px;
 	font-weight: bold;
+}
+
+.description {
+	margin-top: 20px;
+}
+
+.inviteToPlay {
+	margin-top: 5px;
 }
