@@ -288,3 +288,15 @@ create_profile:
 user_api_registration:
   path: /api/register
   defaults: { _controller: SportimimiuserBundle:Rest/UserRegister:register }
+
+rateUser:
+  path: /rateUser
+  defaults: { _controller: SportimimiuserBundle:Profile:rateUser }
+
+editProfile:
+  path: /editProfile
+  defaults: { _controller: SportimimiuserBundle:Profile:editProfile }
+
+showCountries:
+  path: /showCountries
+  defaults: { _controller: SportimimiuserBundle:Profile:showCountries }

@@ -60,13 +60,13 @@
                 width: 350px;
             }
 
-            .sl-auth-form, .sl-auth-content {
-                background: none repeat scroll 0 0 #FFFFFF;
-                border-radius: 3px;
-                color: #000000;
-                margin-top: 100px;
-                padding: 0;
-            }
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/profile_new.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/jquery.jscrollpane.css') }}" media="all"/>
+
+    {% endblock %}
+        <!-- Stylesheets END -->
+    {% block stylesheets_include %}{% endblock %}
 
             .sl-auth-form .form-content, .sl-auth-content .form-content, .sl-auth-form .form-footer, .sl-auth-content .form-footer {
                 padding: 10px 25px;
@@ -94,9 +94,14 @@
                 -moz-box-sizing: border-box;
             }
 
-            .sl-auth-form .form-group, .sl-auth-content .form-group {
-                margin-bottom: 12px;
-            }
+    {% block javascripts_top %}
+       
+        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <script src="{{ asset('js/modernizr.js') }}"></script>
+        <script src="{{ asset('js/fastclick.js') }}"></script>
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="{{ asset('owl.carousel/owl-carousel/owl.carousel.js') }}"></script>
 
             .col-sm-6 {
                 width: 50%;
@@ -283,8 +288,12 @@
             }
         }
 
-        function usersOnline() {
-            $.getJSON('{{ path('UsersOnline')}}', '', function(data, textStatus) {
+            function hideBox(element){
+                $(element).hide();
+            }
+
+            function usersOnline() {
+                $.getJSON('{{ path('UsersOnline')}}', '', function(data, textStatus) {
 
                 if (jQuery('#chat-conversation').attr('class') == 'tab-pane') {
                     $('#menu-right').html(data['html']);
@@ -315,6 +324,28 @@
 
                     }
                 });
+                $.post('{{ path('PullNotifications') }}', {}, callComplete, 'json');
+
+                $.ajax({
+                    type: "POST",
+                    data: {type: 1},
+                    dataType: 'json',
+                    url: '{{ path('PullNotifications') }}',
+                    success: function(data) {
+                            $.each(data, function(i, item) {
+                                var message = item.message.split('&lt;')[0];
+                                url = item.img;
+
+                                if (url == "."){
+                                    console.log(url);
+                                    url = "img_profile_default.jpg";
+                                }
+                                $('.notif-container').append("<div class='notif-box' onclick='hideBox(this);'><a href='/ho-so-cua-toi/"+item.senderId+"'><img class='img-circle notif-img' src='/media/cache/my_thumb_200/uploads/img/"+ url +"'></a><div class='notif-message'>" + message + "</div><div class='time-ago'><i class='glyphicon glyphicon-time'></i><span> "+ item.diff +"</span></div><div class='clearfix'></div></div>");
+                            });
+                        }
+
+
+                });
             }
         });
 
@@ -322,19 +353,24 @@
 
     </script>
 
-    {% endif %}
-    <script>
-        function acceptFriend(idInvit) {
+        <script src="{{ asset('js/jquery.mousewheel.js') }}"></script>
+        <script src="{{ asset('js/jquery.jscrollpane.min.js') }}"></script>
 
-            $.ajax({
-                type: "POST",
-                data: {id: idInvit},
-                dataType: 'text',
-                url: "{{ path('AcceptFriend')}}",
-                cache: false,
-                success: function(data) {
-                    alert('Invitation accepted');
-                    window.location.reload();
+        {% endif %}
+            <script>
+                function acceptFriend(idInvit) {
+
+                    $.ajax({
+                        type: "POST",
+                        data: {id: idInvit},
+                        dataType: 'text',
+                        url: "{{ path('AcceptFriend')}}",
+                        cache: false,
+                        success: function(data) {
+                            alert('Invitation accepted');
+                            window.location.reload();
+                        }
+                    });
                 }
             });
         }
@@ -380,39 +416,41 @@
 <body class="menu-right-hidden">
 
 {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    <div id="menu">
-        <div class="row">
+                <div id="menu">
+                    <div class="row">
 
-            <nav class="top-bar show-for-small" data-topbar role="navigation" style="color:black;">
-                <ul class="title-area">
-                    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-                    <li class="name">
-                        <h1><a href="/">Teamsport</a></h1>
-                    </li>
-                </ul>
+                        <nav class="top-bar show-for-small" data-topbar role="navigation" style="color:black;">
+                            <ul class="title-area">
+                                <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+                                <li class="name">
 
-                <section class="top-bar-section show-for-small">
-                    <!-- Right Nav Section -->
-                    <ul style="">
-                        <li>
-                            <a href="{{ path('fos_user_security_login') }}">{{ 'Đăng nhập'|trans }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('MapCurrentlyPlay') }}" {% if currentPath == '/map/nguoi-dang-choi' %} class="active"{% endif %}>{{ 'Tìm Người Chơi'|trans }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('MapFields') }}" {% if currentPath  == 'map/fields' %} class="active"{% endif %}>{{ 'Tìm Sân Chơi'|trans }}</a>
-                        </li>
-                        <!--<li>
-                            <a href="#">Register</a>
-                        </li>-->
-                        <li>
-                            <a href="{{ path('About') }}" {% if currentPath != '/map/fields' %} class="active"{% endif %}>{{ 'Về chúng tôi'|trans }}</a>
-                        </li>
+                                    <h1><a href="/">Teamsport</a></h1>
+                                </li>
+                            </ul>
 
-                        <li style="padding-right:10px;display: inline-block">
-                            <a href="{{ path(app.request.get('_route'), {"_locale": "vi"}) }}"
-                               style="width:auto;display: inline-block;padding:0"><img class="flag"
+                            <section class="top-bar-section show-for-small">
+                                <!-- Right Nav Section -->
+                                <ul style="">
+                                    <li>
+                                        <a href="{{ path('fos_user_security_login') }}">{{ 'Đăng nhập'|trans }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('MapCurrentlyPlay') }}" {% if currentPath == '/map/nguoi-dang-choi' %} class="active"{% endif %}>{{ 'Tìm Người Chơi'|trans }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('MapFields') }}" {% if currentPath  == 'map/fields' %} class="active"{% endif %}>{{ 'Tìm Sân Chơi'|trans }}</a>
+                                    </li>
+                                    <!--<li>
+                                        <a href="#">Register</a>
+                                    </li>-->
+                                    <li>
+                                        <a href="{{ path('About') }}" {% if currentPath != '/map/fields' %} class="active"{% endif %}>{{ 'Về chúng tôi'|trans }}</a>
+                                    </li>
+
+                                    <li style="padding-right:10px;display: inline-block">
+                                        <a href="{{ path(app.request.get('_route'), {"_locale": "vi"}) }}"
+                                           style="width:auto;display: inline-block;padding:0"><img class="flag"
+
                                                                                        {% if app.request.locale =='vi' %}style="opacity:1; cursor:auto;"{% endif %}
                                                                                        src="{{ asset('images/icons/vn.jpg') }}"></a>
                             <a href="{{ path(app.request.get('_route'), {"_locale": "en"}) }}"
@@ -628,20 +666,20 @@
                     <ul id="notifications" class="dropdown-menu chat media-list">
                         {% if user.notifications is defined %}
                             {% for notification in user.notifications|slice(0, 5) %}
-                                <li class="media">
-                                    <!--
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object thumb" src="../assets/images/people/100/15.jpg"
-                                             alt="50x50" width="50" />
-                                    </a>
-                                    -->
+                                                                            <li class="media">
+                                                                                
+                                                                                <!-- <a class="pull-left" href="#">
+                                                                                    <img class="media-object thumb" src="../assets/images/people/100/15.jpg"
+                                                                                         alt="50x50" width="50" />
+                                                                                </a> -->
+                                                                                
 
-                                    <div class="media-body">
-                                        <span class="label label-default pull-right">{{ notification.Diff }}</span>
-                                        <h5 class="media-heading"></h5>
+                                                                                <div class="media-body">
+                                                                                    <span class="label label-default pull-right">{{ notification.Diff }}</span>
+                                                                                    <h5 class="media-heading"></h5>
 
-                                        <p class="margin-none">{{ notification.message | raw }}</p>
-                                    </div>
+                                                                                    <p class="margin-none">{{ notification.message | raw }}</p>
+                                                                                </div>
 
 
                                 </li>
