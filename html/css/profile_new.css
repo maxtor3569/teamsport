@@ -279,3 +279,65 @@ input[type=radio]:checked + label:before {
 .inviteToPlay {
 	margin-top: 5px;
 }
+
+.widget-left {
+	width: 730px;
+	margin: 0;
+	padding: 5px 20px 20px 20px;
+}
+
+.rating-symbol {
+	color: #FECB50;
+	font-family: "FontAwesome";
+	margin-right: 2px;
+}
+
+.glyphicon-star:before {
+	content: "\f005";
+}
+
+.glyphicon-star-empty:before {
+	content: "\f006";
+}
+
+.comment-img {
+	width: 80px;
+	float: left;
+}
+
+.comment-info {
+	width: 600px;
+	float: left;
+}
+
+.comment-rate {
+	font-size: 16px;
+}
+
+.comment-text{
+	margin-top: 15px;
+}
+
+.single-comment {
+	padding: 15px 0;
+	border-bottom: 1px solid rgba(153, 153, 153, .5);
+}
+
+.img-comment {
+	width: 70px;
+	height: 70px;
+}
+
+.comment-name {
+	color: #5e5e5e;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.comment-send {
+	margin-top: 20px;
+}
+
+.btn-sendcomment {
+	margin-top: 10px;
+}
