@@ -436,8 +436,8 @@
             </div>
          </div>
       </div>
-       <div class="widget">
-           <div class="row border-top">
+       <div class="widget widget-left">
+           <div class="row border-top border-none">
                {% for comment in profile.userComments %}
 	               {% if comment.postedBy.document is defined %}
 	                    {% for img in profile.document %}
@@ -448,33 +448,41 @@
 	                    {% set url = 'img_profile_default.jpg' %}
 	                    {% endfor %}
 	                {% endif %}
-	                <table>
-		                <tr>
-			                <td>
-				                {#<a href="{{ path('DetailProfile', {'id': postedBy.id}) }}">#}
-				                	<img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
-				                	{{ comment.postedBy }}
-				                </a>
-			                </td>
-			                <td>{{ comment.content }}</td>
-			                <td>
-		                        {% if comment.rate is not null %}
-		                            {% set rate = comment.rate.rate %}
-		                            <input type="hidden" class="rating" readonly="readonly" value="{{ rate - 1 }}"/>
-		                        {% endif %}
-			                </td>
-		                </tr>
-	                </table>                               
+	                <div class="single-comment">
+                      <div class="comment-img">
+                        {#<a href="{{ path('DetailProfile', {'id': postedBy.id}) }}"></a>#}
+                        <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}" alt="" class="innerR innerB half img-circle img-comment" />
+                      </div>
+
+                      <div class="comment-info">
+                        <div class="comment-name">{{ comment.postedBy }}</div>
+                        
+                        <div class="comment-rate">
+                          {% if comment.rate is not null %}
+                            {% set rate = comment.rate.rate %}
+                            <input type="hidden" class="rating" readonly="readonly" value="{{ rate - 1 }}"/>
+                          {% endif %}
+                        </div>
+
+                        <div class="comment-text  ">{{ comment.content }}</div>
+                        
+                      </div>
+
+			             <div class="clearfix"></div>
+		                        
+			            </div>                               
                {% endfor %}
                
-
-               <div class="col-md-12">
-                   <form id="comment">
-                       <textarea rows="3" class="content form-control"></textarea>
-                       <input type="hidden" class="rating" />
-                       <button type="submit">Send Comment</button>
-                   </form>
-               </div>
+               <div class="col-md-12 comment-send">
+                      <form id="comment">
+                         <div class="comment-name" style="width: 150px; float:left;">Leave Comment</div>
+                         <div class="comment-rate" style="width:100px; float: left;"><input type="hidden" class="rating" /></div>
+                         <textarea rows="3" class="content form-control"></textarea>
+                        
+                         <button type="submit" class="btn btn-success btn-sendcomment">Send Comment</button>
+                      </form>
+                    </div>
+               
            </div>
        </div>
 	      <div class="widget" id="contentBottom">
