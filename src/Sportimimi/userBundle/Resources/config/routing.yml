@@ -300,3 +300,7 @@ editProfile:
 showCountries:
   path: /showCountries
   defaults: { _controller: SportimimiuserBundle:Profile:showCountries }
+
+randUsers:
+    path: /randUsers
+    defaults: { _controller: SportimimiuserBundle:Profile:randUsers }

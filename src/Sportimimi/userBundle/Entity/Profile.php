@@ -647,4 +647,10 @@ class Profile
     {
         return $this->completion;
     }
+
+    public function getArrayForRand (){
+        return array(
+                "id" => $this->id,
+            );
+    }
 }
