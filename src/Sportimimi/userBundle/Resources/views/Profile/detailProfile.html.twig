@@ -193,10 +193,45 @@
       };
       
     }
+
+    function sportFriend(element){
+      $(element).mouseover( function (e) {
+        console.log(e.pageX);
+        console.log(e.pageY);
+        $('.tooltip').css({display: "block", left: e.pageY,top: e.pageX, position: "absolute"})
+
+      });
+    }
+
+    function happy4Friends() {
+      $.ajax ({
+        type: "POST",
+        dataType: "json",
+        url: "{{ path('randUsers') }}",
+        success: function(data) {
+
+          $.each(data, function(i, item) {
+            var i = 0;
+
+            var cfix = '<div class="clearfix"></div>';
+            if (item.img == '.')
+              var img = '/media/cache/my_thumb_200/uploads/img/img_profile_default.jpg';
+            else 
+              var img = '/media/cache/my_thumb_200/uploads/img/'+ item.img;
+          $('.otherPlayers').append('<div class="friend-profile col-lg-4"><a href="/ho-so-cua-toi/' + item.id + '"><img src="'
+            + img + '" class="innerR innerB half img-circle friend-img" /></a>' 
+            + cfix + '<div class="friend-name">' + item.nom.nom +' ' + item.nom.prenom +'</div>'
+            + cfix + '<input type="hidden" class="rating" readonly="readonly" value="2"/>'
+             + cfix + '<div><p class="sport-label tooltip" style="display: none;" ></p></div><a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm inviteToPlay"><i class="glyphicon glyphicon-user"></i>Invite to play</a>'+ cfix +'<a href="#" class="btn btn-default inviteToPlay">Add Friend</a></div>');
+        });
+        }
+      });
+    }
         
    $(document).ready(function() {
 
-        
+        console.log(228);
+        happy4Friends();
 
        // tagging support
         $("#addSportsList").select2({
@@ -215,6 +250,7 @@
            }
 
        });
+
 
 
        $('#comment').submit(function(){
@@ -436,7 +472,11 @@
             </div>
          </div>
       </div>
-       <div class="widget widget-left">
+
+      <div class="row widgets-bottom">
+
+       <div class="widget widget-left col-lg-7">
+        <div class="widget-pad">
            <div class="row border-top border-none">
                {% for comment in profile.userComments %}
 	               {% if comment.postedBy.document is defined %}
@@ -484,37 +524,124 @@
                     </div>
                
            </div>
+         </div>
        </div>
-	      <div class="widget" id="contentBottom">
-         <div class="innerAll">
-            <div class="row border-top">
 
-               <div class="col-sm-6">
-                  <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
-                  <div class="widget bg-gray">
-                     <div class="innerAll">
-                        {% if profile.friends is defined %}
-                        {% for friend in profile.friends %}
-                        {% if friend.document is defined %}
-                        {% for img in friend.document %}
-                        {% if img.type == 'image' %}
-                        {% set url = img.id ~ "." ~ img.url %}
-                        {% endif %}
-                        {% else %}
-                        {% set url = 'img_profile_default.jpg' %}
-                        {% endfor %}
-                        {% endif %}
-                        <a href="{{ path('DetailProfile', {'id': friend.id}) }}">
-                        <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" alt="" class="innerR innerB half" />
-                        </a>
-                        {% endfor %}
-                        {% endif %}
-                     </div>
-                  </div>
-               </div>
+        <div class="widget col-lg-5">
+         <div class="innerAll">
+            <div class="row border-top border-none">
+              
+              <div class="comment-name">Nike shop propose you this article</div>       
+                  
+              <div class="shop-image">
+                <img class="shop-img" src="/images/tapok.png" alt="" />
+                <div class="shop-on-img"><span class="shop-title">Nike shoes runners<a href="#" style="float: right;"class="btn btn-info btn-sm inviteToPlay">$64.99</a></span></div>
+              </div>
+              <div class="comment-name">Nike Shop</div>
+              <i class="fa fa-map-marker second-row border-none" style="margin-bottom: 10px;"> Oxford Street, no. 4, E16 3LS, London, U.K.</i>
+              <div class="clearfix"></div>
+              <button class="btn btn-success">Visit Shop</button>
+               
             </div>
          </div>
+
       </div>
+
+       </div>
+
+       <div class="row widgets-bottom">
+	      <div class="widget widget-left col-lg-6" id="contentBottom">
+         <div class="innerAll">
+            <div class="row border-top border-none">
+              <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
+               
+                  
+                  
+                     
+                        {% if profile.friends is defined %}
+                          {% for friend in profile.friends | slice (1,3) %}
+
+                          <div class="friend-profile col-lg-4">
+
+                            {% if friend.document is defined %}
+                              {% for img in friend.document %}
+                                {% if img.type == 'image' %}
+                                  {% set url = img.id ~ "." ~ img.url %}
+                                {% endif %}
+                                  {% else %}
+                                {% set url = 'img_profile_default.jpg' %}
+                              {% endfor %}
+                            {% endif %}
+                            <a href="{{ path('DetailProfile', {'id': friend.id}) }}">
+                            <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_200') }}" alt="" class="innerR innerB half img-circle friend-img" />
+                            </a>
+
+                            <div class="clearfix"></div>
+
+                            <div class="friend-name">{{ friend.prenom }} {{ friend.nom }}</div>
+
+                            <div class="clearfix"></div>
+
+                            {% set sum = 0 %}
+                            {% set i = 0 %}
+
+                            {% for rate in friend.userRates%}
+                              {% set sum = sum + rate.rate %}
+                              {% set i = i + 1 %}
+                            {% endfor %}
+
+                            {% if i != 0%}
+                            
+                            <input type="hidden" class="rating" readonly="readonly" value="{{ sum / i - 1 }}"/>
+                            {% endif  %}
+
+                            {% for sport in friend.sports %} 
+                            <div class="friend-sports">
+                                <i class="{{ sport.classIcons }} fa fa-2x fr-sport-item"
+                                data-placement="bottom" data-selected="false" onmouseover="sportFriend(this);"></i>
+                            </div>
+                            {% endfor %}
+
+                           <div class="clearfix"></div>
+
+                            {% for sport in friend.sports %} 
+                              {% if sport.classIcons != NULL %}
+                              
+                              {% else %}
+                                <div>
+                                  <p class="sport-label ">{% if app.request.locale == 'vn' %} {{ sport.nameVn }}{% else %}{{ sport.nom }} {% endif %}</p>
+                                </div>
+
+                              {% endif %}
+
+                            {% endfor %}
+
+                          </div>
+
+                          {% endfor %}
+                        {% endif %}
+                     
+                  
+               
+            </div>
+         </div>
+
+      </div>
+
+      <div class="widget col-lg-6">
+         <div class="innerAll">
+            <div class="row border-top border-none otherPlayers">
+              <h5 class="innerT">{{ "Other Players" }}</h5>
+                            
+                  
+               
+            </div>
+         </div>
+
+      </div>
+
+      </div>
+
    </div>
 </div>
 {% endblock %}

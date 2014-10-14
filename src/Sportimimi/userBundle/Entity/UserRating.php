@@ -37,6 +37,11 @@ class UserRating
     protected $profile;
 
     /**
+     * @ORM\Column(name="profile_id", type="integer")
+     */
+    protected $profile_id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Profile")
      * @ORM\JoinColumn(name="ratedBy", referencedColumnName="id")
      */
@@ -112,5 +117,13 @@ class UserRating
     public function getRatedBy()
     {
         return $this->ratedBy;
+    }
+
+    public function getArray(){
+        return array(
+                "id" => $this->id,
+                "rate" => $this->rate,
+                "profile" =>$this->profile_id
+            );
     }
 }
