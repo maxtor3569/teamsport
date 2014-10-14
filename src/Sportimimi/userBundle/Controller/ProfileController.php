@@ -450,7 +450,7 @@ class ProfileController extends Controller
                 return $this->redirect('/');
         }
 
-        $userRate = $em->getRepository('SportimimiuserBundle:UserRating')->findByProfile(27);
+        $userRate = $em->getRepository('SportimimiuserBundle:UserRating')->findByProfile($user->getId());
         $rate = 0;
 
         foreach ($userRate as $oneRate) {
@@ -486,6 +486,11 @@ class ProfileController extends Controller
             'rateArr' => $rateArr
         ));
     }
+
+    public function userRateById($id){
+        $rates = $em->getRepository('SportimimiuserBundle:UserRating')->findByProfile($id);
+    }
+
 
     public function deleteAction($id = null)
     {
@@ -963,6 +968,96 @@ class ProfileController extends Controller
         $em->persist($user);
         $em->flush();
         return new Response('IMEI SAVE', 200, array('Content-Type' => 'application/json'));
+    }
+
+    public function randUsersAction () {
+        
+        $user = $this->get('security.context')->getToken()->getUser();
+        if ($user != 'anon.') // Check user is not anonyme
+            $user = $user->getProfile();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $friends = $this->getDoctrine()->getRepository('SportimimiuserBundle:Friends')->findBy(array("profile_id" => $user->getId()));
+
+        foreach ($friends as $key => $value) {
+            $friends[$key] = $value->getArray();
+        }
+
+        $profiles = $this->getDoctrine()->getRepository('SportimimiuserBundle:Profile')->findAll();
+
+        foreach ($profiles as $key => $value) {
+            $profiles[$key] = $value->getArrayForRand();
+        }
+
+        foreach ($profiles as $key => $value) {
+            foreach ($friends as $keyFr => $valueFr) {
+                if ($value["id"] == $valueFr["friendProfileId"])
+                    unset($profiles[$key]);
+            }
+
+        }
+
+        $profiles = array_values($profiles);
+
+        $happy4Friends = array();
+        $happy4FriendsIds = array();
+
+        $dql        = "SELECT u.id, u.url FROM SportimimiuserBundle:Image u WHERE u.profile = :senderId";
+        $dqlSports  = "SELECT p.category_id FROM SportimimiuserBundle:ProfileSports p WHERE p.profile_id = :profileId"; 
+        $dqlName    = "SELECT u.nom,u.prenom FROM SportimimiuserBundle:Profile u WHERE u.id = :profileId";
+        for ($i = 0; $i < 3 ; $i++) { 
+            $happy4Friends[$i]["id"] = $profiles[rand(0,count($profiles) - 1)]["id"];
+            //$happy4Friends[$i]["id"] = 27;
+            $happy4FriendsIds[$i] = $happy4Friends[$i]["id"];
+
+            $img = $em->createQuery($dql)
+                     ->setParameter('senderId',$happy4Friends[$i]["id"])
+                     ->getResult();
+
+            $sports = $em->createQuery($dqlSports)->setParameters(array('profileId' => $happy4Friends[$i]["id"] ))->getResult();
+            $nomes = $em->createQuery($dqlName)->setParameters(array('profileId' => $happy4Friends[$i]["id"] ))->getSingleResult();
+
+            foreach ($sports as $key => $value) {
+                $happy4Friends[$i]["sports"][$key] = $em->createQuery("SELECT s.nom, s.nameVn, s.classIcons FROM SportimimiuserBundle:Category s WHERE s.id = :catId")
+                    ->setParameters(array('catId' => $value['category_id']))->getResult();
+            }
+
+            $happy4Friends[$i]['nom'] = $nomes;
+            $happy4Friends[$i]['img'] = end($img)['id'].".".end($img)['url'];
+        }
+        //echo "<pre>";print_r($happy4Friends);die();
+
+        //$happy4FriendsIds = array(27,28,29);
+
+        $userRates = $this->getDoctrine()->getRepository('SportimimiuserBundle:UserRating')->findBy(array("profile" => $happy4FriendsIds));
+
+        foreach ($userRates as $key => $value) {
+            $userRates[$key] = $value->getArray();
+        }
+
+        $rates = array();
+        foreach ($happy4FriendsIds as $key => $value) {
+            $rates[$key] = 0;
+            $rates[$key."_num"] = 0;
+            $rates[$key."_val"] = 0;
+            foreach ($userRates as $keyRt => $valueRt) {
+                if ($value == $valueRt["profile"]){
+                    $rates[$key] += $valueRt["rate"];                
+                    $rates[$key."_num"]++;     
+                }         
+            }
+            if ($rates[$key."_num"] != 0)
+                $rates[$key."_val"] = $rates[$key] / $rates[$key."_num"];
+
+            $happy4Friends[$key]["rate"] = $rates[$key."_val"];
+        }
+
+        
+
+        //echo "<pre>";print_r($happy4Friends);die();
+
+        return new Response(json_encode($happy4Friends), 200);
     }
 
 }
