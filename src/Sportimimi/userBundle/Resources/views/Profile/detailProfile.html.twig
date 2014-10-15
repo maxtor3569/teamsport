@@ -106,7 +106,11 @@
    {
        var time = jQuery('#timePlay').val();
        var where = jQuery('#placePlayInvit').val();
-       var id = "{{ profile.id }}";
+       var id = $('.inviteId').attr('id');
+
+       if (id == undefined)
+        var id = "{{ profile.id }}";
+
        $.ajax({
            type: "POST",
            data: {idProfileInvite: id, timePlay: time, placePlay: where},
@@ -221,11 +225,31 @@
           $('.otherPlayers').append('<div class="friend-profile col-lg-4"><a href="/ho-so-cua-toi/' + item.id + '"><img src="'
             + img + '" class="innerR innerB half img-circle friend-img" /></a>' 
             + cfix + '<div class="friend-name">' + item.nom.nom +' ' + item.nom.prenom +'</div>'
-            + cfix + '<input type="hidden" class="rating" readonly="readonly" value="2"/>'
-             + cfix + '<div><p class="sport-label tooltip" style="display: none;" ></p></div><a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm inviteToPlay"><i class="glyphicon glyphicon-user"></i>Invite to play</a>'+ cfix +'<a href="#" class="btn btn-default inviteToPlay">Add Friend</a></div>');
+            + cfix + '<input type="hidden" class="rating" readonly="readonly" value="'+ item.rate +'"/>'
+             + cfix + '<div><p class="sport-label tooltip" style="display: none;" ></p></div><a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm inviteToPlay" id="'+ item.id+'" onclick="inviteOther(this)"><i class="glyphicon glyphicon-user"></i>Invite to play</a>'+ cfix +'<a  class="btn btn-default inviteToPlay" onclick="addFriend(' + item.id + ', this);">Add Friend</a></div>');
         });
         }
       });
+    }
+
+    function addFriend(profileId, element){
+      $.ajax ({
+        type: "POST",
+        dataType: "json",
+        data: {idProfile: profileId},
+        url: "{{ path('InviteFriend') }}",
+        success: function(data) {
+          
+          $(element).parent().append("<div class='btn-success' style='margin-top: 10px;'> Invitation is sent </div>")
+
+          $(element).hide();
+
+        }
+    });
+    }
+
+    function inviteOther(element){
+        $(element).addClass('inviteId');
     }
         
    $(document).ready(function() {
@@ -632,8 +656,6 @@
          <div class="innerAll">
             <div class="row border-top border-none otherPlayers">
               <h5 class="innerT">{{ "Other Players" }}</h5>
-                            
-                  
                
             </div>
          </div>
