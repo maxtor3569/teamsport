@@ -254,8 +254,22 @@
         
    $(document).ready(function() {
 
-        console.log(228);
         happy4Friends();
+        $('.btn-comment').css('border-bottom','3px solid #4c5264');
+
+        $('.btn-comment').click( function(){
+          $('.widget-comment').css('display','block');
+          $('.widget-games').css('display','none');
+          $('.btn-comment').css('border-bottom','3px solid #4c5264');
+          $('.btn-games').css('border-bottom','0px solid #4c5264');
+        });
+
+        $('.btn-games').click( function(){
+          $('.widget-comment').css('display','none');
+          $('.widget-games').css('display','block');
+          $('.btn-games').css('border-bottom','3px solid #4c5264');
+          $('.btn-comment').css('border-bottom','0px solid #4c5264');
+        });
 
        // tagging support
         $("#addSportsList").select2({
@@ -475,32 +489,31 @@
 
             </div>
 
-            <div class="">
-               <ul class="navigation">
-               	  <li class="active">
-                     <a class="" href='{{ path('ListComments')}}'><i class="fa fa-fw icon-road-sign"></i>
-                     <span>{{ 'Comments'|trans }}</span>
-                     </a>
-                  </li>
-                  <li>
-                     <a class="" href="{{ path('Games')}}"><i class="fa fa-fw icon-road-sign"></i>
-                     <span>{{ 'Games'|trans }}</span>
-                     </a>
-                  </li>
-                  <li><a href=""><i class="fa fa-fw icon-group"></i><span> {{ 'Bạn'|trans }}</span></a>
-                  </li>
-                  <!--<li><a href="{{ path('Message') }}"><i class="fa fa-fw fa-envelope"></i><span> Messages</span></a>
-                  </li>-->
-               </ul>
-               <div class="clearfix"></div>
-            </div>
+            
          </div>
       </div>
 
       <div class="row widgets-bottom">
 
        <div class="widget widget-left col-lg-7">
-        <div class="widget-pad">
+        <div class="">
+              <div class="nav-item btn-comment">
+                     <a>
+                     <span>{{ 'Comments'|trans }}</span>
+                     </a>
+              </div>
+              <div class="nav-item btn-games">
+                     <a>
+                     <span>{{ 'Games'|trans }}</span>
+                     </a>
+              </div>
+              <div class="nav-item">
+                    <a href=""><span> {{ 'Bạn'|trans }}</span></a>
+              </div>
+            
+               <div class="clearfix"></div>
+        </div>
+        <div class="widget-pad widget-comment" >
            <div class="row border-top border-none">
                {% for comment in profile.userComments %}
 	               {% if comment.postedBy.document is defined %}
@@ -549,7 +562,64 @@
                
            </div>
          </div>
-       </div>
+
+         <div class="widget-pad widget-games" style="display:none;">
+           <div class="row border-top border-none">
+
+             {% set pager = 5 %}
+            {% set url = "" %}
+            {% for line in news %}
+              {% if line.doingSports == 1 %}
+          <!-- Widget -->
+                <div id="news{{ line.id }}">
+                  <div class="innerAll">
+                      <div style="width:100%!important">
+                        <div class="media margin-none">
+                                        <span class="invite-title">{{line.sport.nom}}</span>
+                                        <div class="media-body">
+                                            {% if line.place != null %}
+                                              <span><i class="fa fa-map-marker games-ico"></i>{{ line.place }}</span>
+                                            {% endif %}
+                                            <div class="clearfix"></div>
+                                           
+                                            <span><i class="fa fa-calendar-o games-ico"></i>{{ line.dateCreated }}</span>
+                                        </div>
+                                        <p class="margin-none innerTB half">
+                                          
+                                            {% for participant in line.participants %}
+                                              <div class="friend-profile" style="width:100px;">
+                                                {% if participant.document is defined %}
+                                                    {% for img in participant.document %}
+                                                        {% if img.type == 'image' %}
+                                                            {% set url = img.id ~ "." ~ img.url %}
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% set url = 'img_profile_default.jpg' %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                                <a href="{{ path('DetailProfile',{'id': participant.id}) }}">
+                                                    <img src="{{ asset('uploads/img/'~url)| imagine_filter('my_thumb_60') }}" class=" img-circle pull-left media-object" style="cursor:pointer; margin-left:20px;"/>
+                                                </a>
+                                                <div class="clearfix"></div>
+                                              <div class="friend-name">{{ participant.prenom }} {{ participant.nom }}</div>
+                                              </div>
+                                            {% endfor %}
+                                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            {% set pager = pager + 1 %}
+              {% endif %}
+            {% endfor %}  
+
+          </div>
+         </div>
+
+         </div>
+
+
+
 
         <div class="widget col-lg-5">
          <div class="innerAll">

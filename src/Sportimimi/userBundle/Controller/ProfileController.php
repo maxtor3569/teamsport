@@ -89,8 +89,10 @@ class ProfileController extends Controller
             $news = $user->getProfile()->getNews();
         }
 
-        return $this->container->get('templating')->renderResponse(
-            'SportimimiuserBundle:Profile:listGames.html.twig', array('news' => $news));
+        return $news;
+
+        // return $this->container->get('templating')->renderResponse(
+        //     'SportimimiuserBundle:Profile:listGames.html.twig', array('news' => $news));
     }
 
     public function logUser($user)
@@ -463,12 +465,15 @@ class ProfileController extends Controller
                 $rateArr[$i] = 0;
             }
         }
+
+        $news = $this->listGamesAction();
     
         return $this->container->get('templating')->renderResponse(
             'SportimimiuserBundle:Profile:detailProfile.html.twig', array(
             'profile' => $profile,
             'user' => $user,
-            'rateArr' => $rateArr
+            'rateArr' => $rateArr,
+            'news' => $news
         ));
     }
 
