@@ -216,6 +216,13 @@ input[type=radio]:checked + label:before {
 	overflow:hidden;
 }
 
+.widget-jscroll{
+
+	width: 99%;
+	height: 330px;
+	overflow:hidden;
+}
+
 .sports-content div.item {
 	margin-right: 20px;
 	margin-bottom: 20px;
@@ -429,7 +436,7 @@ div.nav-item a {
 .games-ico {
 	border: 0px solid #ffffff;
 	margin: 5px;
-	padding: 5px
+	paddingspo: 5px
 }
 
 .btn-comment, .btn-games {
