@@ -269,7 +269,10 @@
           $('.widget-games').css('display','block');
           $('.btn-games').css('border-bottom','3px solid #4c5264');
           $('.btn-comment').css('border-bottom','0px solid #4c5264');
+        $('.widget-jscroll').jScrollPane({showArrows: true,scrollbarWidth: 30});
+          
         });
+
 
        // tagging support
         $("#addSportsList").select2({
@@ -556,7 +559,7 @@
 
          <div class="widget-pad widget-games" style="display:none;">
            <div class="row border-top border-none">
-
+            <div class="widget-jscroll">
              {% set pager = 5 %}
             {% set url = "" %}
             {% for line in news %}
@@ -603,7 +606,7 @@
             {% set pager = pager + 1 %}
               {% endif %}
             {% endfor %}  
-
+            </div>
           </div>
          </div>
 
