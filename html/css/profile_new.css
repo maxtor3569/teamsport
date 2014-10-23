@@ -435,9 +435,14 @@ div.nav-item a {
 .games-ico {
 	border: 0px solid #ffffff;
 	margin: 5px;
-	paddingspo: 5px
+	padding: 5px;
 }
 
 .btn-comment, .btn-games {
 	cursor: pointer;
+}
+
+.game-item {
+	border-bottom: 1px solid rgba(0,0,0, 0.2);
+	margin-right: 20px !important;
 }
