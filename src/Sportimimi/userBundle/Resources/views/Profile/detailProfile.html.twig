@@ -573,11 +573,10 @@
             {% set url = "" %}
             {% for line in news %}
               {% if line.doingSports == 1 %}
-          <!-- Widget -->
                 <div id="news{{ line.id }}">
                   <div class="innerAll">
                       <div style="width:100%!important">
-                        <div class="media margin-none">
+                        <div class="media margin-none game-item">
                                         <span class="invite-title">{{line.sport.nom}}</span>
                                         <div class="media-body">
                                             {% if line.place != null %}
