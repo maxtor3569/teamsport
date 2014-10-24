@@ -215,7 +215,15 @@
         success: function(data) {
 
           $.each(data, function(i, item) {
-            var i = 0;
+            var rate = '';
+            for (var i = 1; i <= 5; i++){
+              if (i <= item.rate){
+                rate += '<i class="fa fa-star userrateRand"></i>';
+              }
+              else {
+                rate += '<i class="fa fa-star-o userrateRand"></i>'; 
+              }
+            }
 
             var cfix = '<div class="clearfix"></div>';
             if (item.img == '.')
@@ -225,7 +233,7 @@
           $('.otherPlayers').append('<div class="friend-profile col-lg-4"><a href="/ho-so-cua-toi/' + item.id + '"><img src="'
             + img + '" class="innerR innerB half img-circle friend-img" /></a>' 
             + cfix + '<div class="friend-name">' + item.nom.nom +' ' + item.nom.prenom +'</div>'
-            + cfix + '<input type="hidden" class="rating" readonly="readonly" value="'+ item.rate +'"/>'
+            + cfix + rate
              + cfix + '<div><p class="sport-label tooltip" style="display: none;" ></p></div><a href="#modal-3" data-toggle="modal"  class="btn btn-info btn-sm inviteToPlay" id="'+ item.id+'" onclick="inviteOther(this)"><i class="glyphicon glyphicon-user"></i>Invite to play</a>'+ cfix +'<a  class="btn btn-default inviteToPlay" onclick="addFriend(' + item.id + ', this);">Add Friend</a></div>');
         });
         }
