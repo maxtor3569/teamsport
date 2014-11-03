@@ -97,7 +97,14 @@
                }
            }
        }
-       $.post(Routing.generate('AddUserComment', {'id': {{ app.request.get('id')}} }), data, function(response){
+
+       var commentUserID = {{ app.request.get('id')}} + "";
+
+      if (commentUserID == ""){
+        var commentUserID = {{ user.id }};;
+      }
+
+       $.post(Routing.generate('AddUserComment', {'id': commentUserID }), data, function(response){
            window.location = window.location;
        }, 'json');
    }
@@ -306,9 +313,7 @@
            sendComment();
            return false;
        });
-          console.log(1);
-
-
+        
    });
    if (typeof $.fn.bdatepicker == 'undefined')
        $.fn.bdatepicker = $.fn.datepicker.noConflict();
