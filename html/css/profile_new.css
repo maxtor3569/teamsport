@@ -452,3 +452,8 @@ div.nav-item a {
 	border-bottom: 1px solid rgba(0,0,0, 0.2);
 	margin-right: 20px !important;
 }
+
+.greenButton, .greenButton:focus,.greenButton:hover {
+	background: #00a650;
+	border-color: #00a650;
+}
