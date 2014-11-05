@@ -2,7 +2,7 @@
 
 {% block stylesheets_include %}
     <link type="text/css" href="{{ asset('bundles/sportimimiuser/css/bootstrap-rating.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/profile_new.css') }}"/>
+    
 {% endblock %}
 
 {% block javascripts %}
@@ -504,6 +504,7 @@
                </div>
 
             </div>
+
             
          </div>
       </div>
@@ -528,7 +529,7 @@
             
                <div class="clearfix"></div>
         </div>
-         <div class="widget-pad widget-comment" >
+        <div class="widget-pad widget-comment" >
            <div class="row border-top border-none">
                {% for comment in profile.userComments %}
                  {% if comment.postedBy.document is defined %}
@@ -658,7 +659,7 @@
        </div>
 
        <div class="row widgets-bottom">
-	      <div class="widget widget-left col-lg-6" id="contentBottom">
+        <div class="widget widget-left col-lg-6" id="contentBottom">
          <div class="innerAll">
             <div class="row border-top border-none">
               <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>
