@@ -2,13 +2,15 @@
 
 {% block stylesheets_include %}
     <link type="text/css" href="{{ asset('bundles/sportimimiuser/css/bootstrap-rating.css') }}" />
-    
+    <link rel="stylesheet" href="{{ asset('css/profile_new.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery.jscrollpane.css') }}" media="all"/>
 {% endblock %}
 
 {% block javascripts %}
 <script src="{{ asset('assets/components/common/forms/elements/jasny-fileupload/assets/js/bootstrap-fileupload.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
 <script src="{{ asset('bundles/sportimimiuser/js/bootstrap-rating.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('js/jquery.mousewheel.js') }}"></script>
+<script src="{{ asset('js/jquery.jscrollpane.min.js') }}"></script>
 <script>
 
    function addSport()
@@ -504,7 +506,6 @@
                </div>
 
             </div>
-
             
          </div>
       </div>
@@ -529,7 +530,7 @@
             
                <div class="clearfix"></div>
         </div>
-        <div class="widget-pad widget-comment" >
+         <div class="widget-pad widget-comment" >
            <div class="row border-top border-none">
                {% for comment in profile.userComments %}
                  {% if comment.postedBy.document is defined %}
@@ -659,7 +660,7 @@
        </div>
 
        <div class="row widgets-bottom">
-        <div class="widget widget-left col-lg-6" id="contentBottom">
+	      <div class="widget widget-left col-lg-6" id="contentBottom">
          <div class="innerAll">
             <div class="row border-top border-none">
               <h5 class="innerT">{{ 'Bạn Bè'|trans }}</h5>

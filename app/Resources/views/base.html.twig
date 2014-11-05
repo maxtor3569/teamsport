@@ -224,18 +224,18 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
         <![endif]-->
 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
-        <link rel="stylesheet" href="{{ asset('css/profile_new.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('css/jquery.jscrollpane.css') }}" media="all"/>
+        
 
     {% endblock %}
         <!-- Stylesheets END -->
     {% block stylesheets_include %}{% endblock %}
 
-
+    <script src="{{ asset('js/modernizr.js') }}"></script>
     {% block javascripts_top %}
        
-        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <script src="{{ asset('js/modernizr.js') }}"></script>
+       	
+        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %}    
+        
         <script src="{{ asset('js/fastclick.js') }}"></script>
         
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -265,7 +265,6 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script src="{{ asset('js/detectAndroid.js') }}"></script>
-
 
         <script>
 
@@ -341,8 +340,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
             
             </script>
 
-        <script src="{{ asset('js/jquery.mousewheel.js') }}"></script>
-        <script src="{{ asset('js/jquery.jscrollpane.min.js') }}"></script>
+        
 
         {% endif %}
             <script>
@@ -764,10 +762,13 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
                         inverseColor = '#45484d';
                 var themerPrimaryColor = primaryColor;
                                                                         </script>
+                                                                        
                                                                         <script src="{{ asset('assets/components/modules/admin/maps/google/assets/custom/maps-google.init.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
-                                                                        <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                                                        <script src="{{ asset('assets/components/library/bootstrap/js/bootstrap.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
+                                                                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                                                        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+<!--
+                                                                        <script src="{{ asset('assets/components/library/bootstrap/js/bootstrap.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>-->
                                                                         <script src="{{ asset('assets/components/plugins/nicescroll/jquery.nicescroll.min.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
                                                                         <script src="{{ asset('assets/components/plugins/breakpoints/breakpoints.js?v=v1.0.1-rc2&sv=v0.0.1.1') }}"></script>
                                                                         <script src="{{ asset('assets/components/plugins/menus/sidr/jquery.sidr.js?v=v1.0.1-rc2') }}"></script>
